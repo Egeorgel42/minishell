@@ -1,0 +1,4 @@
+*.o
+input
+.DS_Store
+.vs_code
