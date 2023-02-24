@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/02/23 21:55:39 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/02/24 01:26:51 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	get_errlst(t_data *data);
 char	**sep_input(char *input);
 int		*realloc_fd(int new_fd, int	*fds);
 int		last_fd(int *fds);
+void	ft_strrem(char *str, char *rem);
 #endif

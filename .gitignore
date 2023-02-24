@@ -1,4 +1,5 @@
 *.o
 input
 .DS_Store
-.vs_code
+.vscode
+.vscode/*

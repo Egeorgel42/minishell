@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/02/23 21:41:36 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/02/24 01:26:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,37 @@ char	*ft_startincharset(char *str, char *charset)
 		i++;
 	}
 	return (NULL);
+}
+
+void	ft_strrem(char *str, char *rem)
+{
+	int		i;
+	int		j;
+	int		x;
+	bool	removed;
+
+	i = 0;
+	x = -1;
+	removed = false;
+	if (ft_strcmp(str, rem))
+	{
+		free(str);
+		str = NULL;
+		return ;
+	}
+	while (str[i])
+	{
+		j = 0;
+		while (rem[j] && rem[j] == str[i + j] && !removed)
+			j++;
+		if (!rem[j] && !removed)
+		{
+			i += j;
+			removed = true;
+		}
+		str[++x] = str[i++];
+	}
+	str[++x] = '\0';
 }
 
 char	**sep_input(char *input)
@@ -59,4 +90,3 @@ char	**sep_input(char *input)
 	printf("%s||%s\n", res[0], res[1]);
 	return (res);
 }
-
