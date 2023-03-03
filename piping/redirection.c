@@ -6,13 +6,13 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/03 19:13:23 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:57:56 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	heredoc(t_data *data, char *sep)
+static void	heredoc(t_data *data, char *sep)
 {
 	int		fd[2];
 	char	*str;
@@ -29,7 +29,7 @@ void	heredoc(t_data *data, char *sep)
 	data->in_fd = fd[0];
 }
 
-void	redirect_fd(t_data *data, t_list *buf)
+static void	redirect_fd(t_data *data, t_list *buf)
 {
 	if (ft_strcmp(buf->str, ">>"))
 		data->out_fd = open(buf->next->str, O_CREAT | O_RDWR | O_APPEND, 000644);

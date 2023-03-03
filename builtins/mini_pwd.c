@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 19:13:07 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/02/18 19:50:28 by egeorgel         ###   ########.fr       */
+/*   Created: 2023/03/02 18:09:43 by vkuzmin           #+#    #+#             */
+/*   Updated: 2023/03/03 22:52:53 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	prompt(t_data *data)
+void	check_pwd(char *str)
 {
-	data->prompt = readline("-> ");
+	if (str[3] != ' ' && str[3] != '\0')
+		exit(1);
+}
+
+void	mini_pwd(char *str)
+{
+	char	*buffer;
+
+	check_pwd(str);
+	buffer = getcwd(NULL, 0);
+	ft_putstr_fd(buffer, 1);
+	free(buffer);
+	return ;
 }

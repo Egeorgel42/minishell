@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 01:06:34 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/02 19:55:46 by egeorgel         ###   ########.fr       */
+/*   Created: 2023/02/18 19:13:07 by egeorgel          #+#    #+#             */
+/*   Updated: 2023/03/03 22:58:45 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	check_unexpected_input(t_data *data)
+void	prompt(t_data *data)
 {
+	data->prompt = readline("-> ");
 }
-

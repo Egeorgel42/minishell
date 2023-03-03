@@ -6,11 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/03 21:57:51 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/03 23:01:35 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 bool	set_to_opposite(bool b)
 {
@@ -129,4 +129,25 @@ void	remove_from_list(t_list **lst, t_list *rem)
 			buf = buf->next;
 		}
 	}
+}
+
+char	*cutspaces(char *str)
+{
+	char	*buff;
+	int		i;
+	int		n;
+
+	i = 0;
+	n = 0;
+	while (str[i] == ' ')
+		i++;
+	buff = malloc(sizeof(char) * strlen(str) - i + 1);
+	while (str[i] != '\0')
+	{
+		buff[n] = str[i];
+		n++;
+		i++;
+	}
+	buff[n] = '\0';
+	return (buff);
 }
