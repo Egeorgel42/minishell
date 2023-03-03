@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/02/22 01:05:48 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:11:07 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int	pipe_loop(int *fd_tmp, char **cmd, t_data *data, bool last)
 	int		fd[2];
 
 	if (pipe(fd) == -1)
-		exit(EXIT_FAILURE);
+		error(ERRNO, NULL, data);
 	data->pid = fork();
 	if (data->pid < 0)
-		exit(EXIT_FAILURE);
+		error(ERRNO, NULL, data);
 	else if (data->pid == 0 && last)
 		last_child(fd, fd_tmp, cmd, data);
 	else if (data->pid == 0)
@@ -87,7 +87,7 @@ void	pipes(t_data *data)
 	int		i;
 
 	i = -1;
-	while (data->cmd[++i])
+	while (data->pipe_str[++i])
 	{
 		fd_tmp[0] = data->in_fd;
 		if (i == data->max_cmd - 1)

@@ -1,4 +1,5 @@
 *.o
+*.swp
 input
 .DS_Store
 .vscode

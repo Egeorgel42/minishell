@@ -6,11 +6,18 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/02/24 01:26:59 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/03 21:57:51 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	set_to_opposite(bool b)
+{
+	if (b)
+		return (false);
+	return (true);
+}
 
 char	*ft_startincharset(char *str, char *charset)
 {
@@ -64,29 +71,62 @@ void	ft_strrem(char *str, char *rem)
 	str[++x] = '\0';
 }
 
-char	**sep_input(char *input)
+void	ft_rem_double_space(char *str, char *sep)
 {
-	int		i;
-	int		j;
-	char	**res;
+	int	i;
+	int	j;
 
-	i = 0;
-	j = 1;
-	res = malloc(sizeof(char *) * 3);
-	if (input[0] && input[0] == input[1])
+	i = -1;
+	while (str[++i])
 	{
-		res[0] = ft_substr(input, 0, 2);
-		j++;
+		while (str[i + 1] && ft_strchr(sep, str[i + 1])
+			&& ft_strchr(sep, str[i]))
+		{
+			j = -1;
+			while (str[i + ++j + 1])
+				str[i + j] = str[i + j + 1];
+			str[i + j] = '\0';
+		}
+	}
+}
+
+void	free2lst(t_list **lst)
+{
+	free((*lst)->next);
+	free(*lst);
+	*lst = NULL;
+}
+
+void	remove_from_list(t_list **lst, t_list *rem)
+{
+	t_list	*buf;
+
+	buf = *lst;
+	if (!(*lst)->next)
+		free(lst);
+	else if (!(*lst)->next->next)
+		free2lst(lst);
+	else if (!rem->next)
+		free(rem);
+	else if (!rem->next->next)
+		free2lst(&rem);
+	else if (*lst == rem)
+	{
+		*lst = (*lst)->next->next;
+		free2lst(&buf);
 	}
 	else
-		res[0] = ft_substr(input, 0, 1);
-	while (ft_strchr("\t\v\n\f\r ", input[j]))
-		j++;
-	i = j;
-	while (input[i] && !ft_strchr("\t\n\v\f\r ><|", input[i]))
-		i++;
-	res[1] = ft_substr(input, j, i - j);
-	res[2] = NULL;
-	printf("%s||%s\n", res[0], res[1]);
-	return (res);
+	{
+		while (buf->next)
+		{
+			if (buf->next == rem)
+			{
+				buf->next = rem->next->next;
+				free(rem->next);
+				free(rem);
+				break ;
+			}
+			buf = buf->next;
+		}
+	}
 }
