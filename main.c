@@ -6,27 +6,26 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/03 22:50:39 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:38:56 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	inbuilts(char *str, t_env	**env)
+static void	inbuilts(t_data *data, t_list *lst)
 {
-	str = cutspaces(str);
-	if (!ft_strncmp(str, "pwd", 3))
-		mini_pwd(str);
-	else if (!ft_strncmp(str, "env", 3))
-		mini_env(str, env);
-	else if (!ft_strncmp(str, "echo", 3))
-		mini_echo(str);
-	else if (!ft_strncmp(str, "export", 6))
-		mini_export(str, env);
-	else if (!ft_strncmp(str, "unset", 5))
-		mini_unset(str, env);
+	if (ft_strcmp(lst->str, "pwd"))
+		mini_pwd(lst->str);
+	else if (ft_strcmp(lst->str, "env"))
+		mini_env(lst->str, data->env);
+	else if (ft_strcmp(lst->str, "echo"))
+		mini_echo(lst->str);
+	else if (ft_strcmp(lst->str, "export"))
+		mini_export(lst->str, data->env);
+	else if (ft_strcmp(lst->str, "unset"))
+		mini_unset(lst->str, data->env);
 	else
-		printf("Unavaible command");
+		exec(); //future execve fonction call
 }
 
 void	data_default(t_data *data, char **envp)
@@ -51,3 +50,4 @@ int	main(int argc, char **envp)
 	data.lst = sep_token(data.prompt, &data);
 	get_redirection_out(&data);
 }
+//errno = 0 because readline sets errno to 2 for some reason

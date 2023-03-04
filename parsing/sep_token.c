@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/03 22:58:49 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/04 17:54:11 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	check_sep_token(t_list	*lst, t_data *data)
 		return ;
 	if (ft_strcmp(lst->str, "|"))
 		return ;
-	error(ERR_UNSUPORTED, lst->str, data);
+	error(ERR_UNSUPORTED, lst->str, NULL, data);
 }
 
 static int	get_seperator(char *str, t_data *data, t_list **buf, bool *quotes)
@@ -66,12 +66,16 @@ static int	get_token(char *str, t_data *data, t_list **buf, bool *quotes)
 			quotes[0] = set_to_opposite(quotes[0]);
 		else if (str[j] == '"' && !quotes[0])
 			quotes[1] = set_to_opposite(quotes[1]);
-		else if (ft_strchr(" <>|\n\t\v\f\r", str[j]) && (!quotes[0] && !quotes[1]))
+		else if (ft_strchr(" <>|&()*\n\t\v\f\r", str[j]) && (!quotes[0] && !quotes[1]))
 			break ;
 		j++;
 	}
 	if ((*buf)->next)
+	{
+		if (i == j)
+			error(ERR_EMPTY, NULL, (*buf)->next->str, data);
 		(*buf)->next->next = ft_lstnew(ft_substr(str, i, j - 1));
+	}
 	else
 		(*buf)->next = ft_lstnew(ft_substr(str, i, j - 1));
 	return (j);
@@ -98,7 +102,7 @@ t_list	*sep_token(char *str, t_data *data)
 		buf = ft_lstlast(buf);
 	}
 	if (quotes[0] || quotes[1])
-		error(ERR_QUOTES, NULL, data);
+		error(ERR_QUOTES, NULL, NULL, data);
 	buf = lst->next;
 	free(lst);
 	return (buf);

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/03 22:57:56 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/04 17:56:02 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,23 @@
 
 static void	heredoc(t_data *data, char *sep)
 {
-	int		fd[2];
+	char	*tmp;
 	char	*str;
+	int		fd[2];
 
 	if (pipe(fd) == -1)
-		error(ERR_MAX, NULL, data);
-	str = readline("heredoc> ");
-	while (!ft_strcmp(str, sep))
+		error(ERR_MAX, NULL, NULL, data);
+	tmp = NULL;
+	str = ft_strjoinfree(sep, "\n", false, false);
+	while (!ft_strcmp(tmp, str))
 	{
-		ft_putstr_fd(str, fd[1]);
-		str = readline("heredoc> ");
+		ft_fprintf(1, "heredoc> ");
+		tmp = get_next_line(0);
+		if (!ft_strcmp(tmp, str))
+			ft_putstr_fd(tmp, fd[1]);
+		free(tmp);
 	}
+	free(str);
 	close(fd[1]);
 	data->in_fd = fd[0];
 }
@@ -40,7 +46,7 @@ static void	redirect_fd(t_data *data, t_list *buf)
 	else if (ft_strcmp(buf->str, "<"))
 		data->in_fd = open(buf->next->str, O_RDONLY);
 	if (data->in_fd == -1 || data->out_fd == -1)
-		error(ERR_FD, buf->next->str, data);
+		error(ERR_FD, buf->next->str, NULL, data);
 }
 
 void	get_redirection_out(t_data *data)
@@ -50,12 +56,12 @@ void	get_redirection_out(t_data *data)
 	buf = data->lst;
 	while (buf && !strchr("|", *buf->str))
 	{
-		if (strchr("<>", buf->str[0]))
+		if (ft_strchr("<>", buf->str[0]))
 		{
-			if (!buf->next || !buf->next->str || !*buf->next->str
-				|| ft_strchr("<>|", *buf->next->str))
-				error(ERR_EMPTYREDIRECTION, buf->str, data);
+			if (!buf->next || ft_strchr("<>|", *buf->next->str))
+				error(ERR_EMPTY, NULL, buf->str, data);
 			redirect_fd(data, buf);
+			remove_from_list(&data->lst, buf->next);
 			remove_from_list(&data->lst, buf);
 			buf = data->lst;
 		}

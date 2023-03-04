@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/03 22:51:01 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/04 17:58:45 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@
 
 typedef enum e_err{
 	ERRNO,
-	ERR_EXC,
-	ERR_EMPTYREDIRECTION,
 	ERR_CMD,
 	ERR_FD,
 	ERR_PARSING,
 	ERR_UNSUPORTED,
 	ERR_QUOTES,
+	ERR_EMPTY,
 	ERR_MAX
 }	t_err;
 
@@ -51,9 +50,8 @@ typedef struct s_data
 	pid_t	pid;
 }	t_data;
 
-void	error(int err, char *input, t_data *data);
+void	error(int err, char *input, char *token, t_data *data);
 
-char	*cutspaces(char *str);
 void	mini_pwd(char *str);
 void	mini_env(char *str, t_env **env);
 void	check_pwd(char *str);
@@ -70,7 +68,6 @@ void	mini_unset(char *str, t_env **env);
 void	get_redirection_out(t_data *data);
 void	prompt(t_data *data);
 void	get_errlst(t_data *data);
-void	ft_strrem(char *str, char *rem);
 void	ft_rem_double_space(char *str, char *sep);
 t_list	*sep_token(char *str, t_data *data);
 void	remove_from_list(t_list **lst, t_list *rem);

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/03 23:01:35 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/04 17:05:00 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,37 +40,6 @@ char	*ft_startincharset(char *str, char *charset)
 	return (NULL);
 }
 
-void	ft_strrem(char *str, char *rem)
-{
-	int		i;
-	int		j;
-	int		x;
-	bool	removed;
-
-	i = 0;
-	x = -1;
-	removed = false;
-	if (ft_strcmp(str, rem))
-	{
-		free(str);
-		str = NULL;
-		return ;
-	}
-	while (str[i])
-	{
-		j = 0;
-		while (rem[j] && rem[j] == str[i + j] && !removed)
-			j++;
-		if (!rem[j] && !removed)
-		{
-			i += j;
-			removed = true;
-		}
-		str[++x] = str[i++];
-	}
-	str[++x] = '\0';
-}
-
 void	ft_rem_double_space(char *str, char *sep)
 {
 	int	i;
@@ -90,13 +59,6 @@ void	ft_rem_double_space(char *str, char *sep)
 	}
 }
 
-void	free2lst(t_list **lst)
-{
-	free((*lst)->next);
-	free(*lst);
-	*lst = NULL;
-}
-
 void	remove_from_list(t_list **lst, t_list *rem)
 {
 	t_list	*buf;
@@ -104,16 +66,10 @@ void	remove_from_list(t_list **lst, t_list *rem)
 	buf = *lst;
 	if (!(*lst)->next)
 		free(lst);
-	else if (!(*lst)->next->next)
-		free2lst(lst);
-	else if (!rem->next)
-		free(rem);
-	else if (!rem->next->next)
-		free2lst(&rem);
 	else if (*lst == rem)
 	{
-		*lst = (*lst)->next->next;
-		free2lst(&buf);
+		*lst = (*lst)->next;
+		free(buf);
 	}
 	else
 	{
@@ -121,33 +77,11 @@ void	remove_from_list(t_list **lst, t_list *rem)
 		{
 			if (buf->next == rem)
 			{
-				buf->next = rem->next->next;
-				free(rem->next);
+				buf->next = rem->next;
 				free(rem);
 				break ;
 			}
 			buf = buf->next;
 		}
 	}
-}
-
-char	*cutspaces(char *str)
-{
-	char	*buff;
-	int		i;
-	int		n;
-
-	i = 0;
-	n = 0;
-	while (str[i] == ' ')
-		i++;
-	buff = malloc(sizeof(char) * strlen(str) - i + 1);
-	while (str[i] != '\0')
-	{
-		buff[n] = str[i];
-		n++;
-		i++;
-	}
-	buff[n] = '\0';
-	return (buff);
 }
