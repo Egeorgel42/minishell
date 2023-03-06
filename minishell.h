@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/04 17:58:45 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:52:19 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_env
 
 typedef struct s_data
 {
+	char	**envp;
 	char	**errlst;
 	char	*prompt;
 	t_list	*lst;
@@ -72,4 +73,7 @@ void	ft_rem_double_space(char *str, char *sep);
 t_list	*sep_token(char *str, t_data *data);
 void	remove_from_list(t_list **lst, t_list *rem);
 bool	set_to_opposite(bool b);
+void	rem_until_rem(t_list **lst, t_list *rem);
+void	update_envp(t_data *data);
+char	**get_cmd(t_data *data);
 #endif

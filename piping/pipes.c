@@ -6,13 +6,13 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/04 17:58:23 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:50:30 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*access_p(t_data *data, char **path, char *cmd)
+static char	*access_p(t_data *data, char **path)
 {
 	char	*check_path;
 	int		i;
@@ -21,84 +21,82 @@ static char	*access_p(t_data *data, char **path, char *cmd)
 	while (path[++i])
 	{
 		check_path = ft_strjoinfree(path[i], "/", false, false);
-		check_path = ft_strjoinfree(check_path, cmd, true, false);
+		check_path = ft_strjoinfree(check_path, data->lst->str, true, false);
 		if (access(check_path, F_OK) == 0)
 			return (check_path);
 		free(check_path);
 	}
-	error(ERR_CMD, cmd, data);
+	error(ERR_CMD, data->lst->str, NULL, data);
 }
 
-static void	child(int *fd, int fd_tmp, char **cmd, t_data *data)
+static void	child(char **cmd, t_data *data)
 {
 	char	*path;
 
-	path = access_p(data, path, *cmd);
-	dup2(fd_tmp, STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
+	path = access_p(data, path);
+	dup2(data->in_fd, STDIN_FILENO);
+	dup2(data->out_fd, STDOUT_FILENO);
+	update_envp(data);
 	if (execve(path, cmd, data->envp) == -1)
-		error(ERR_EXC, NULL, data);
+		error(ERRNO, NULL, NULL, data);
 	free(path);
-	close(fd_tmp);
-	close(fd[1]);
-	close(fd[0]);
+	close(data->in_fd);
+	close(data->out_fd);
 }
 
-static void	last_child(int *fd, int fd_tmp, char **cmd, t_data *data)
+static void	last_child(char **cmd, t_data *data)
 {
 	char	*path;
 
-	path = access_p(data, path, *cmd);
-	dup2(fd_tmp[0], STDIN_FILENO);
-	dup2(fd_tmp[1], STDOUT_FILENO);
+	path = access_p(data, path);
+	dup2(data->in_fd, STDIN_FILENO);
+	dup2(data->out_fd, STDOUT_FILENO);
+	update_envp(data);
 	if (execve(path, cmd, data->envp) == -1)
 		error(ERRNO, NULL, NULL, data);
 	free(path);
-	close(fd_tmp[0]);
-	close(fd_tmp[1]);
-	close(fd[1]);
-	close(fd[0]);
+	close(data->in_fd);
+	close(data->out_fd);
 }
 
-static int	pipe_loop(int fd_tmp, char **cmd, t_data *data, bool last)
+static void	cmd_process(t_data *data, bool last)
 {
-	int		fd[2];
+	char	**cmd;
 
-	if (pipe(fd) == -1)
-		error(ERRNO, NULL, NULL, data);
+	cmd = get_cmd(data);
 	data->pid = fork();
 	if (data->pid < 0)
 		error(ERRNO, NULL, NULL, data);
 	else if (data->pid == 0 && last)
-		last_child(fd, fd_tmp, cmd, data);
+		last_child(cmd, data);
 	else if (data->pid == 0)
-		child(fd, *fd_tmp, cmd, data);
+		child(cmd, data);
 	else
 	{
-		close(fd[1]);
-		return (fd[0]);
+		close(data->in_fd);
+		data->in_fd = data->out_fd;
 	}
-	return (0);
 }
 
-void	callstructure(t_data *data, t_list *lst)
+bool	callstructure(t_data *data)
 {
 	t_list	*buf;
 
-	buf = lst;
+	buf = data->lst;
 	while (buf && !ft_strcmp(buf->str, "|"))
 		buf = buf->next;
 	if (buf && ft_strcmp(buf->str, "|"))
 	{
 		create_pipe(data);
 		get_redirection_out(data);
-		remove_from_list(&data->lst, buf);
-		data->in_fd = pipe_loop(data->cmd[i], data, false);
+		cmd_process(data, false);
+		rem_until_rem(&data->lst, buf);
 	}
-	else
+	else if (!buf)
 	{
+		create_pipe(data);
 		get_redirection_out(data);
-		data->in_fd = pipe_loop(data->cmd[i], data, true);
+		cmd_process(data, true);
+		ft_lstclear(&data->lst, free);
 	}
-	if (buf)
 }
