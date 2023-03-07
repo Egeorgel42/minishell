@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/06 20:52:19 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:57:41 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef enum e_err{
 	ERRNO,
 	ERR_CMD,
 	ERR_FD,
+	ERR_FLAG,
 	ERR_PARSING,
 	ERR_UNSUPORTED,
 	ERR_QUOTES,
@@ -42,6 +43,7 @@ typedef struct s_env
 typedef struct s_data
 {
 	char	**envp;
+	char	**path;
 	char	**errlst;
 	char	*prompt;
 	t_list	*lst;
@@ -53,19 +55,17 @@ typedef struct s_data
 
 void	error(int err, char *input, char *token, t_data *data);
 
-void	mini_pwd(char *str);
+bool	is_flaged(char **str);
+void	mini_pwd(char **str, t_data *data);
 void	mini_env(char *str, t_env **env);
 void	check_pwd(char *str);
 void	mini_echo(char *str);
 void	mini_export(char *str, t_env **env);
-void	create_list(char **envp, t_env **head);
-
-char	*full_string(char *str);
-char	*find_pref(char *str);
-char	*find_string(char *str);
+void	create_env(char **envp, t_env **env);
 t_env	*create_node(char *str);
 void	mini_unset(char *str, t_env **env);
 
+bool	callstructure(t_data *data);
 void	get_redirection_out(t_data *data);
 void	prompt(t_data *data);
 void	get_errlst(t_data *data);
@@ -76,4 +76,5 @@ bool	set_to_opposite(bool b);
 void	rem_until_rem(t_list **lst, t_list *rem);
 void	update_envp(t_data *data);
 char	**get_cmd(t_data *data);
+void	get_path(t_data *data);
 #endif

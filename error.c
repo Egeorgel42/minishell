@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/04 17:58:52 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:41:05 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	error(int err, char *input, char *token, t_data *data)
 written like: "minishell: input: err_msg 'token'"
 example: "minishell: cat_: command not found"
 example: "minishell: empty argument after token '<'"
+example: "minishell: pwd: Following option is invalid '-l'"
 */
 
 void	get_errlst(t_data *data)
@@ -52,5 +53,6 @@ void	get_errlst(t_data *data)
 	data->errlst[ERR_UNSUPORTED] = strdup("Is not a valid input");
 	data->errlst[ERR_QUOTES] = strdup("Unclosed quotes");
 	data->errlst[ERR_EMPTY] = strdup("Empty argument after token");
+	data->errlst[ERR_FLAG] = strdup("Following option is invalid");
 	data->errlst[ERR_MAX] = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/06 20:51:22 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:43:47 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	remove_from_list(t_list **lst, t_list *rem)
 
 	buf = *lst;
 	if (!(*lst)->next)
-		ft_lstdelone(lst, free);
+		ft_lstdelone(*lst, free);
 	else if (*lst == rem)
 	{
 		*lst = (*lst)->next;
@@ -92,7 +92,7 @@ void	rem_until_rem(t_list **lst, t_list *rem)
 	t_list	*del;
 
 	buf = *lst;
-	if (rem == ft_lstlast(lst))
+	if (rem == ft_lstlast(*lst))
 		ft_lstclear(lst, free);
 	else
 	{
@@ -127,6 +127,22 @@ int		env_size(t_env *env)
 	return (i);
 }
 
+void	get_path(t_data *data)
+{
+	t_env	*buf;
+
+	buf = data->env;
+	while (buf)
+	{
+		if (ft_strcmp(buf->pref, "PATH"))
+		{
+			data->path = ft_split(buf->string, ':');
+			return ;
+		}
+		buf = buf->next;
+	}
+}
+
 void	update_envp(t_data *data)
 {
 	t_env	*env;
@@ -140,15 +156,15 @@ void	update_envp(t_data *data)
 	j = -1;
 	while (env)
 	{
-		up_env[++i] = malloc(ft_strlen(env->full_string) + 1);
-		while (env->full_string[++j])
-			up_env[i][j] = env->full_string[j];
-		up_env[i][j] = '\0';
+		up_env[++i] = ft_strdup(env->full_string);
 		env = env->next;
 	}
-	up_env[++i] == NULL;
-	ft_freetab(data->envp);
+	up_env[++i] = NULL;
+	if (data->envp)
+		ft_freetab((void **)data->envp);
 	data->envp = up_env;
+	free(data->path);
+	get_path(data);
 }
 
 char	**get_cmd(t_data *data)
@@ -168,34 +184,19 @@ char	**get_cmd(t_data *data)
 	cmd = malloc(sizeof(char *) * (i + 1));
 	i = -1;
 	j = -1;
+	buf = data->lst;
 	while (buf && !ft_strcmp(buf->str, "|"))
 	{
-		cmd[++i] = malloc(ft_strlen(buf->str) + 1);
-		while (buf->str[++j])
-			cmd[i][j] = buf->str[++j];
-		cmd[i][j] = '\0';
+		cmd[++i] = ft_strdup(buf->str);
 		buf = buf->next;
 	}
-	cmd[++i] == NULL;
+	cmd[++i] = NULL;
 	return (cmd);
 }
 
-char	**get_path(char **envp)
+bool	is_flaged(char **str)
 {
-	int		i;
-	char	*str;
-	char	**buf;
-
-	i = -1;
-	while (envp[++i])
-	{
-		if (!ft_strncmp(envp[i], "PATH=", 5))
-		{
-			str = ft_strrem(envp[i], "PATH=");
-			buf = ft_split(str, ':');
-			free (str);
-			return (buf);
-		}
-	}
-	return (NULL);
+	if (str[1][0] == '-')
+		return (true);
+	return (false);
 }
