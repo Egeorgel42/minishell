@@ -3,46 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:43:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/03 22:52:36 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:16:44 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	check_flag(char *str)
+void	mini_echo(char **str, t_data *data)
 {
-	if (str[5] == '-' && str[6] == 'n' && str[7] == ' ')
-		return (1);
-	else
-		return (0);
-}
-
-void	mini_echo(char *str)
-{
-	int	flag;
-	int	i;
-
-	i = 5;
-	flag = check_flag(str);
+	char	*res;
+	int		flag;
+	int		i;
+	
+	res = NULL;
+	i = 0;
+	flag = 0;
+	if (ft_strcmp(str[1], "-n"))
+	{
+		flag = 1;
+		i++;
+	}
+	else if (is_flaged(str))
+		error(ERR_FLAG, str[0], str[1], data);
+	if (!str[++i])
+		return ;
+	res = ft_strdup(str[i]);
+	while (str[++i])
+	{
+		res = ft_strjoinfree(res, " ", true, false);
+		res = ft_strjoinfree(res, str[i], true, false);
+	}
 	if (flag == 0)
-	{
-		while (str[i] != '\0')
-		{
-			ft_putchar_fd(str[i], 1);
-			i++;
-		}
-		ft_putchar_fd('\n', 1);
-	}
-	if (flag == 1)
-	{
-		i = 8;
-		while (str[i] != '\0')
-		{
-			ft_putchar_fd(str[i], 1);
-			i++;
-		}
-	}
+		res = ft_strjoinfree(res, "\n", true, false);
+	ft_putstr_fd(res, 1);
+	free(res);
 }

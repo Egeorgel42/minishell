@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/07 21:49:38 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:59:27 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static void	inbuilts(char **cmd, t_data *data)
 	if (ft_strcmp(cmd[0], "pwd"))
 		mini_pwd(cmd, data);
 	else if (ft_strcmp(cmd[0], "env"))
-		mini_env(cmd[0], &data->env);
+		mini_env(cmd, data);
 	else if (ft_strcmp(cmd[0], "echo"))
-		mini_echo(cmd[0]);
+		mini_echo(cmd, data);
 	else if (ft_strcmp(cmd[0], "export"))
 		mini_export(cmd[0], &data->env);
 	else if (ft_strcmp(cmd[0], "unset"))
