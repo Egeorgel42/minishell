@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/08 19:54:10 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/08 21:18:01 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ t_env	*create_node(char *str);
 void	mini_unset(char **str, t_env **env, t_data *data);
 char	*delete_slash(char *str);
 void	change_oldpwd(char *old, t_env **env);
+void	mini_cd(char **str, t_env **env, t_data *data);
+char	*add_slash(char *str);
 
 bool	callstructure(t_data *data);
 void	get_redirection_out(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:00:06 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/08 18:14:20 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:55:06 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ static void	small_change(char *dir, t_env **env)
 	while (ft_strncmp(current->pref, "PWD", 3))
 		current = current->next;
 	dir = delete_slash(dir);
+	dir = add_slash(dir);
 	str = ft_strdup(current->string);
 	free(current->string);
-	dir = ft_strjoin(str, dir);
+	dir = ft_strjoinfree(str, dir, true, true);
 	current->string = dir;
 	free(current->full_string);
 	current->full_string = ft_strjoin("PWD=", dir);
@@ -45,38 +46,31 @@ static void	small_change(char *dir, t_env **env)
 static void	change_pwd(char *dir, t_env **env)
 {
 	t_env	*current;
+	char	*buf;
 
 	current = *env;
+	buf = strdup(dir);
 	while (ft_strncmp(current->pref, "PWD", 3))
 		current = current->next;
 	if (ft_strncmp(dir, "/home", 5))
-		small_change(dir, env);
-	if (!ft_strncmp(dir, "/home", 5))
-		full_change(dir, env);
+		small_change(buf, env);
+	else if (!ft_strncmp(dir, "/home", 5))
+		full_change(buf, env);
 }
 
-void	mini_cd(char *str, t_env **env)
+void	mini_cd(char **str, t_env **env, t_data *data)
 {
-	char	*res;
-	int		i;
-	int		n;
 	char	*old;
 
 	old = getcwd(NULL, 0);
-	i = 3;
-	n = 0;
-	res = malloc(sizeof(char) * ft_strlen(str) - 2);
-	while (str[i] != '\0')
-	{
-		res[n] = str[i];
-		i++;
-		n++;
-	}
-	if (chdir(res) != 0)
-	{
-		printf("Error");
-		return ;
-	}
+	if (chdir(str[1]) != 0)
+		error(ERR_FLAG, str[0], str[1], data);
 	change_oldpwd(old, env);
-	change_pwd(res, env);
+	change_pwd(str[1], env);
+	t_env *current = *env;
+	while (current != NULL)
+	{
+		printf("%s\n", current->string);
+		current = current -> next;
+	}
 }

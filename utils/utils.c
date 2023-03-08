@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/08 18:26:35 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:49:55 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,13 +207,38 @@ char	*delete_slash(char *str)
 {
 	int		len;
 	char	*res;
+	int		i;
+	int		n;
 
+	i = 1;
+	n = 0;
 	len = ft_strlen(str) - 1;
 	if (str[len] == '/')
 	{
-		res = ft_substr(str, 0, len - 1);
+		res = malloc(sizeof(char) * ft_strlen(str) + 1);
+		res[0] = '/';
+		while (str[n] != '/')
+		{
+			res[i] = str[n];
+			i++;
+			n++;
+		}
+		res[i] ='\0';
 		free(str);
-		return (ft_strjoinfree("/", res, false, true));
+		return (res);
+	}
+	return (str);
+}
+
+char	*add_slash(char *str)
+{
+	int		i;
+	
+	i = 0;
+	if (str[i] != '/')
+	{
+		str = ft_strjoinfree("/", str, false, true);
+		return (str);
 	}
 	return (str);
 }
