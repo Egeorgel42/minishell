@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/07 21:43:47 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:26:35 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,35 @@ char	**get_cmd(t_data *data)
 
 bool	is_flaged(char **str)
 {
+	if (!str[1])
+		return (false);
 	if (str[1][0] == '-')
 		return (true);
 	return (false);
+}
+
+char	*delete_slash(char *str)
+{
+	int		len;
+	char	*res;
+
+	len = ft_strlen(str) - 1;
+	if (str[len] == '/')
+	{
+		res = ft_substr(str, 0, len - 1);
+		free(str);
+		return (ft_strjoinfree("/", res, false, true));
+	}
+	return (str);
+}
+
+void	change_oldpwd(char *old, t_env **env)
+{
+	t_env	*cursor;
+
+	cursor = *env;
+	while (ft_strncmp(cursor->full_string, "OLDPWD", 6))
+		cursor = cursor->next;
+	free(cursor->full_string);
+	cursor->full_string = ft_strjoin("OLDPWD=", old);
 }

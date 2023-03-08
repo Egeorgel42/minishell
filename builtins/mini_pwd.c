@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:09:43 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/07 18:40:13 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:30:44 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@ void	mini_pwd(char **str, t_data *data)
 	buffer = getcwd(NULL, 0);
 	ft_putstr_fd(buffer, 1);
 	free(buffer);
-	return ;
 }
