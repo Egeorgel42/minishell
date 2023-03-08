@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/08 18:47:00 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/08 19:22:37 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	mini_pwd(char **str, t_data *data);
 void	mini_env(char **str, t_data *data);
 void	check_pwd(char *str);
 void	mini_echo(char **str, t_data *data);
-void	mini_export(char *str, t_env **env);
+void	mini_export(char **str, t_env **env, t_data *data);
 void	create_env(char **envp, t_env **env);
 t_env	*create_node(char *str);
 void	mini_unset(char *str, t_env **env);
