@@ -6,11 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/04 17:56:02 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:46:47 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 static void	heredoc(t_data *data, char *sep)
 {

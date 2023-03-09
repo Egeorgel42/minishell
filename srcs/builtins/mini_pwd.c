@@ -6,11 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:09:43 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/08 18:30:44 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:35:34 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 void	mini_pwd(char **str, t_data *data)
 {

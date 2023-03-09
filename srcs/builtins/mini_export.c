@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 19:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/08 19:46:34 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/09 20:35:31 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 void	mini_export(char **str, t_env **env, t_data *data)
 {

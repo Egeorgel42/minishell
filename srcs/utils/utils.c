@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/08 21:49:55 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/09 19:46:30 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 bool	set_to_opposite(bool b)
 {

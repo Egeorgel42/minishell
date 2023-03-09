@@ -6,51 +6,53 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/03/08 18:14:46 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/03/09 20:33:45 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-LFLAGS = -lreadline
-FILES = main.c \
-error.c \
-builtins/mini_echo.c \
-builtins/mini_env.c \
-builtins/mini_export.c \
-builtins/mini_pwd.c \
-builtins/mini_unset.c \
-builtins/mini_cd.c \
-parsing/create_env.c \
-parsing/sep_token.c \
-parsing/prompt.c \
-piping/redirection.c \
-piping/pipes.c \
-utils/utils.c \
+FILES = srcs/main.c \
+srcs/error.c \
+srcs/builtins/mini_echo.c \
+srcs/builtins/mini_env.c \
+srcs/builtins/mini_export.c \
+srcs/builtins/mini_pwd.c \
+srcs/builtins/mini_unset.c \
+srcs/builtins/mini_cd.c \
+srcs/parsing/create_env.c \
+srcs/parsing/sep_token.c \
+srcs/piping/redirection.c \
+srcs/piping/pipes.c \
+srcs/utils/utils.c \
 
-
+RDLINE = libs/readline
 OBJ = ${FILES:.c=.o}
-HDR = minishell.h
+HDR = includes/minishell.h
 NAME = minishell
-LIB = libft/libft.a
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+LFLAGS = -Llibs/libft -Llibs/readline/lib -lft -lreadline -I$(RDLINE)/include
 
-all: $(NAME) $(LIB)
+all: $(NAME)
 
-$(NAME): $(OBJ) $(HDR) Makefile
-	cd libft ; make bonus
-	$(CC) $(LFLAGS) $(CFLAGS) libft/libft.a $(OBJ) -o $(NAME)
+$(RDLINE):
+	bash install_readline.sh
+
+$(NAME): $(RDLINE) $(OBJ) $(HDR) Makefile
+	cd libs/libft ; make bonus
+	$(CC) $(LFLAGS) $(CFLAGS) $(OBJ) -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
-	cd libft ; make clean
+	cd libs/libft ; make clean
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f libft/libft.a
+	rm -f libs/libft/libft.a
+	rm -fR libs/readline
 
 re: fclean all
 
 .c.o: $(LIB) $(HDR) Makefile
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -I$(RDLINE)/include -c -o $@ $<
 
 .PHONY: all clean fclean re

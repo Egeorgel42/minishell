@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 21:00:16 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/08 20:16:29 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/09 20:35:39 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 void	mini_unset(char **str, t_env **env, t_data *data)
 {

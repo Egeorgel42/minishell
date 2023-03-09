@@ -6,11 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 19:20:08 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/07 20:54:28 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:46:53 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 static char	*find_string(char *str)
 {

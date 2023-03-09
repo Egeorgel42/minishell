@@ -6,11 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:12:14 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/08 18:31:53 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:35:26 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 void	mini_env(char **str, t_data *data)
 {

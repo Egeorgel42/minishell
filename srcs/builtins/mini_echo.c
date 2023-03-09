@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:43:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/08 19:16:44 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/09 20:35:22 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 void	mini_echo(char **str, t_data *data)
 {

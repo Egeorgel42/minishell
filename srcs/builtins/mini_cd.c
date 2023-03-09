@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:00:06 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/08 21:55:06 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/09 20:35:19 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 static void	full_change(char *dir, t_env **env)
 {

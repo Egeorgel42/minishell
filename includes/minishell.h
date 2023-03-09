@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/08 21:18:01 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/09 20:32:10 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "libft/libft.h"
+# include <stdio.h>
+# include "../libs/libft/libft.h"
+# include "../libs/readline/include/readline/readline.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <errno.h>
 # include <string.h>
-# include <readline/readline.h>
 
 typedef enum e_err{
 	ERRNO,

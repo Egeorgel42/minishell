@@ -6,11 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/08 21:13:53 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:47:00 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 static void	check_sep_token(t_list	*lst, t_data *data)
 {
@@ -93,7 +93,7 @@ t_list	*sep_token(char *str, t_data *data)
 	if (!str || !*str)
 		return (NULL);
 	ft_rem_double_space(str, " \n\t\v\f\r");
-	lst = ft_lstnew("");
+	lst = ft_lstnew(ft_strdup(""));
 	buf = lst;
 	i = 0;
 	while (str[i])
@@ -104,6 +104,6 @@ t_list	*sep_token(char *str, t_data *data)
 	if (quotes[0] || quotes[1])
 		error(ERR_QUOTES, NULL, NULL, data);
 	buf = lst->next;
-	free(lst);
+	ft_lstdelone(lst, free);
 	return (buf);
 }

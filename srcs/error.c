@@ -6,11 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/08 18:10:16 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:45:21 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	error(int err, char *input, char *token, t_data *data)
 {
