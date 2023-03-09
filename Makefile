@@ -6,27 +6,28 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/03/09 20:33:45 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/03/09 20:44:26 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-FILES = srcs/main.c \
-srcs/error.c \
-srcs/builtins/mini_echo.c \
-srcs/builtins/mini_env.c \
-srcs/builtins/mini_export.c \
-srcs/builtins/mini_pwd.c \
-srcs/builtins/mini_unset.c \
-srcs/builtins/mini_cd.c \
-srcs/parsing/create_env.c \
-srcs/parsing/sep_token.c \
-srcs/piping/redirection.c \
-srcs/piping/pipes.c \
-srcs/utils/utils.c \
+FILES = main.c \
+error.c \
+builtins/mini_echo.c \
+builtins/mini_env.c \
+builtins/mini_export.c \
+builtins/mini_pwd.c \
+builtins/mini_unset.c \
+builtins/mini_cd.c \
+parsing/create_env.c \
+parsing/sep_token.c \
+piping/redirection.c \
+piping/pipes.c \
+utils/utils.c \
 
+SRCS = $(addprefix srcs/, $(FILES))
 RDLINE = libs/readline
-OBJ = ${FILES:.c=.o}
+OBJ = ${SRCS:.c=.o}
 HDR = includes/minishell.h
 NAME = minishell
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
