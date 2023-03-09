@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/09 19:46:30 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:32:27 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,4 +252,9 @@ void	change_oldpwd(char *old, t_env **env)
 		cursor = cursor->next;
 	free(cursor->full_string);
 	cursor->full_string = ft_strjoin("OLDPWD=", old);
+}
+
+void	add_pid(t_pid pid, t_data *data)
+{
+	
 }

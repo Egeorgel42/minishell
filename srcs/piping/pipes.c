@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/09 19:46:42 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:26:21 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,24 @@ static void	last_child(char **cmd, t_data *data)
 static void	cmd_process(t_data *data, bool last)
 {
 	char	**cmd;
+	pid_t	l_pid;
 
-	data->pid = fork();
+	data->pid = add_pid(fork(), data);
+	l_pid = last_pid(data);
 	cmd = get_cmd(data);
-	if (data->pid < 0)
+	if (l_pid < 0)
 		error(ERRNO, NULL, NULL, data);
-	else if (data->pid == 0 && last)
+	else if (l_pid == 0 && last)
 		last_child(cmd, data);
-	else if (data->pid == 0)
+	else if (l_pid == 0)
 		child(cmd, data);
 	else
 	{
-		close(data->in_fd);
-		data->in_fd = data->out_fd;
+		if (data->in_fd != 0)
+			close(data->in_fd);
+		if (data->out_fd != 1)
+			close(data->out_fd);
+		data->in_fd = data->pipe_fd;
 	}
 	ft_freetab((void **)cmd);
 }
@@ -105,7 +110,7 @@ void	create_pipe(t_data *data)
 
 	if (pipe(fd) == -1)
 		error(ERRNO, NULL, NULL, data);
-	data->in_fd = fd[0];
+	data->pipe_fd = fd[0];
 	data->out_fd = fd[1];
 }
 
@@ -113,7 +118,7 @@ bool	callstructure(t_data *data)
 {
 	t_list	*buf;
 
-	data->in_fd = 0;
+	data->pipe_fd = 0;
 	data->out_fd = 1;
 	buf = data->lst;
 	while (buf && !ft_strcmp(buf->str, "|"))
@@ -133,4 +138,16 @@ bool	callstructure(t_data *data)
 		ft_lstclear(&data->lst, free);
 	}
 	return (false);
+}
+
+void	wait_pids(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->pid && data->pid[i])
+	{
+		waitpid(data->pid[i], NULL, 0);
+		i++;
+	}
 }

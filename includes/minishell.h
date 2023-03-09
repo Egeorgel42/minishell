@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/09 20:32:10 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:31:50 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,24 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_pidlst
+{
+	t_pid			pid;
+	struct s_pidtab	*next;
+}	t_pidlst;
+
 typedef struct s_data
 {
-	char	**envp;
-	char	**path;
-	char	**errlst;
-	char	*prompt;
-	t_list	*lst;
-	t_env	*env;
-	int		out_fd;
-	int		in_fd;
-	pid_t	pid;
+	char		**envp;
+	char		**path;
+	char		**errlst;
+	char		*prompt;
+	t_list		*lst;
+	t_env		*env;
+	int			out_fd;
+	int			in_fd;
+	int			pipe_fd;
+	t_pidtab	*pidlst;
 }	t_data;
 
 void	error(int err, char *input, char *token, t_data *data);
@@ -83,4 +90,7 @@ void	rem_until_rem(t_list **lst, t_list *rem);
 void	update_envp(t_data *data);
 char	**get_cmd(t_data *data);
 void	get_path(t_data *data);
+pid_t	*add_pid(pid_t new_pid, t_data *data);
+pid_t	last_pid(t_data *data);
+void	wait_pids(t_data *data);
 #endif

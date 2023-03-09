@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/09 19:46:10 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:23:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	data_initialize(t_data *data, char **envp)
 {
 	data->prompt = NULL;
+	data->pipe_fd = 0;
 	data->in_fd = 0;
 	data->out_fd = 1;
 	get_errlst(data);
@@ -27,7 +28,9 @@ void	data_initialize(t_data *data, char **envp)
 
 void	data_default(t_data *data)
 {
+	free(data->prompt);
 	data->prompt = NULL;
+	data->pipe_fd = 0;
 	data->in_fd = 0;
 	data->out_fd = 1;
 	update_envp(data);
@@ -39,15 +42,17 @@ void	minishell_loop(t_data *data)
 	errno = 0;
 	data->lst = sep_token(data->prompt, data);
 	if (!data->lst)
+	{
+		free(data->prompt);
 		return ;
+	}
 	while (callstructure(data))
 	{
 	}
-	close(data->in_fd);
-	waitpid(data->pid, NULL, 0);
-	free(data->prompt);
+	wait_pids(data);
 	data_default(data);
 }
+//errno = 0 because readline sets errno to 2 for some reason
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -59,4 +64,3 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 		minishell_loop(&data);
 }
-//errno = 0 because readline sets errno to 2 for some reason

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/09 19:46:47 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:18:44 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,33 @@ static void	heredoc(t_data *data, char *sep)
 	}
 	free(str);
 	close(fd[1]);
+	if (data->in_fd != 0)
+		close(data->in_fd);
 	data->in_fd = fd[0];
 }
 
 static void	redirect_fd(t_data *data, t_list *buf)
 {
 	if (ft_strcmp(buf->str, ">>"))
+	{
+		if (data->out_fd != 1)
+			close(data->out_fd);
 		data->out_fd = open(buf->next->str, O_CREAT | O_RDWR | O_APPEND, 000644);
+	}
 	else if (ft_strcmp(buf->str, ">"))
+	{
+		if (data->out_fd != 1)
+			close(data->out_fd);
 		data->out_fd = open(buf->next->str, O_CREAT | O_RDWR | O_TRUNC, 000644);
+	}
 	else if (ft_strcmp(buf->str, "<<"))
 		heredoc(data, buf->next->str);
 	else if (ft_strcmp(buf->str, "<"))
+	{
+		if (data->in_fd != 0)
+			close(data->in_fd);
 		data->in_fd = open(buf->next->str, O_RDONLY);
+	}
 	if (data->in_fd == -1 || data->out_fd == -1)
 		error(ERR_FD, buf->next->str, NULL, data);
 }
