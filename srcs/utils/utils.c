@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 21:05:54 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/10 21:30:25 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,16 +243,17 @@ char	*add_slash(char *str)
 	return (str);
 }
 
-void	create_oldpwd(char *old, t_env **env)
+static void	create_oldpwd(char *old, t_env **env)
 {
 	t_env	*current;
-	char	*buff;
+	t_env	*buff;
 
 	current = *env;
-	while (current->next != NULL)
+	while (current->next->next != NULL)
 		current = current->next;
-	buff = ft_strjoin("OLDPWD=", old);
-	create_node(buff);
+	buff = current->next;
+	current->next = create_node(ft_strjoin("OLDPWD=", old));
+	current->next->next = buff;
 }
 
 void	change_oldpwd(char *old, t_env **env)
