@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:00:06 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/09 20:35:19 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:45:38 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,4 @@ void	mini_cd(char **str, t_env **env, t_data *data)
 		error(ERR_FLAG, str[0], str[1], data);
 	change_oldpwd(old, env);
 	change_pwd(str[1], env);
-	t_env *current = *env;
-	while (current != NULL)
-	{
-		printf("%s\n", current->string);
-		current = current -> next;
-	}
 }
