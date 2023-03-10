@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 20:42:19 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:12:04 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,9 @@ bool	is_pipe(t_data *data);
 void	clear_pidlst(t_data *data);
 void	signal_handler(int sig);
 void	mini_exit(void);
+
+//pipes fonctions
+void	cmd_process(t_data *data, bool last);
+bool	inbuilts(char **cmd, t_data *data);
+void	excve(char **cmd, t_data *data);
 #endif

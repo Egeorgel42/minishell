@@ -6,108 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 20:43:46 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:11:01 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	*access_p(t_data *data)
-{
-	char	*check_path;
-	int		i;
-
-	i = -1;
-	while (data->path[++i])
-	{
-		check_path = ft_strjoinfree(data->path[i], "/", false, false);
-		check_path = ft_strjoinfree(check_path, data->lst->str, true, false);
-		if (access(check_path, F_OK) == 0)
-			return (check_path);
-		free(check_path);
-	}
-	error(ERR_CMD, data->lst->str, NULL, data);
-	return (NULL);
-}
-//path gets also updated on update_envp() (done at start of child)
-
-static void	excve(char **cmd, t_data *data)
-{
-	char	*path;
-
-	path = access_p(data);
-	if (execve(path, cmd, data->envp) == -1)
-		error(ERRNO, NULL, NULL, data);
-	free(path);
-}
-
-static bool	inbuilts(char **cmd, t_data *data)
-{
-	if (ft_strcmp(cmd[0], "pwd"))
-		mini_pwd(cmd, data);
-	else if (ft_strcmp(cmd[0], "env"))
-		mini_env(cmd, data);
-	else if (ft_strcmp(cmd[0], "echo"))
-		mini_echo(cmd, data);
-	else if (ft_strcmp(cmd[0], "export"))
-		mini_export(cmd, &data->env, data);
-	else if (ft_strcmp(cmd[0], "unset"))
-		mini_unset(cmd, &data->env, data);
-	else if (ft_strcmp(cmd[0], "cd"))
-		mini_cd(cmd, &data->env, data);
-	else if (ft_strcmp(cmd[0], "exit"))
-		mini_exit();
-	else
-		return (false);
-	return (true);
-}
-
-static void	child(char **cmd, t_data *data)
-{
-	update_envp(data);
-	dup2(data->in_fd, STDIN_FILENO);
-	dup2(data->out_fd, STDOUT_FILENO);
-	if (!inbuilts(cmd, data))
-		excve(cmd, data);
-	close(data->in_fd);
-	close(data->out_fd);
-}
-
-static void	last_child(char **cmd, t_data *data)
-{
-	update_envp(data);
-	dup2(data->in_fd, STDIN_FILENO);
-	dup2(data->out_fd, STDOUT_FILENO);
-	if (!inbuilts(cmd, data))
-		excve(cmd, data);
-	close(data->in_fd);
-	close(data->out_fd);
-}
-
-static void	cmd_process(t_data *data, bool last)
-{
-	char	**cmd;
-	pid_t	l_pid;
-
-	add_pid(fork(), data);
-	l_pid = last_pid(data);
-	cmd = get_cmd(data);
-	if (l_pid < 0)
-		error(ERRNO, NULL, NULL, data);
-	else if (l_pid == 0 && last)
-		last_child(cmd, data);
-	else if (l_pid == 0)
-		child(cmd, data);
-	else
-	{
-		if (data->in_fd != 0)
-			close(data->in_fd);
-		if (data->out_fd != 1)
-			close(data->out_fd);
-		data->in_fd = data->pipe_fd;
-	}
-	ft_freetab((void **)cmd);
-}
 
 void	create_pipe(t_data *data)
 {

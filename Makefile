@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+         #
+#    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/03/10 20:15:05 by vkuzmin          ###   ########.fr        #
+#    Updated: 2023/03/10 21:14:45 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,15 @@ builtins/mini_export.c \
 builtins/mini_pwd.c \
 builtins/mini_unset.c \
 builtins/mini_cd.c \
+builtins/mini_exit.c \
 parsing/create_env.c \
 parsing/sep_token.c \
 piping/redirection.c \
+piping/child_process.c \
+piping/execution_call.c \
 piping/pipes.c \
 utils/utils.c \
 signals/signals.c \
-builtins/mini_exit.c
 
 SRCS = $(addprefix srcs/, $(FILES))
 RDLINE = libs/readline
