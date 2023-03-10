@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:57:10 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:30:49 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,4 +284,18 @@ void	clear_pidlst(t_data *data)
 		free(data->pidlst);
 		data->pidlst = buf_pid;
 	}
+}
+
+bool	is_pipe(t_data *data)
+{
+	t_list	*buf;
+
+	buf = data->lst;
+	while (buf)
+	{
+		if (ft_strcmp(buf->str, "|"))
+			return (true);
+		buf = buf->next;
+	}
+	return (false);
 }

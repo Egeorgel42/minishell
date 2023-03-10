@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 19:16:16 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:40:39 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,13 @@ void	minishell_loop(t_data *data)
 		free(data->prompt);
 		return ;
 	}
-	while (callstructure(data))
+	if (!is_pipe(data))
+		parent_cmd(data);
+	else
 	{
+		while (callstructure(data))
+		{
+		}
 	}
 	wait_pids(data);
 	data_default(data);

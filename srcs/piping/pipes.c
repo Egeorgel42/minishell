@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 20:18:51 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:43:46 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	excve(char **cmd, t_data *data)
 	free(path);
 }
 
-static void	inbuilts(char **cmd, t_data *data)
+static bool	inbuilts(char **cmd, t_data *data)
 {
 	if (ft_strcmp(cmd[0], "pwd"))
 		mini_pwd(cmd, data);
@@ -58,8 +58,8 @@ static void	inbuilts(char **cmd, t_data *data)
 	else if (ft_strcmp(cmd[0], "exit"))
 		mini_exit();
 	else
-		excve(cmd, data);
-	exit (0);
+		return (false);
+	return (true);
 }
 
 static void	child(char **cmd, t_data *data)
@@ -67,7 +67,8 @@ static void	child(char **cmd, t_data *data)
 	update_envp(data);
 	dup2(data->in_fd, STDIN_FILENO);
 	dup2(data->out_fd, STDOUT_FILENO);
-	inbuilts(cmd, data);
+	if (!inbuilts(cmd, data))
+		excve(cmd, data);
 	close(data->in_fd);
 	close(data->out_fd);
 }
@@ -77,7 +78,8 @@ static void	last_child(char **cmd, t_data *data)
 	update_envp(data);
 	dup2(data->in_fd, STDIN_FILENO);
 	dup2(data->out_fd, STDOUT_FILENO);
-	inbuilts(cmd, data);
+	if (!inbuilts(cmd, data))
+		excve(cmd, data);
 	close(data->in_fd);
 	close(data->out_fd);
 }
@@ -141,6 +143,18 @@ bool	callstructure(t_data *data)
 		ft_lstclear(&data->lst, free);
 	}
 	return (false);
+}
+
+void	parent_cmd(t_data *data)
+{
+	char	**cmd;
+
+	get_redirection_out(data);
+	cmd = get_cmd(data);
+	if (!inbuilts(cmd, data))
+		cmd_process(data, true);
+	ft_lstclear(&data->lst, free);
+	ft_freetab((void *)cmd);
 }
 
 void	wait_pids(t_data *data)
