@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/09 23:31:50 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:26:59 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <unistd.h>
 # include <errno.h>
 # include <string.h>
+# include <signal.h>
+# include <sys/ioctl.h>;
 
 typedef enum e_err{
 	ERRNO,
@@ -93,4 +95,5 @@ void	get_path(t_data *data);
 pid_t	*add_pid(pid_t new_pid, t_data *data);
 pid_t	last_pid(t_data *data);
 void	wait_pids(t_data *data);
+void	signal_handler(int sig);
 #endif

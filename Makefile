@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
+#    By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/03/09 20:44:26 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/03/10 18:30:12 by vkuzmin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ parsing/sep_token.c \
 piping/redirection.c \
 piping/pipes.c \
 utils/utils.c \
+signals/signals.c
 
 SRCS = $(addprefix srcs/, $(FILES))
 RDLINE = libs/readline
