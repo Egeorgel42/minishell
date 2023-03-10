@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 17:11:20 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/10 18:37:13 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	data_initialize(t_data *data, char **envp)
 	get_errlst(data);
 	data->envp = NULL;
 	data->env = NULL;
+	data->pidlst = NULL;
 	create_env(envp, &data->env);
 	get_path(data);
 	update_envp(data);

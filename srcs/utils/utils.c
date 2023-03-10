@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/09 23:32:27 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:41:17 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ char	*delete_slash(char *str)
 			i++;
 			n++;
 		}
-		res[i] ='\0';
+		res[i] = '\0';
 		free(str);
 		return (res);
 	}
@@ -232,8 +232,8 @@ char	*delete_slash(char *str)
 
 char	*add_slash(char *str)
 {
-	int		i;
-	
+	int	i;
+
 	i = 0;
 	if (str[i] != '/')
 	{
@@ -254,7 +254,22 @@ void	change_oldpwd(char *old, t_env **env)
 	cursor->full_string = ft_strjoin("OLDPWD=", old);
 }
 
-void	add_pid(t_pid pid, t_data *data)
+void	add_pid(pid_t pid, t_data *data)
 {
-	
+	t_pidlst	*new_pid;
+
+	new_pid = malloc(sizeof(t_pidlst));
+	new_pid->next = data->pidlst;
+	new_pid->pid = pid;
+	data->pidlst = new_pid;
+}
+
+pid_t	last_pid(t_data *data)
+{
+	t_pidlst	*buf_pid;
+
+	buf_pid = data->pidlst;
+	while (buf_pid->next)
+		buf_pid = buf_pid->next;
+	return (buf_pid->pid);
 }

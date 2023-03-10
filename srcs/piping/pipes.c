@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/09 23:26:21 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:45:57 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	cmd_process(t_data *data, bool last)
 	char	**cmd;
 	pid_t	l_pid;
 
-	data->pid = add_pid(fork(), data);
+	add_pid(fork(), data);
 	l_pid = last_pid(data);
 	cmd = get_cmd(data);
 	if (l_pid < 0)
@@ -142,12 +142,12 @@ bool	callstructure(t_data *data)
 
 void	wait_pids(t_data *data)
 {
-	int	i;
+	t_pidlst	*buf_pid;
 
-	i = 0;
-	while (data->pid && data->pid[i])
+	buf_pid = data->pidlst;
+	while (buf_pid)
 	{
-		waitpid(data->pid[i], NULL, 0);
-		i++;
+		waitpid(buf_pid->pid, NULL, 0);
+		buf_pid = buf_pid->next;
 	}
 }
