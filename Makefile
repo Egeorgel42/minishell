@@ -6,7 +6,7 @@
 #    By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/03/10 18:30:12 by vkuzmin          ###   ########.fr        #
+#    Updated: 2023/03/10 20:15:05 by vkuzmin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ parsing/sep_token.c \
 piping/redirection.c \
 piping/pipes.c \
 utils/utils.c \
-signals/signals.c
+signals/signals.c \
+builtins/mini_exit.c
 
 SRCS = $(addprefix srcs/, $(FILES))
 RDLINE = libs/readline

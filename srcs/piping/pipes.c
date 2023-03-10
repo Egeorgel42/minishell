@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:45:57 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:10:53 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static void	inbuilts(char **cmd, t_data *data)
 		mini_unset(cmd, &data->env, data);
 	else if (ft_strcmp(cmd[0], "cd"))
 		mini_cd(cmd, &data->env, data);
+	else if (ft_strcmp(cmd[0], "exit"))
+		mini_exit();
 	else
 		excve(cmd, data);
 }
