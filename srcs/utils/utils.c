@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:41:17 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:57:10 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,4 +272,16 @@ pid_t	last_pid(t_data *data)
 	while (buf_pid->next)
 		buf_pid = buf_pid->next;
 	return (buf_pid->pid);
+}
+
+void	clear_pidlst(t_data *data)
+{
+	t_pidlst	*buf_pid;
+
+	while (data->pidlst)
+	{
+		buf_pid = data->pidlst->next;
+		free(data->pidlst);
+		data->pidlst = buf_pid;
+	}
 }

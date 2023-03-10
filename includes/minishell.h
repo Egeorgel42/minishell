@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:46:31 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:15:48 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ void	get_path(t_data *data);
 void	add_pid(pid_t pid, t_data *data);
 pid_t	last_pid(t_data *data);
 void	wait_pids(t_data *data);
+void	clear_pidlst(t_data *data);
 void	signal_handler(int sig);
 #endif

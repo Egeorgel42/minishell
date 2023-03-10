@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:45:57 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:11:35 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	inbuilts(char **cmd, t_data *data)
 		mini_cd(cmd, &data->env, data);
 	else
 		excve(cmd, data);
+	exit (0);
 }
 
 static void	child(char **cmd, t_data *data)

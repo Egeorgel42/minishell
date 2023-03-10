@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:37:13 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:16:16 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	data_default(t_data *data)
 {
 	free(data->prompt);
 	data->prompt = NULL;
+	clear_pidlst(data);
+	data->pidlst = NULL;
 	data->pipe_fd = 0;
 	data->in_fd = 0;
 	data->out_fd = 1;
