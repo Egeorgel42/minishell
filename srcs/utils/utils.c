@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 20:30:49 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:05:54 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,13 +243,32 @@ char	*add_slash(char *str)
 	return (str);
 }
 
+void	create_oldpwd(char *old, t_env **env)
+{
+	t_env	*current;
+	char	*buff;
+
+	current = *env;
+	while (current->next != NULL)
+		current = current->next;
+	buff = ft_strjoin("OLDPWD=", old);
+	create_node(buff);
+}
+
 void	change_oldpwd(char *old, t_env **env)
 {
 	t_env	*cursor;
 
 	cursor = *env;
 	while (ft_strncmp(cursor->full_string, "OLDPWD", 6))
+	{
 		cursor = cursor->next;
+		if (cursor == NULL)
+		{
+			create_oldpwd(old, env);
+			return ;
+		}
+	}
 	free(cursor->full_string);
 	cursor->full_string = ft_strjoin("OLDPWD=", old);
 }
