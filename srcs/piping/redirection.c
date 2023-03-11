@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/09 22:18:44 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:47:18 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ static void	heredoc(t_data *data, char *sep)
 	str = ft_strjoinfree(sep, "\n", false, false);
 	while (!ft_strcmp(tmp, str))
 	{
+		if (tmp)
+			free(tmp);
 		ft_fprintf(1, "heredoc> ");
 		tmp = get_next_line(0);
 		if (!ft_strcmp(tmp, str))
 			ft_putstr_fd(tmp, fd[1]);
-		free(tmp);
 	}
 	free(str);
 	close(fd[1]);
