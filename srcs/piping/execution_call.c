@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_call.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 21:16:07 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:02:12 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	excve(char **cmd, t_data *data)
 bool	inbuilts(char **cmd, t_data *data)
 {
 	if (ft_strcmp(cmd[0], "pwd"))
-		mini_pwd(cmd, data);
+		mini_pwd(cmd, data, &data->env);
 	else if (ft_strcmp(cmd[0], "env"))
 		mini_env(cmd, data);
 	else if (ft_strcmp(cmd[0], "echo"))
