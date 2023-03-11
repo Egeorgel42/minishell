@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/11 17:02:33 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/11 18:07:50 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>
 # include <signal.h>
 # include <sys/ioctl.h>
+# include<readline/history.h>
 
 typedef enum e_err{
 	ERRNO,
