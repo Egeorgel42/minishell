@@ -69,8 +69,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	argc = 0;
-	argv[0][0] = '0';
+	if (argc != -1)
+		argv[0][0] = '0';
 	data_initialize(&data, envp);
 	while (1)
 		minishell_loop(&data);

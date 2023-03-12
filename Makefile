@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = clang
 FILES = main.c \
 error.c \
 builtins/mini_echo.c \
@@ -29,22 +29,24 @@ piping/pipes.c \
 utils/utils.c \
 signals/signals.c \
 
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+LFLAGS = -Llibs/readline/lib -lreadline -Llibs/libft -l:libft.a -I$(RDLINE)/include
 SRCS = $(addprefix srcs/, $(FILES))
-RDLINE = libs/readline
 OBJ = ${SRCS:.c=.o}
+RDLINE = libs/readline
+LIBFT = libs/libft/libft.a
 HDR = includes/minishell.h
 NAME = minishell
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-LFLAGS = -Llibs/libft -Llibs/readline/lib -lft -lreadline -I$(RDLINE)/include
-
 all: $(NAME)
 
 $(RDLINE):
 	bash install_readline.sh
 
-$(NAME): $(RDLINE) $(OBJ) $(HDR) Makefile
+$(LIBFT):
 	cd libs/libft ; make bonus
-	$(CC) $(LFLAGS) $(CFLAGS) $(OBJ) -o $(NAME)
+
+$(NAME): $(RDLINE) $(LIBFT) $(OBJ) $(HDR) Makefile
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
@@ -57,7 +59,7 @@ fclean: clean
 
 re: fclean all
 
-.c.o: $(LIB) $(HDR) Makefile
+.c.o: $(HDR) Makefile
 	$(CC) $(CFLAGS) -I$(RDLINE)/include -c -o $@ $<
 
 .PHONY: all clean fclean re

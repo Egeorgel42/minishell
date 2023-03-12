@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 # include<readline/history.h>
+#include <sys/wait.h>
 
 typedef enum e_err{
 	ERRNO,
