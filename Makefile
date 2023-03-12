@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC = clang
+CC = gcc
 FILES = main.c \
 error.c \
 builtins/mini_echo.c \
@@ -30,7 +30,7 @@ utils/utils.c \
 signals/signals.c \
 
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-LFLAGS = -Llibs/readline/lib -lreadline -Llibs/libft -l:libft.a -I$(RDLINE)/include
+LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -ltinfo -lreadline -lhistory -I$(RDLINE)/include
 SRCS = $(addprefix srcs/, $(FILES))
 OBJ = ${SRCS:.c=.o}
 RDLINE = libs/readline
@@ -46,7 +46,7 @@ $(LIBFT):
 	cd libs/libft ; make bonus
 
 $(NAME): $(RDLINE) $(LIBFT) $(OBJ) $(HDR) Makefile
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
