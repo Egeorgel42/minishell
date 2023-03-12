@@ -161,7 +161,7 @@ void	update_envp(t_data *data)
 	if (data->envp)
 		ft_freetab((void **)data->envp);
 	data->envp = up_env;
-	free(data->path);
+	ft_freetab((void **)data->path);
 	get_path(data);
 }
 
