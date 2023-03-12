@@ -44,18 +44,11 @@ void	cmd_process(t_data *data, bool last)
 	if (pid < 0)
 		error(ERRNO, NULL, NULL, data);
 	else if (pid == 0 && last)
-	{
-		printf("child\n");
 		last_child(cmd, data);
-	}
 	else if (pid == 0)
-	{
-		printf("child\n");
 		child(cmd, data);
-	}
 	else
 	{
-		printf("parent\n");
 		if (data->in_fd != 0)
 			close(data->in_fd);
 		if (data->out_fd != 1)
