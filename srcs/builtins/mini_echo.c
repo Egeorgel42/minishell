@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:43:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/09 20:35:22 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:49:14 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	mini_echo(char **str, t_data *data)
 	char	*res;
 	int		flag;
 	int		i;
-	
+
 	res = NULL;
 	i = 0;
 	flag = 0;
