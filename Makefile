@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
+#    By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/03/10 21:14:45 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/03/13 18:08:53 by vkuzmin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ utils/utils.c \
 signals/signals.c \
 
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -ltinfo -lreadline -lhistory -I$(RDLINE)/include
+LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -lreadline -lhistory -I$(RDLINE)/include #-ltinfo
 SRCS = $(addprefix srcs/, $(FILES))
 OBJ = ${SRCS:.c=.o}
 RDLINE = libs/readline

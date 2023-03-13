@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/11 18:16:03 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/13 19:09:06 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	minishell_loop(t_data *data)
 {
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-	data->prompt = readline("-> ");
+	if ((data->prompt = readline("-> ")) == NULL)
+		ft_exit();
 	errno = 0;
 	data->lst = sep_token(data->prompt, data);
 	if (!data->lst)

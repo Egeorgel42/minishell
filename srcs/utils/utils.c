@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 21:30:25 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/13 19:10:26 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,4 +314,11 @@ bool	is_pipe(t_data *data)
 		buf = buf->next;
 	}
 	return (false);
+}
+
+/*need upgrade*/
+void	ft_exit(void)
+{
+	ft_putstr_fd("exit\n", 1);
+	exit(1);
 }

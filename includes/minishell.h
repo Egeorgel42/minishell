@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/11 18:07:50 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/13 19:20:46 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 # include<readline/history.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
+# include <termios.h>
 
 typedef enum e_err{
 	ERRNO,
@@ -102,6 +103,7 @@ bool	is_pipe(t_data *data);
 void	clear_pidlst(t_data *data);
 void	signal_handler(int sig);
 void	mini_exit(void);
+void	ft_exit(void);
 
 //pipes fonctions
 void	cmd_process(t_data *data, bool last);
