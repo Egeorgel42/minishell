@@ -31,6 +31,7 @@ static void	heredoc(t_data *data, char *sep)
 		if (!ft_strcmp(tmp, str))
 			ft_putstr_fd(tmp, fd[1]);
 	}
+	free(tmp);
 	free(str);
 	close(fd[1]);
 	if (data->in_fd != 0)

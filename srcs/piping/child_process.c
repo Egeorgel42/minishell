@@ -37,16 +37,15 @@ static void	last_child(char **cmd, t_data *data)
 void	cmd_process(t_data *data, bool last)
 {
 	char	**cmd;
-	pid_t	l_pid;
+	pid_t	pid;
 
-	add_pid(fork(), data);
-	l_pid = last_pid(data);
+	pid = fork();
 	cmd = get_cmd(data);
-	if (l_pid < 0)
+	if (pid < 0)
 		error(ERRNO, NULL, NULL, data);
-	else if (l_pid == 0 && last)
+	else if (pid == 0 && last)
 		last_child(cmd, data);
-	else if (l_pid == 0)
+	else if (pid == 0)
 		child(cmd, data);
 	else
 	{
@@ -55,6 +54,7 @@ void	cmd_process(t_data *data, bool last)
 		if (data->out_fd != 1)
 			close(data->out_fd);
 		data->in_fd = data->pipe_fd;
+		add_pid(pid, data);
 	}
 	ft_freetab((void **)cmd);
 }

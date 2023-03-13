@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:43:30 by vkuzmin           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/11 20:49:14 by egeorgel         ###   ########.fr       */
+=======
+/*   Updated: 2023/03/11 20:58:34 by vkuzmin          ###   ########.fr       */
+>>>>>>> 185504fb845f83b2b43108bd0f681cd935d86805
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +25,11 @@ void	mini_echo(char **str, t_data *data)
 	res = NULL;
 	i = 0;
 	flag = 0;
+	if (!str[1])
+	{
+		ft_putstr_fd("\n", 1);
+		return ;
+	}
 	if (ft_strcmp(str[1], "-n"))
 	{
 		flag = 1;
