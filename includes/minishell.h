@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/13 19:08:14 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:33:20 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 # include<readline/history.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
+# include <termios.h>
 
 typedef enum e_err{
 	ERRNO,
@@ -104,6 +105,7 @@ void	signal_handler(int sig);
 void	mini_exit(void);
 void	replace_in_str(char **str, char *to_replace, char *replace);
 void	get_env(t_data *data);
+void	ft_exit(void);
 
 //pipes fonctions
 void	cmd_process(t_data *data, bool last);

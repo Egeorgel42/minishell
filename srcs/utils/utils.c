@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/14 18:38:27 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:34:10 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,4 +342,11 @@ void	replace_in_str(char **str, char *to_replace, char *replace)
 			break ;
 		}
 	}
+}
+
+/*need upgrade*/
+void	ft_exit(void)
+{
+	ft_putstr_fd("exit\n", 1);
+	exit(1);
 }
