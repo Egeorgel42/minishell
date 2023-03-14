@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_call.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/11 17:02:12 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/14 21:25:50 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	inbuilts(char **cmd, t_data *data)
 	else if (ft_strcmp(cmd[0], "echo"))
 		mini_echo(cmd, data);
 	else if (ft_strcmp(cmd[0], "export"))
-		mini_export(cmd, &data->env, data);
+		mini_export(cmd, &data->env);
 	else if (ft_strcmp(cmd[0], "unset"))
 		mini_unset(cmd, &data->env, data);
 	else if (ft_strcmp(cmd[0], "cd"))

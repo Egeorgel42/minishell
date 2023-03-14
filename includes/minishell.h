@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/14 19:33:20 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/14 22:23:27 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	mini_pwd(char **str, t_data *data, t_env **env);
 void	mini_env(char **str, t_data *data);
 void	check_pwd(char *str);
 void	mini_echo(char **str, t_data *data);
-void	mini_export(char **str, t_env **env, t_data *data);
+void	mini_export(char **str, t_env **env);
 void	create_env(char **envp, t_env **env);
 t_env	*create_node(char *str);
 void	mini_unset(char **str, t_env **env, t_data *data);
@@ -82,9 +82,11 @@ char	*delete_slash(char *str);
 void	change_oldpwd(char *old, t_env **env);
 void	mini_cd(char **str, t_env **env, t_data *data);
 char	*add_slash(char *str);
+void	replace_charset_to_c(char *str, char *charset, char c);
 
 bool	callstructure(t_data *data);
 void	get_redirection_out(t_data *data);
+void	remove_quotes(t_data *data);
 void	prompt(t_data *data);
 void	get_errlst(t_data *data);
 void	ft_rem_double_space(char *str, char *sep);

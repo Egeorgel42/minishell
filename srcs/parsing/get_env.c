@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/14 18:38:41 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/14 22:51:46 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ static char	*get_in_env(t_data *data, char *env)
 	return (ft_strdup(""));
 }
 
+static void	parse_env(char **env_str, int i, bool *quotes)
+{
+	char	*buf;
+
+	if (quotes[0] || quotes[1])
+		return ;
+	ft_rem_double_space(*env_str, " \n\t\v\f\r");
+	if (i == 0 && ft_strchr(" \n\t\v\f\r", **env_str))
+	{
+		buf = ft_substr(*env_str, 1, ft_strlen(*env_str) - 1);
+		free(*env_str);
+		*env_str = buf;
+	}
+	replace_charset_to_c(*env_str, "\n\t\v\f\r", ' ');
+}
+
 static int	find_env(t_data *data, char **str, int i, bool *quotes)
 {
 	char	*env;
@@ -45,6 +61,7 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 	}
 	env = ft_substr(*str, i, j - i);
 	env_str = get_in_env(data, env);
+	parse_env(&env_str, i, quotes);
 	replace_in_str(str, env, env_str);
 	j = i + ft_strlen(env_str);
 	free(env_str);

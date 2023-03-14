@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/13 19:08:35 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/14 21:42:31 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ bool	callstructure(t_data *data)
 		create_pipe(data);
 		get_redirection_out(data);
 		get_env(data);
+		remove_quotes(data);
 		cmd_process(data, false);
 		rem_until_rem(&data->lst, buf);
 		return (true);
@@ -44,6 +45,7 @@ bool	callstructure(t_data *data)
 	{
 		get_redirection_out(data);
 		get_env(data);
+		remove_quotes(data);
 		cmd_process(data, true);
 		ft_lstclear(&data->lst, free);
 	}
@@ -56,6 +58,7 @@ void	parent_cmd(t_data *data)
 
 	get_redirection_out(data);
 	get_env(data);
+	remove_quotes(data);
 	cmd = get_cmd(data);
 	if (!inbuilts(cmd, data))
 		cmd_process(data, true);
