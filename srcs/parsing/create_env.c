@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 19:20:08 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/09 19:46:53 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:16:29 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ t_env	*create_node(char *str)
 
 void	create_env(char **envp, t_env **env)
 {
+	int		i;
 	t_env	*new_node;
 	t_env	*cursor;
 
-	while (*envp != NULL)
+	i = -1;
+	while (envp[++i])
 	{
-		new_node = create_node(*envp);
+		new_node = create_node(envp[i]);
 		if (*env == NULL)
 			*env = new_node;
 		else
@@ -63,6 +65,5 @@ void	create_env(char **envp, t_env **env)
 				cursor = cursor->next;
 			cursor->next = new_node;
 		}
-		envp++;
 	}
 }

@@ -6,7 +6,7 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/03/10 21:14:45 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/03/13 19:09:13 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ builtins/mini_cd.c \
 builtins/mini_exit.c \
 parsing/create_env.c \
 parsing/sep_token.c \
+parsing/get_env.c \
 piping/redirection.c \
 piping/child_process.c \
 piping/execution_call.c \
@@ -30,7 +31,8 @@ utils/utils.c \
 signals/signals.c \
 
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -ltinfo -lreadline -lhistory -I$(RDLINE)/include
+LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -lreadline -lhistory -I$(RDLINE)/include #-ltinfo
+#if you are on Linux, uncomment the -ltinfo for the project to compile, or comment it if you are on MacOs.
 SRCS = $(addprefix srcs/, $(FILES))
 OBJ = ${SRCS:.c=.o}
 RDLINE = libs/readline

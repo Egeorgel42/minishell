@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/10 21:30:25 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/14 18:38:27 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void	get_path(t_data *data)
 		}
 		buf = buf->next;
 	}
+	data->path = NULL;
 }
 
 void	update_envp(t_data *data)
@@ -161,7 +162,8 @@ void	update_envp(t_data *data)
 	if (data->envp)
 		ft_freetab((void **)data->envp);
 	data->envp = up_env;
-	ft_freetab((void **)data->path);
+	if (data->path)
+		ft_freetab((void **)data->path);
 	get_path(data);
 }
 
@@ -314,4 +316,30 @@ bool	is_pipe(t_data *data)
 		buf = buf->next;
 	}
 	return (false);
+}
+
+void	replace_in_str(char **str, char *to_replace, char *replace)
+{
+	char	*res;
+	int		i;
+	int		j;
+	int		x;
+
+	i = -1;
+	while ((*str)[++i])
+	{
+		j = i - 1;
+		x = 0;
+		while ((*str)[++j] && (*str)[j] == to_replace[x])
+			x++;
+		if (!to_replace[x])
+		{
+			res = ft_strjoinfree(ft_substr((*str), 0, i), replace, true, false);
+			if ((*str)[j])
+				res = ft_strjoinfree(res, ft_substr((*str), j, ft_strlen(*str) - j), true, true);
+			free(*str);
+			*str = res;
+			break ;
+		}
+	}
 }

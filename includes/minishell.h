@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/11 18:07:50 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/13 19:08:14 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ bool	is_pipe(t_data *data);
 void	clear_pidlst(t_data *data);
 void	signal_handler(int sig);
 void	mini_exit(void);
+void	replace_in_str(char **str, char *to_replace, char *replace);
+void	get_env(t_data *data);
 
 //pipes fonctions
 void	cmd_process(t_data *data, bool last);
