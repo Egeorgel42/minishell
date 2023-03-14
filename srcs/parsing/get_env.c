@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/14 22:51:46 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:21:01 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 	env = ft_substr(*str, i, j - i);
 	env_str = get_in_env(data, env);
 	parse_env(&env_str, i, quotes);
-	replace_in_str(str, env, env_str);
+	replace_in_str(str, env_str, i, j);
 	j = i + ft_strlen(env_str);
 	free(env_str);
 	free(env);
