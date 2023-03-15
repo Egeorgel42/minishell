@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/15 14:56:16 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/15 18:49:16 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,7 +290,9 @@ void	create_pwd(t_env **env)
 void	change_oldpwd(char *old, t_env **env)
 {
 	t_env	*cursor;
+	char	*str;
 
+	str = ft_strdup(old);
 	cursor = *env;
 	while (ft_strncmp(cursor->full_string, "OLDPWD", 6))
 	{
@@ -302,7 +304,10 @@ void	change_oldpwd(char *old, t_env **env)
 		}
 	}
 	free(cursor->full_string);
-	cursor->full_string = ft_strjoin("OLDPWD=", old);
+	cursor->full_string = ft_strjoin("OLDPWD=", str);
+	free(cursor->string);
+	cursor->string = str;
+	free(old);
 }
 
 void	add_pid(pid_t pid, t_data *data)
