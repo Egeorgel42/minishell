@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/14 22:23:14 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/15 15:57:34 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	get_errlst(t_data *data)
 	data->errlst[ERR_EMPTY] = strdup("Empty argument after token");
 	data->errlst[ERR_FLAG] = strdup("Following option is invalid");
 	data->errlst[ERR_ARGS] = strdup("Invalid command arguments");
+	data->errlst[ERR_EXP] = strdup("not a valid indentifier");
 	data->errlst[ERR_MAX] = NULL;
 }
