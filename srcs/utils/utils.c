@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/14 23:25:26 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/15 14:06:07 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,21 @@ static void	create_oldpwd(char *old, t_env **env)
 	buff = current->next;
 	current->next = create_node(ft_strjoin("OLDPWD=", old));
 	current->next->next = buff;
+}
+
+void	create_pwd(t_env **env)
+{
+	t_env	*cursor;
+	t_env	*buff;
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	cursor = *env;
+	while (cursor->next->next != NULL)
+		cursor = cursor->next;
+	buff = cursor->next;
+	cursor->next = create_node(ft_strjoin("PWD=", pwd));
+	cursor->next->next = buff;
 }
 
 void	change_oldpwd(char *old, t_env **env)

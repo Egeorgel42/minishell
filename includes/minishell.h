@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/15 16:00:55 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/15 14:06:34 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <string.h>
 # include <signal.h>
 # include <sys/ioctl.h>
-# include<readline/history.h>
+# include <readline/history.h>
 # include <sys/wait.h>
 # include <termios.h>
 
@@ -84,6 +84,7 @@ void	change_oldpwd(char *old, t_env **env);
 void	mini_cd(char **str, t_env **env, t_data *data);
 char	*add_slash(char *str);
 void	replace_charset_to_c(char *str, char *charset, char c);
+void	create_pwd(t_env **env);
 
 bool	callstructure(t_data *data);
 void	get_redirection_out(t_data *data);

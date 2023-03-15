@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:00:06 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/10 20:45:38 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/15 14:05:43 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,14 @@ static void	change_pwd(char *dir, t_env **env)
 	current = *env;
 	buf = strdup(dir);
 	while (ft_strncmp(current->pref, "PWD", 3))
-		current = current->next;
+	{
+		current =  current->next;
+		if (current == NULL)
+		{
+			create_pwd(env);
+			return ;
+		}
+	}
 	if (ft_strncmp(dir, "/home", 5))
 		small_change(buf, env);
 	else if (!ft_strncmp(dir, "/home", 5))
