@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:00:06 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/15 14:05:43 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/15 14:56:26 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ static void	change_pwd(char *dir, t_env **env)
 			return ;
 		}
 	}
-	if (ft_strncmp(dir, "/home", 5))
+	if (!ft_strncmp(dir, "..", 2))
+		going_back(env);
+	else if (ft_strncmp(dir, "/home", 5))
 		small_change(buf, env);
 	else if (!ft_strncmp(dir, "/home", 5))
 		full_change(buf, env);

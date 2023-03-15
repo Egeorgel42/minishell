@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/15 14:06:34 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/15 14:56:30 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	mini_cd(char **str, t_env **env, t_data *data);
 char	*add_slash(char *str);
 void	replace_charset_to_c(char *str, char *charset, char c);
 void	create_pwd(t_env **env);
+void	going_back(t_env **env);
 
 bool	callstructure(t_data *data);
 void	get_redirection_out(t_data *data);

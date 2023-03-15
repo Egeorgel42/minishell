@@ -6,7 +6,7 @@
 /*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/15 14:06:07 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/15 14:56:16 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,24 @@ static void	create_oldpwd(char *old, t_env **env)
 	buff = current->next;
 	current->next = create_node(ft_strjoin("OLDPWD=", old));
 	current->next->next = buff;
+}
+
+void	going_back(t_env **env)
+{
+	t_env	*current;
+	char	*pwd;
+	char 	*str;
+
+	pwd = getcwd(NULL, 0);
+	str = ft_strdup(pwd);
+	current = *env;
+	while (ft_strncmp(current->pref, "PWD", 3))
+		current = current->next;
+	free(current->string);
+	current->string = str;
+	free(current->full_string);
+	current->full_string = ft_strjoin("PWD=", str);
+	free(pwd);
 }
 
 void	create_pwd(t_env **env)
