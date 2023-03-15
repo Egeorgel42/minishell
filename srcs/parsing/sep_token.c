@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/14 21:31:26 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:46:11 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ static int	get_token(char *str, t_data *data, t_list **buf, bool *quotes)
 			quotes[0] = set_to_opposite(quotes[0]);
 		else if (str[j] == '"' && !quotes[0])
 			quotes[1] = set_to_opposite(quotes[1]);
-		else if (ft_strchr(" <>|&()*\n\t\v\f\r", str[j]) && (!quotes[0] && !quotes[1]))
+		else if (ft_strchr(" <>|&(){}[];!*\n\t\v\f\r", str[j])
+			&& (!quotes[0] && !quotes[1]))
 			break ;
 		j++;
 	}
