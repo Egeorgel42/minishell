@@ -18,6 +18,8 @@ static char	*access_p(t_data *data)
 	int		i;
 
 	i = -1;
+	if (!data->path)
+		return (NULL);
 	while (data->path[++i])
 	{
 		check_path = ft_strjoinfree(data->path[i], "/", false, false);
