@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:00:06 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/15 14:56:26 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/17 16:06:06 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,25 @@ static void	change_pwd(char *dir, t_env **env)
 		full_change(buf, env);
 }
 
+static char	*getoldpwd(t_env **env)
+{
+	t_env	*current;
+
+	current = *env;
+	while (ft_strncmp(current->pref, "PWD", 3))
+	{
+		current = current->next;
+		if (current == NULL)
+			return (NULL);
+	}
+	return (current->string);
+}
+
 void	mini_cd(char **str, t_env **env, t_data *data)
 {
 	char	*old;
 
-	old = getcwd(NULL, 0);
+	old = getoldpwd(env);
 	if (chdir(str[1]) != 0)
 		error(ERR_FLAG, str[0], str[1], data);
 	change_oldpwd(old, env);

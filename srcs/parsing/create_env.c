@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 19:20:08 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/13 19:16:29 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:05:34 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	create_env(char **envp, t_env **env)
 	i = -1;
 	while (envp[++i])
 	{
+		if (!ft_strncmp(envp[i], "OLDPWD", 6))
+			break ;
 		new_node = create_node(envp[i]);
 		if (*env == NULL)
 			*env = new_node;
