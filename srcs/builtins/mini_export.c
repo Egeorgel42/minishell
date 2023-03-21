@@ -21,7 +21,7 @@ static void	check_input(char **str, t_data *data)
 		return ;
 	if (str[1][0] >= '0' && str[1][0] <= '9')
 		error(ERR_EXP, str[0], str[1], data);
-	while (str[1][i])
+	while (str[1][i] && str[1][i] != '=')
 	{
 		if ((str[1][i] >= '0' && str[1][i] <= '9')
 			|| (str[1][i] >= 'a' && str[1][i] <= 'z')
