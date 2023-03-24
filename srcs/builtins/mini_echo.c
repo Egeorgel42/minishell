@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:43:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/15 17:29:07 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:24:17 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	mini_echo(char **str, t_data *data)
 		i++;
 	}
 	else if (is_flaged(str))
+	{
 		error(ERR_FLAG, str[0], str[1], data);
+		return ;
+	}
 	if (!str[++i])
 		return ;
 	res = ft_strdup(str[i]);

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:17:01 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/23 18:58:58 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:12:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	get_history(t_data *data)
 
 	home = get_home(data);
 	if (!home)
-		error(ERR_HOME_HIS, NULL, NULL, data);
+		error_exit(ERR_HOME_HIS, NULL, NULL, data);
 	home = ft_strjoinfree(home, "/minishell_history", true, false);
 	data->history_fd = open(home, O_CREAT | O_RDWR | O_APPEND, 000644);
 	free(home);
 	if (data->history_fd == -1)
-		error(ERR_MAX, NULL, NULL, data);
+		error_exit(ERR_MAX, NULL, NULL, data);
 	line = get_next_line(data->history_fd);
 	while (line)
 	{

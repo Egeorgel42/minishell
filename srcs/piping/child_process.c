@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:07:20 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/24 16:45:53 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:12:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	cmd_process(char **cmd, t_data *data, bool last)
 
 	pid = fork();
 	if (pid < 0)
-		error(ERRNO, NULL, NULL, data);
+		error_exit(ERRNO, NULL, NULL, data);
 	else if (pid == 0 && last)
 		last_child(cmd, data);
 	else if (pid == 0)

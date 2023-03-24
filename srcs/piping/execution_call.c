@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/24 16:55:11 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:12:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*access_p(t_data *data)
 
 	i = -1;
 	if (!data->path)
-		error(ERR_CMD, data->lst->str, NULL, data);
+		error_exit(ERR_CMD, data->lst->str, NULL, data);
 	while (data->path[++i])
 	{
 		check_path = ft_strjoinfree(data->path[i], "/", false, false);
@@ -28,7 +28,7 @@ static char	*access_p(t_data *data)
 			return (check_path);
 		free(check_path);
 	}
-	error(ERR_CMD, data->lst->str, NULL, data);
+	error_exit(ERR_CMD, data->lst->str, NULL, data);
 	return (NULL);
 }
 //path gets also updated on update_envp() (done at start of child)
@@ -39,7 +39,7 @@ void	excve(char **cmd, t_data *data)
 
 	path = access_p(data);
 	if (execve(path, cmd, data->envp) == -1)
-		error(ERRNO, NULL, NULL, data);
+		error_exit(ERRNO, NULL, NULL, data);
 	free(path);
 }
 

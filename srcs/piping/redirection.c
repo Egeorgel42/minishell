@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/11 17:47:18 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:12:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	heredoc(t_data *data, char *sep)
 	int		fd[2];
 
 	if (pipe(fd) == -1)
-		error(ERR_MAX, NULL, NULL, data);
+		error_exit(ERR_MAX, NULL, NULL, data);
 	tmp = NULL;
 	str = ft_strjoinfree(sep, "\n", false, false);
 	while (!ft_strcmp(tmp, str))
@@ -62,7 +62,7 @@ static void	redirect_fd(t_data *data, t_list *buf)
 		data->in_fd = open(buf->next->str, O_RDONLY);
 	}
 	if (data->in_fd == -1 || data->out_fd == -1)
-		error(ERR_FD, buf->next->str, NULL, data);
+		error_exit(ERR_FD, buf->next->str, NULL, data);
 }
 
 void	get_redirection_out(t_data *data)
@@ -75,7 +75,7 @@ void	get_redirection_out(t_data *data)
 		if (ft_strchr("<>", buf->str[0]))
 		{
 			if (!buf->next || ft_strchr("<>|", *buf->next->str))
-				error(ERR_EMPTY, NULL, buf->str, data);
+				error_exit(ERR_EMPTY, NULL, buf->str, data);
 			redirect_fd(data, buf);
 			remove_from_list(&data->lst, buf->next);
 			remove_from_list(&data->lst, buf);

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/15 17:46:11 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:12:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	check_sep_token(t_list	*lst, t_data *data)
 		return ;
 	if (ft_strcmp(lst->str, "|") || ft_strcmp(lst->str, "\t"))
 		return ;
-	error(ERR_UNSUPORTED, lst->str, NULL, data);
+	error_exit(ERR_UNSUPORTED, lst->str, NULL, data);
 }
 
 static int	get_seperator(char *str, t_data *data, t_list **buf, bool *quotes)
@@ -74,7 +74,7 @@ static int	get_token(char *str, t_data *data, t_list **buf, bool *quotes)
 	if ((*buf)->next)
 	{
 		if (i == j)
-			error(ERR_EMPTY, NULL, (*buf)->next->str, data);
+			error_exit(ERR_EMPTY, NULL, (*buf)->next->str, data);
 		(*buf)->next->next = ft_lstnew(ft_substr(str, i, j - i));
 	}
 	else if (i != j)
@@ -103,7 +103,7 @@ t_list	*sep_token(char *str, t_data *data)
 		buf = ft_lstlast(buf);
 	}
 	if (quotes[0] || quotes[1])
-		error(ERR_QUOTES, NULL, NULL, data);
+		error_exit(ERR_QUOTES, NULL, NULL, data);
 	buf = lst->next;
 	ft_lstdelone(lst, free);
 	return (buf);

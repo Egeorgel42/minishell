@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/24 16:45:14 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:13:44 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_data
 	t_pidlst	*pidlst;
 }	t_data;
 
-void	error(int err, char *input, char *token, t_data *data);
+void	error_exit(int err, char *input, char *token, t_data *data);
 
 bool	is_flaged(char **str);
 void	mini_pwd(char **str, t_data *data, t_env **env);
@@ -121,4 +121,5 @@ void	excve(char **cmd, t_data *data);
 void	get_history(t_data *data);
 void	save_history(t_data *data);
 char	*get_home(t_data *data);
+void	error(int err, char *input, char *token, t_data *data);
 #endif

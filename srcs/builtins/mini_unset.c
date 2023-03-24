@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 21:00:16 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/10 21:21:58 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:21:28 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	mini_unset(char **str, t_env **env, t_data *data)
 	t_env	*prev;
 
 	if (str[2])
-		error(ERR_ARGS, str[0], str[1], data);
+	{
+		error(ERR_ARGS, str[0], str[2], data);
+		return ;
+	}
 	prev = NULL;
 	current = *env;
 	while (current != NULL)

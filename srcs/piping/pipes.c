@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/24 16:44:06 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:12:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	create_pipe(t_data *data)
 	int	fd[2];
 
 	if (pipe(fd) == -1)
-		error(ERRNO, NULL, NULL, data);
+		error_exit(ERRNO, NULL, NULL, data);
 	data->pipe_fd = fd[0];
 	data->out_fd = fd[1];
 }
