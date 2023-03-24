@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/15 18:49:16 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/24 16:35:53 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,14 +181,15 @@ char	**get_cmd(t_data *data)
 		i++;
 	}
 	cmd = malloc(sizeof(char *) * (i + 1));
-	i = -1;
+	i = 0;
 	buf = data->lst;
 	while (buf && !ft_strcmp(buf->str, "|"))
 	{
-		cmd[++i] = ft_strdup(buf->str);
+		cmd[i] = ft_strdup(buf->str);
 		buf = buf->next;
+		i++;
 	}
-	cmd[++i] = NULL;
+	cmd[i] = NULL;
 	return (cmd);
 }
 
@@ -407,6 +408,19 @@ void	remove_quotes(t_data *data)
 		rm_charset_in_str(buf->str, "'\"");
 		buf = buf->next;
 	}
+}
+
+char	*get_home(t_data *data)
+{
+	t_env *env;
+
+	env = data->env;
+	while (env && !ft_strcmp(env->pref, "HOME"))
+		env = env->next;
+	if (env)
+		return (ft_strdup(env->string));
+	else
+		return (NULL);
 }
 
 /*need upgrade*/

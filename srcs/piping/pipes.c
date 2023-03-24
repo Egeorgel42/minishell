@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/14 21:42:31 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:44:06 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	create_pipe(t_data *data)
 
 bool	callstructure(t_data *data)
 {
+	char	**cmd;
 	t_list	*buf;
 
 	data->pipe_fd = 0;
@@ -37,8 +38,10 @@ bool	callstructure(t_data *data)
 		get_redirection_out(data);
 		get_env(data);
 		remove_quotes(data);
-		cmd_process(data, false);
+		cmd = get_cmd(data);
+		cmd_process(cmd, data, true);
 		rem_until_rem(&data->lst, buf);
+		ft_freetab((void *)cmd);
 		return (true);
 	}
 	else if (!buf)
@@ -46,9 +49,11 @@ bool	callstructure(t_data *data)
 		get_redirection_out(data);
 		get_env(data);
 		remove_quotes(data);
-		cmd_process(data, true);
+		cmd = get_cmd(data);
+		cmd_process(cmd, data, true);
 		ft_lstclear(&data->lst, free);
 	}
+	ft_freetab((void *)cmd);
 	return (false);
 }
 
@@ -61,7 +66,7 @@ void	parent_cmd(t_data *data)
 	remove_quotes(data);
 	cmd = get_cmd(data);
 	if (!inbuilts(cmd, data))
-		cmd_process(data, true);
+		cmd_process(cmd, data, true);
 	ft_lstclear(&data->lst, free);
 	ft_freetab((void *)cmd);
 }

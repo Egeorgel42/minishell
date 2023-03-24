@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/15 16:00:36 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:55:11 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*access_p(t_data *data)
 
 	i = -1;
 	if (!data->path)
-		return (NULL);
+		error(ERR_CMD, data->lst->str, NULL, data);
 	while (data->path[++i])
 	{
 		check_path = ft_strjoinfree(data->path[i], "/", false, false);

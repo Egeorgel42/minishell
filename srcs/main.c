@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/13 19:09:06 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/23 18:46:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	data_initialize(t_data *data, char **envp)
 	create_env(envp, &data->env);
 	get_path(data);
 	update_envp(data);
+	get_history(data);
 }
 
 void	data_default(t_data *data)
@@ -53,6 +54,7 @@ void	minishell_loop(t_data *data)
 		return ;
 	}
 	add_history(data->prompt);
+	save_history(data);
 	if (!is_pipe(data))
 		parent_cmd(data);
 	else
@@ -75,4 +77,5 @@ int	main(int argc, char **argv, char **envp)
 	data_initialize(&data, envp);
 	while (1)
 		minishell_loop(&data);
+	close(data.history_fd);
 }

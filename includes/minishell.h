@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/15 14:56:30 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/03/24 16:45:14 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef enum e_err{
 	ERR_ARGS,
 	ERR_UNSUPORTED,
 	ERR_QUOTES,
+	ERR_HOME_HIS,
 	ERR_EMPTY,
 	ERR_MAX
 }	t_err;
@@ -62,6 +63,7 @@ typedef struct s_data
 	char		*prompt;
 	t_list		*lst;
 	t_env		*env;
+	int			history_fd;
 	int			out_fd;
 	int			in_fd;
 	int			pipe_fd;
@@ -113,7 +115,10 @@ void	get_env(t_data *data);
 void	ft_exit(void);
 
 //pipes fonctions
-void	cmd_process(t_data *data, bool last);
+void	cmd_process(char **cmd, t_data *data, bool last);
 bool	inbuilts(char **cmd, t_data *data);
 void	excve(char **cmd, t_data *data);
+void	get_history(t_data *data);
+void	save_history(t_data *data);
+char	*get_home(t_data *data);
 #endif
