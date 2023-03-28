@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/24 17:13:44 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:59:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ typedef enum e_err{
 	ERR_ARGS,
 	ERR_UNSUPORTED,
 	ERR_QUOTES,
+	ERR_HOME,
+	ERR_OLDPWD,
 	ERR_HOME_HIS,
 	ERR_EMPTY,
+	ERR_START_PWD,
 	ERR_MAX
 }	t_err;
 
@@ -61,6 +64,8 @@ typedef struct s_data
 	char		**path;
 	char		**errlst;
 	char		*prompt;
+	char		*pwd;
+	char		*last_history;
 	t_list		*lst;
 	t_env		*env;
 	int			history_fd;
@@ -82,8 +87,7 @@ void	create_env(char **envp, t_env **env);
 t_env	*create_node(char *str);
 void	mini_unset(char **str, t_env **env, t_data *data);
 char	*delete_slash(char *str);
-void	change_oldpwd(char *old, t_env **env);
-void	mini_cd(char **str, t_env **env, t_data *data);
+void	mini_cd(t_data *data, char **input);
 char	*add_slash(char *str);
 void	replace_charset_to_c(char *str, char *charset, char c);
 void	create_pwd(t_env **env);
@@ -120,6 +124,10 @@ bool	inbuilts(char **cmd, t_data *data);
 void	excve(char **cmd, t_data *data);
 void	get_history(t_data *data);
 void	save_history(t_data *data);
-char	*get_home(t_data *data);
 void	error(int err, char *input, char *token, t_data *data);
+char	*get_str_env(t_data *data, char *env);
+t_env	*get_in_env(t_data *data, char *env);
+char	*get_pwd(t_data *data, char *dir);
+t_env	*almost_last_env(t_data *data);
+void	start_pwd(t_data *data);
 #endif

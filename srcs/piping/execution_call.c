@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/24 17:12:59 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:26:49 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	inbuilts(char **cmd, t_data *data)
 	else if (ft_strcmp(cmd[0], "unset"))
 		mini_unset(cmd, &data->env, data);
 	else if (ft_strcmp(cmd[0], "cd"))
-		mini_cd(cmd, &data->env, data);
+		mini_cd(data, cmd);
 	else if (ft_strcmp(cmd[0], "exit"))
 		mini_exit();
 	else

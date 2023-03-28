@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/24 17:12:59 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:35:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	check_sep_token(t_list	*lst, t_data *data)
 	if (ft_strcmp(lst->str, "<") || ft_strcmp(lst->str, ">"))
 		return ;
 	if (ft_strcmp(lst->str, "|") || ft_strcmp(lst->str, "\t"))
+		return ;
+	if (ft_strcmp(lst->str, "~"))
 		return ;
 	error_exit(ERR_UNSUPORTED, lst->str, NULL, data);
 }
@@ -45,9 +47,10 @@ static int	get_seperator(char *str, t_data *data, t_list **buf, bool *quotes)
 		j++;
 	}
 	if (i != j)
+	{
 		(*buf)->next = ft_lstnew(ft_substr(str, i, j - i));
-	if ((*buf)->next)
 		check_sep_token((*buf)->next, data);
+	}
 	if (str[j] && ft_strchr(" \n\t\v\f\r", str[j]))
 		j++;
 	return (j);

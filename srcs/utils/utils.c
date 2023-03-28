@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/24 16:35:53 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:25:26 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	remove_from_list(t_list **lst, t_list *rem)
 
 	buf = *lst;
 	if (!(*lst)->next)
+	{
 		ft_lstdelone(*lst, free);
+		*lst = NULL;
+	}
 	else if (*lst == rem)
 	{
 		*lst = (*lst)->next;
@@ -129,19 +132,13 @@ int		env_size(t_env *env)
 
 void	get_path(t_data *data)
 {
-	t_env	*buf;
+	t_env	*env;
 
-	buf = data->env;
-	while (buf)
-	{
-		if (ft_strcmp(buf->pref, "PATH"))
-		{
-			data->path = ft_split(buf->string, ':');
-			return ;
-		}
-		buf = buf->next;
-	}
-	data->path = NULL;
+	env = get_in_env(data, "PATH");
+	if (!env)
+		data->path = NULL;
+	else
+		data->path = ft_split(env->string, ':');
 }
 
 void	update_envp(t_data *data)
@@ -200,115 +197,6 @@ bool	is_flaged(char **str)
 	if (str[1][0] == '-')
 		return (true);
 	return (false);
-}
-
-char	*delete_slash(char *str)
-{
-	int		len;
-	char	*res;
-	int		i;
-	int		n;
-
-	i = 1;
-	n = 0;
-	len = ft_strlen(str) - 1;
-	if (str[len] == '/')
-	{
-		res = malloc(sizeof(char) * ft_strlen(str) + 1);
-		res[0] = '/';
-		while (str[n] != '/')
-		{
-			res[i] = str[n];
-			i++;
-			n++;
-		}
-		res[i] = '\0';
-		free(str);
-		return (res);
-	}
-	return (str);
-}
-
-char	*add_slash(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] != '/')
-	{
-		str = ft_strjoinfree("/", str, false, true);
-		return (str);
-	}
-	return (str);
-}
-
-static void	create_oldpwd(char *old, t_env **env)
-{
-	t_env	*current;
-	t_env	*buff;
-
-	current = *env;
-	while (current->next->next != NULL)
-		current = current->next;
-	buff = current->next;
-	current->next = create_node(ft_strjoin("OLDPWD=", old));
-	current->next->next = buff;
-}
-
-void	going_back(t_env **env)
-{
-	t_env	*current;
-	char	*pwd;
-	char 	*str;
-
-	pwd = getcwd(NULL, 0);
-	str = ft_strdup(pwd);
-	current = *env;
-	while (ft_strncmp(current->pref, "PWD", 3))
-		current = current->next;
-	free(current->string);
-	current->string = str;
-	free(current->full_string);
-	current->full_string = ft_strjoin("PWD=", str);
-	free(pwd);
-}
-
-void	create_pwd(t_env **env)
-{
-	t_env	*cursor;
-	t_env	*buff;
-	char	*pwd;
-
-	pwd = getcwd(NULL, 0);
-	cursor = *env;
-	while (cursor->next->next != NULL)
-		cursor = cursor->next;
-	buff = cursor->next;
-	cursor->next = create_node(ft_strjoin("PWD=", pwd));
-	cursor->next->next = buff;
-}
-
-void	change_oldpwd(char *old, t_env **env)
-{
-	t_env	*cursor;
-	char	*str;
-
-	str = ft_strdup(old);
-	cursor = *env;
-	while (ft_strncmp(cursor->full_string, "OLDPWD", 6))
-	{
-		cursor = cursor->next;
-		if (cursor == NULL)
-		{
-			create_oldpwd(old, env);
-			return ;
-		}
-	}
-	free(cursor->full_string);
-	cursor->full_string = ft_strjoin("OLDPWD=", str);
-	free(cursor->string);
-	cursor->string = str;
-	free(old);
 }
 
 void	add_pid(pid_t pid, t_data *data)
@@ -410,17 +298,35 @@ void	remove_quotes(t_data *data)
 	}
 }
 
-char	*get_home(t_data *data)
+char	*get_str_env(t_data *data, char *env)
 {
-	t_env *env;
+	t_env	*buf;
 
-	env = data->env;
-	while (env && !ft_strcmp(env->pref, "HOME"))
-		env = env->next;
-	if (env)
-		return (ft_strdup(env->string));
-	else
-		return (NULL);
+	buf = data->env;
+	while (buf && !ft_strcmp(buf->pref, env))
+		buf = buf->next;
+	if (buf)
+		return (ft_strdup(buf->string));
+	return (NULL);
+}
+
+t_env	*get_in_env(t_data *data, char *env)
+{
+	t_env	*buf;
+
+	buf = data->env;
+	while (buf && !ft_strcmp(buf->pref, env))
+		buf = buf->next;
+	if (buf)
+		return (buf);
+	return (NULL);
+}
+
+void	start_pwd(t_data *data)
+{
+	data->pwd = getcwd(NULL, 0);
+	if (!data->pwd)
+		error_exit(ERR_START_PWD, NULL, NULL, data);
 }
 
 /*need upgrade*/

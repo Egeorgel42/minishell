@@ -5,92 +5,109 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 16:00:06 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/24 17:24:37 by egeorgel         ###   ########.fr       */
+/*   Created: 2023/03/27 15:58:18 by egeorgel          #+#    #+#             */
+/*   Updated: 2023/03/28 15:14:50 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	full_change(char *dir, t_env **env)
+static void	change_oldpwd(t_data *data, char *pwd)
 {
-	t_env	*current;
+	t_env	*buf;
+	t_env	*oldpwd;
+	char	*join;
 
-	current = *env;
-	while (ft_strncmp(current->pref, "PWD", 3))
-		current = current->next;
-	free(current->full_string);
-	current->full_string = ft_strjoin("PWD=", dir);
-	free(current->string);
-	current->string = dir;
-}
-
-static void	small_change(char *dir, t_env **env)
-{
-	t_env	*current;
-	char	*str;
-
-	current = *env;
-	while (ft_strncmp(current->pref, "PWD", 3))
-		current = current->next;
-	dir = delete_slash(dir);
-	dir = add_slash(dir);
-	str = ft_strdup(current->string);
-	free(current->string);
-	dir = ft_strjoinfree(str, dir, true, true);
-	current->string = dir;
-	free(current->full_string);
-	current->full_string = ft_strjoin("PWD=", dir);
-}
-
-static void	change_pwd(char *dir, t_env **env)
-{
-	t_env	*current;
-	char	*buf;
-
-	current = *env;
-	buf = strdup(dir);
-	while (ft_strncmp(current->pref, "PWD", 3))
+	oldpwd = get_in_env(data, "OLDPWD");
+	if (!oldpwd)
 	{
-		current =  current->next;
-		if (current == NULL)
-		{
-			create_pwd(env);
-			return ;
-		}
+		oldpwd = almost_last_env(data);
+		join = ft_strjoin("OLDPWD=", pwd);
+		buf = oldpwd->next;
+		oldpwd->next = create_node(join);
+		oldpwd->next->next = buf;
+		free(join);
 	}
-	if (!ft_strncmp(dir, "..", 2))
-		going_back(env);
-	else if (ft_strncmp(dir, "/home", 5))
-		small_change(buf, env);
-	else if (!ft_strncmp(dir, "/home", 5))
-		full_change(buf, env);
-}
-
-static char	*getoldpwd(t_env **env)
-{
-	t_env	*current;
-
-	current = *env;
-	while (ft_strncmp(current->pref, "PWD", 3))
+	else
 	{
-		current = current->next;
-		if (current == NULL)
-			return (NULL);
+		free(oldpwd->full_string);
+		oldpwd->full_string = ft_strjoin("OLDPWD=", pwd);
+		free(oldpwd->string);
+		oldpwd->string = ft_strdup(pwd);
 	}
-	return (current->string);
 }
 
-void	mini_cd(char **str, t_env **env, t_data *data)
+static void	change_pwd(t_data *data, char *dir)
 {
-	char	*old;
+	t_env	*buf;
+	t_env	*env;
+	char	*pwd;
 
-	old = getoldpwd(env);
-	if (chdir(str[1]) != 0)
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		pwd = get_pwd(data, dir);
+	env = get_in_env(data, "PWD");
+	if (!env)
 	{
-		error(ERR_FLAG, str[0], str[1], data);
+		env = almost_last_env(data);
+		buf = env->next;
+		env->next = create_node(pwd);
+		env->next->next = buf;
+	}
+	else
+	{
+		free(env->string);
+		env->string = ft_strdup(pwd);
+		free(env->full_string);
+		env->full_string = ft_strjoin("PWD=", pwd);
+	}
+	free(data->pwd);
+	data->pwd = ft_strdup(pwd);
+	free(pwd);
+}
+
+static void	cd_fction(t_data *data, char *input)
+{
+	char	*pwd;
+
+	pwd = get_str_env(data, "PWD");
+	if (!pwd)
+		pwd = ft_strdup("");
+	if (chdir(input) != 0)
+	{
+		error(ERR_MAX, NULL, NULL, data);
 		return ;
 	}
-	change_oldpwd(old, env);
-	change_pwd(str[1], env);
+	change_pwd(data, input);
+	change_oldpwd(data, pwd);
+	free(pwd);
+}
+
+void	mini_cd(t_data *data, char **input)
+{
+	char	*buf;
+
+	if (input[2])
+	{
+		error(ERR_ARGS, input[0], NULL, data);
+		return ;
+	}
+	else if (ft_strcmp(input[1], "-"))
+	{
+		buf = get_str_env(data, "OLDPWD");
+		if (!buf)
+		{
+			error(ERR_OLDPWD, input[0], NULL, data);
+			return ;
+		}
+		cd_fction(data, buf);
+		free(buf);
+	}
+	else if (is_flaged(input))
+	{
+		error(ERR_FLAG, input[0], input[1], data);
+		return ;
+	}
+	else
+		cd_fction(data, input[1]);
 }

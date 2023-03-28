@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/24 17:26:03 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:32:09 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,13 @@ void	get_errlst(t_data *data)
 	data->errlst[ERR_PARSING] = strdup("Unexpected parsing error");
 	data->errlst[ERR_UNSUPORTED] = strdup("Is not a valid input");
 	data->errlst[ERR_HOME_HIS] = strdup("Could not access history, $HOME is not set");
+	data->errlst[ERR_HOME] = strdup("Could not get character '~', $HOME is not set");
+	data->errlst[ERR_OLDPWD] = strdup("$OLDPWD is not set");
+	data->errlst[ERR_START_PWD] = strdup("Can't start minishell in a non existing directory");
 	data->errlst[ERR_QUOTES] = strdup("Unclosed quotes");
 	data->errlst[ERR_EMPTY] = strdup("Empty argument after token");
 	data->errlst[ERR_FLAG] = strdup("Following option is invalid");
-	data->errlst[ERR_ARGS] = strdup("Invalid command argument");
+	data->errlst[ERR_ARGS] = strdup("Invalid command arguments");
 	data->errlst[ERR_EXP] = strdup("not a valid indentifier");
 	data->errlst[ERR_MAX] = NULL;
 }

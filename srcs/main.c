@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/23 18:46:59 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:01:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void	data_initialize(t_data *data, char **envp)
 	data->pipe_fd = 0;
 	data->in_fd = 0;
 	data->out_fd = 1;
+	data->last_history = ft_strdup("");
 	get_errlst(data);
 	data->envp = NULL;
 	data->env = NULL;
 	data->pidlst = NULL;
+	start_pwd(data);
 	create_env(envp, &data->env);
 	get_path(data);
 	update_envp(data);
@@ -53,7 +55,6 @@ void	minishell_loop(t_data *data)
 		free(data->prompt);
 		return ;
 	}
-	add_history(data->prompt);
 	save_history(data);
 	if (!is_pipe(data))
 		parent_cmd(data);

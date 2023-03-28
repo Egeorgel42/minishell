@@ -6,26 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/15 17:37:33 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 00:09:26 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	*get_in_env(t_data *data, char *env)
-{
-	char	*pref;
-	t_env	*buf;
-
-	pref = ft_substr(env, 1, ft_strlen(env) - 1);
-	buf = data->env;
-	while (buf && !ft_strcmp(buf->pref, pref))
-		buf = buf->next;
-	free(pref);
-	if (buf)
-		return (ft_strdup(buf->string));
-	return (ft_strdup(""));
-}
 
 static void	parse_env(char **env_str, int i, bool *quotes)
 {
@@ -63,24 +48,35 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 			|| ((*str)[j] >= 'A' && (*str)[j] <= 'Z') || (*str)[j] == '_'))
 			break ;
 	}
-	env = ft_substr(*str, i, j - i);
-	env_str = get_in_env(data, env);
+	env = ft_substr(*str, i + 1, j - i);
+	env_str = get_str_env(data, env);
+	if (!env_str)
+		env_str = ft_strdup("");
 	parse_env(&env_str, i, quotes);
 	replace_in_str(str, env_str, i, j);
-	j = i + ft_strlen(env_str);
+	j = i + ft_strlen(env_str) - 1;
 	free(env_str);
 	free(env);
-	return (j - 1);
+	return (j);
 }
 
 static void	developp_env(t_data *data, char **str)
 {
 	int		i;
 	bool	quotes[2];
+	char	*buf;
 
 	i = -1;
 	quotes[0] = false;
 	quotes[1] = false;
+	if ((*str)[0] == '~' && (!(*str)[1] || (*str)[1] == '/'))
+	{
+		buf = get_str_env(data, "HOME");
+		if (!buf)
+			error(ERR_HOME, NULL, NULL, data);
+		replace_in_str(str, buf, 0, 1);
+		free (buf);
+	}
 	while ((*str)[++i])
 	{
 		if ((*str)[i] == '\'' && !quotes[1])

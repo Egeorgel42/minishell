@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 19:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/24 17:25:09 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:15:20 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ static bool	check_input(char **str, t_data *data)
 	int	i;
 
 	i = 0;
-	if (!str[1])
+	if (!str[1] || str[2])
+	{
+		error(ERR_ARGS, str[0], NULL, data);
 		return (false);
+	}
 	if (str[1][0] >= '0' && str[1][0] <= '9')
 	{
 		error(ERR_EXP, str[0], str[1], data);
