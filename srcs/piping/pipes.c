@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 16:46:38 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:55:07 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ bool	callstructure(t_data *data)
 	if (buf && ft_strcmp(buf->str, "|"))
 	{
 		create_pipe(data);
-		get_env(data);
+		if (!get_env(data))
+		{
+			rem_until_rem(&data->lst, buf);
+			return (true);
+		}
 		get_redirection_out(data);
 		remove_quotes(data);
 		cmd = get_cmd(data);
@@ -46,7 +50,11 @@ bool	callstructure(t_data *data)
 	}
 	else if (!buf)
 	{
-		get_env(data);
+		if (!get_env(data))
+		{
+			ft_lstclear(&data->lst, free);
+			return (false);
+		}
 		get_redirection_out(data);
 		remove_quotes(data);
 		cmd = get_cmd(data);
@@ -61,7 +69,8 @@ void	parent_cmd(t_data *data)
 {
 	char	**cmd;
 
-	get_env(data);
+	if (!get_env(data))
+		return ;
 	get_redirection_out(data);
 	remove_quotes(data);
 	cmd = get_cmd(data);

@@ -3,16 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkuzmin <vkuzmin@student.42nice.fr>        +#+  +:+       +#+         #
+#    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/03/15 18:50:00 by vkuzmin          ###   ########.fr        #
+#    Updated: 2023/03/27 11:41:30 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 FILES = main.c \
 error.c \
+history.c \
+builtins/cd_utils.c \
 builtins/mini_echo.c \
 builtins/mini_env.c \
 builtins/mini_export.c \

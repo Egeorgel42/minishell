@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 16:59:37 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:20:01 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,8 @@ typedef struct s_data
 void	error_exit(int err, char *input, char *token, t_data *data);
 
 bool	is_flaged(char **str);
-void	mini_pwd(char **str, t_data *data, t_env **env);
+void	mini_pwd(char **str, t_data *data);
 void	mini_env(char **str, t_data *data);
-void	check_pwd(char *str);
 void	mini_echo(char **str, t_data *data);
 void	mini_export(char **str, t_data *data);
 void	create_env(char **envp, t_env **env);
@@ -115,7 +114,7 @@ void	clear_pidlst(t_data *data);
 void	signal_handler(int sig);
 void	mini_exit(void);
 void	replace_in_str(char **str, char *replace, int start, int end);
-void	get_env(t_data *data);
+bool	get_env(t_data *data);
 void	ft_exit(void);
 
 //pipes fonctions

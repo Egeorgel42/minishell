@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:58:18 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 15:14:50 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:12:22 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	change_pwd(t_data *data, char *dir)
 	t_env	*buf;
 	t_env	*env;
 	char	*pwd;
+	char	*str;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
@@ -49,10 +50,12 @@ static void	change_pwd(t_data *data, char *dir)
 	env = get_in_env(data, "PWD");
 	if (!env)
 	{
+		str = ft_strjoin("PWD=", pwd);
 		env = almost_last_env(data);
 		buf = env->next;
-		env->next = create_node(pwd);
+		env->next = create_node(str);
 		env->next->next = buf;
+		free(str);
 	}
 	else
 	{

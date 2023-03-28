@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 00:09:26 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:05:35 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 			|| ((*str)[j] >= 'A' && (*str)[j] <= 'Z') || (*str)[j] == '_'))
 			break ;
 	}
-	env = ft_substr(*str, i + 1, j - i);
+	env = ft_substr(*str, i + 1, j - i - 1);
 	env_str = get_str_env(data, env);
 	if (!env_str)
 		env_str = ft_strdup("");
@@ -60,7 +60,7 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 	return (j);
 }
 
-static void	developp_env(t_data *data, char **str)
+static bool	developp_env(t_data *data, char **str)
 {
 	int		i;
 	bool	quotes[2];
@@ -73,7 +73,10 @@ static void	developp_env(t_data *data, char **str)
 	{
 		buf = get_str_env(data, "HOME");
 		if (!buf)
+		{
 			error(ERR_HOME, NULL, NULL, data);
+			return (false);
+		}
 		replace_in_str(str, buf, 0, 1);
 		free (buf);
 	}
@@ -86,16 +89,19 @@ static void	developp_env(t_data *data, char **str)
 		else if ((*str)[i] == '$' && !quotes[0])
 			i = find_env(data, str, i, quotes);
 	}
+	return (true);
 }
 
-void	get_env(t_data *data)
+bool	get_env(t_data *data)
 {
 	t_list	*buf;
 
 	buf = data->lst;
 	while (buf && !ft_strchr(buf->str, '|'))
 	{
-		developp_env(data, &buf->str);
+		if (!developp_env(data, &buf->str))
+			return (false);
 		buf = buf->next;
 	}
+	return (true);
 }
