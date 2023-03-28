@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 18:55:07 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 23:31:27 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ bool	callstructure(t_data *data)
 	if (buf && ft_strcmp(buf->str, "|"))
 	{
 		create_pipe(data);
-		if (!get_env(data))
+		if (!get_env(data) || !get_redirection_out(data))
 		{
 			rem_until_rem(&data->lst, buf);
 			return (true);
 		}
-		get_redirection_out(data);
 		remove_quotes(data);
 		cmd = get_cmd(data);
 		cmd_process(cmd, data, true);
@@ -50,12 +49,11 @@ bool	callstructure(t_data *data)
 	}
 	else if (!buf)
 	{
-		if (!get_env(data))
+		if (!get_env(data) || !get_redirection_out(data))
 		{
 			ft_lstclear(&data->lst, free);
 			return (false);
 		}
-		get_redirection_out(data);
 		remove_quotes(data);
 		cmd = get_cmd(data);
 		cmd_process(cmd, data, true);
@@ -69,8 +67,11 @@ void	parent_cmd(t_data *data)
 {
 	char	**cmd;
 
-	if (!get_env(data))
+	if (!get_env(data) || !get_redirection_out(data))
+	{
+		ft_lstclear(&data->lst, free);
 		return ;
+	}
 	get_redirection_out(data);
 	remove_quotes(data);
 	cmd = get_cmd(data);

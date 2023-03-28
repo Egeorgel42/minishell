@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 16:25:26 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 23:44:52 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,20 @@ char	*get_str_env(t_data *data, char *env)
 		buf = buf->next;
 	if (buf)
 		return (ft_strdup(buf->string));
+	return (NULL);
+}
+
+t_env	*get_prev_in_env(t_data *data, char *env)
+{
+	t_env	*buf;
+
+	buf = data->env;
+	if (!buf)
+		return (NULL);
+	while (buf->next && !ft_strcmp(buf->next->pref, env))
+		buf = buf->next;
+	if (buf->next)
+		return (buf);
 	return (NULL);
 }
 

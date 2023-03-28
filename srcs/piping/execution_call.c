@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 15:26:49 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 23:47:27 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	excve(char **cmd, t_data *data)
 bool	inbuilts(char **cmd, t_data *data)
 {
 	if (ft_strcmp(cmd[0], "pwd"))
-		mini_pwd(cmd, data, &data->env);
+		mini_pwd(cmd, data);
 	else if (ft_strcmp(cmd[0], "env"))
 		mini_env(cmd, data);
 	else if (ft_strcmp(cmd[0], "echo"))
@@ -54,7 +54,7 @@ bool	inbuilts(char **cmd, t_data *data)
 	else if (ft_strcmp(cmd[0], "export"))
 		mini_export(cmd, data);
 	else if (ft_strcmp(cmd[0], "unset"))
-		mini_unset(cmd, &data->env, data);
+		mini_unset(data, cmd);
 	else if (ft_strcmp(cmd[0], "cd"))
 		mini_cd(data, cmd);
 	else if (ft_strcmp(cmd[0], "exit"))

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 19:20:01 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 23:47:48 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	mini_echo(char **str, t_data *data);
 void	mini_export(char **str, t_data *data);
 void	create_env(char **envp, t_env **env);
 t_env	*create_node(char *str);
-void	mini_unset(char **str, t_env **env, t_data *data);
+void	mini_unset(t_data *data, char **str);
 char	*delete_slash(char *str);
 void	mini_cd(t_data *data, char **input);
 char	*add_slash(char *str);
@@ -93,7 +93,7 @@ void	create_pwd(t_env **env);
 void	going_back(t_env **env);
 
 bool	callstructure(t_data *data);
-void	get_redirection_out(t_data *data);
+bool	get_redirection_out(t_data *data);
 void	remove_quotes(t_data *data);
 void	prompt(t_data *data);
 void	get_errlst(t_data *data);
@@ -129,4 +129,5 @@ t_env	*get_in_env(t_data *data, char *env);
 char	*get_pwd(t_data *data, char *dir);
 t_env	*almost_last_env(t_data *data);
 void	start_pwd(t_data *data);
+t_env	*get_prev_in_env(t_data *data, char *env);
 #endif

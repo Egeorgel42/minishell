@@ -6,37 +6,56 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 21:00:16 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/24 17:21:28 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/28 23:48:11 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	mini_unset(char **str, t_env **env, t_data *data)
+static bool	check_input(char **str, t_data *data)
 {
-	t_env	*current;
+	int	i;
+
+	i = 0;
+	if (!str[1] || str[2])
+	{
+		error(ERR_ARGS, str[0], NULL, data);
+		return (false);
+	}
+	if (str[1][0] >= '0' && str[1][0] <= '9')
+	{
+		error(ERR_EXP, str[0], str[1], data);
+		return (false);
+	}
+	while (str[1][i])
+	{
+		if ((str[1][i] >= '0' && str[1][i] <= '9')
+			|| (str[1][i] >= 'a' && str[1][i] <= 'z')
+			|| (str[1][i] >= 'A' && str[1][i] <= 'Z') || str[1][i] == '_')
+			i++;
+		else
+		{
+			error(ERR_EXP, str[0], str[1], data);
+			return (false);
+		}
+	}
+	return (true);
+}
+
+void	mini_unset(t_data *data, char **str)
+{
+	t_env	*env;
 	t_env	*prev;
 
-	if (str[2])
-	{
-		error(ERR_ARGS, str[0], str[2], data);
+	if (!check_input(str, data))
 		return ;
-	}
-	prev = NULL;
-	current = *env;
-	while (current != NULL)
-	{
-		if (!ft_strncmp(current->full_string, str[1], ft_strlen(current->pref)))
-		{
-			if (prev != NULL)
-				prev->next = current -> next;
-			else
-				*env = current -> next;
-			free(current);
-			return ;
-		}
-		prev = current;
-		current = current -> next;
-	}
-	return ;
+	env = get_in_env(data, str[1]);
+	prev = get_prev_in_env(data, str[1]);
+	if (!env)
+		return ;
+	prev->next = env->next;
+	free(env->full_string);
+	free(env->pref);
+	free(env->string);
+	free(env);
 }
