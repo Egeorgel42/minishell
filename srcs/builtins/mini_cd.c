@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:58:18 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 19:12:22 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/29 00:06:07 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static void	cd_fction(t_data *data, char *input)
 	if (chdir(input) != 0)
 	{
 		error(ERR_MAX, NULL, NULL, data);
+		free(pwd);
 		return ;
 	}
 	change_pwd(data, input);

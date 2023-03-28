@@ -6,7 +6,7 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/03/27 11:41:30 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/03/28 23:51:58 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ piping/pipes.c \
 utils/utils.c \
 signals/signals.c \
 
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -lreadline -lhistory -I$(RDLINE)/include -ltinfo
 #if you are on Linux, uncomment the -ltinfo for the project to compile, or comment it if you are on MacOs.
 SRCS = $(addprefix srcs/, $(FILES))
