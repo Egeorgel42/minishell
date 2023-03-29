@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:07:20 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 16:47:38 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:10:38 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	child(char **cmd, t_data *data)
 		excve(cmd, data);
 	close(data->in_fd);
 	close(data->out_fd);
+	exit(data->cmd_status);
 }
 
 static void	last_child(char **cmd, t_data *data)
@@ -32,6 +33,7 @@ static void	last_child(char **cmd, t_data *data)
 		excve(cmd, data);
 	close(data->in_fd);
 	close(data->out_fd);
+	exit(data->cmd_status);
 }
 
 void	cmd_process(char **cmd, t_data *data, bool last)

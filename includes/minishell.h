@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 23:47:48 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:10:44 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_pidlst
 
 typedef struct s_data
 {
+	int			status;
+	int			cmd_status;
 	char		**envp;
 	char		**path;
 	char		**errlst;
@@ -82,11 +84,12 @@ void	mini_pwd(char **str, t_data *data);
 void	mini_env(char **str, t_data *data);
 void	mini_echo(char **str, t_data *data);
 void	mini_export(char **str, t_data *data);
+void	mini_exit(t_data *data, char **str);
+void	mini_unset(t_data *data, char **str);
+void	mini_cd(t_data *data, char **input);
 void	create_env(char **envp, t_env **env);
 t_env	*create_node(char *str);
-void	mini_unset(t_data *data, char **str);
 char	*delete_slash(char *str);
-void	mini_cd(t_data *data, char **input);
 char	*add_slash(char *str);
 void	replace_charset_to_c(char *str, char *charset, char c);
 void	create_pwd(t_env **env);
@@ -112,7 +115,6 @@ void	parent_cmd(t_data *data);
 bool	is_pipe(t_data *data);
 void	clear_pidlst(t_data *data);
 void	signal_handler(int sig);
-void	mini_exit(void);
 void	replace_in_str(char **str, char *replace, int start, int end);
 bool	get_env(t_data *data);
 void	ft_exit(void);

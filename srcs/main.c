@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 18:48:21 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:54:00 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	data_initialize(t_data *data, char **envp)
 	data->pipe_fd = 0;
 	data->in_fd = 0;
 	data->out_fd = 1;
+	data->status = 0;
+	data->cmd_status = 0;
 	data->last_history = ft_strdup("");
 	get_errlst(data);
 	data->envp = NULL;
@@ -46,8 +48,7 @@ void	minishell_loop(t_data *data)
 {
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-	if ((data->prompt = readline("-> ")) == NULL)
-		ft_exit();
+	data->prompt = readline("-> ");
 	errno = 0;
 	data->lst = sep_token(data->prompt, data);
 	if (!data->lst)

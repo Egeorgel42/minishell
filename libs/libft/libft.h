@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:51:12 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/02 22:38:00 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/29 00:13:57 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <stdbool.h>
-#include <stdint.h>
+# include <stdint.h>
 
 typedef struct s_list{
 	char			*str;
