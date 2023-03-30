@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 23:44:52 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:36:56 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,16 +199,6 @@ bool	is_flaged(char **str)
 	return (false);
 }
 
-void	add_pid(pid_t pid, t_data *data)
-{
-	t_pidlst	*new_pid;
-
-	new_pid = malloc(sizeof(t_pidlst));
-	new_pid->next = data->pidlst;
-	new_pid->pid = pid;
-	data->pidlst = new_pid;
-}
-
 pid_t	last_pid(t_data *data)
 {
 	t_pidlst	*buf_pid;
@@ -217,6 +207,25 @@ pid_t	last_pid(t_data *data)
 	while (buf_pid->next)
 		buf_pid = buf_pid->next;
 	return (buf_pid->pid);
+}
+
+void	add_pid(pid_t pid, t_data *data)
+{
+	t_pidlst	*new_pid;
+	t_pidlst	*buf;
+
+	new_pid = malloc(sizeof(t_pidlst));
+	new_pid->next = NULL;
+	new_pid->pid = pid;
+	buf = data->pidlst;
+	if (!buf)
+	{
+		data->pidlst = new_pid;
+		return ;
+	}
+	while (buf->next)
+		buf = buf->next;
+	buf->next = new_pid;
 }
 
 void	clear_pidlst(t_data *data)

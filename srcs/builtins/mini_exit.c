@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:09:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/29 15:07:08 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:52:19 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	mini_exit(t_data *data, char **str)
 	int	nbr;
 
 	if (!str[1])
+	{
+		ft_printf("%d\n", data->status);
 		exit(data->status);
+	}
 	if (is_flaged(str))
 		error(ERR_FLAG, str[0], str[1], data);
 	else if (str[2])

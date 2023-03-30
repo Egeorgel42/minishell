@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/29 14:53:38 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:44:13 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	error(int err, char *input, char *token, t_data *data)
 		ft_putstr_fd(msg, 2);
 	}
 	free(msg);
+	data->cmd_status = 1;
 }
 /*
 written like: "minishell: input: err_msg 'token'"
