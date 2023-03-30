@@ -6,13 +6,13 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:43:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/24 17:24:17 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:53:17 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	mini_echo(char **str, t_data *data)
+void	mini_echo(char **str)
 {
 	char	*res;
 	int		flag;
@@ -30,11 +30,6 @@ void	mini_echo(char **str, t_data *data)
 	{
 		flag = 1;
 		i++;
-	}
-	else if (is_flaged(str))
-	{
-		error(ERR_FLAG, str[0], str[1], data);
-		return ;
 	}
 	if (!str[++i])
 		return ;

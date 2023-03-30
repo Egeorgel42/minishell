@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/29 15:10:44 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:53:38 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef enum e_err{
 	ERR_FLAG,
 	ERR_PARSING,
 	ERR_ARGS,
+	ERR_ARGS_NBR,
 	ERR_UNSUPORTED,
 	ERR_QUOTES,
 	ERR_HOME,
@@ -82,7 +83,7 @@ void	error_exit(int err, char *input, char *token, t_data *data);
 bool	is_flaged(char **str);
 void	mini_pwd(char **str, t_data *data);
 void	mini_env(char **str, t_data *data);
-void	mini_echo(char **str, t_data *data);
+void	mini_echo(char **str);
 void	mini_export(char **str, t_data *data);
 void	mini_exit(t_data *data, char **str);
 void	mini_unset(t_data *data, char **str);

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 19:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/27 16:15:20 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:57:13 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static bool	check_input(char **str, t_data *data)
 	i = 0;
 	if (!str[1] || str[2])
 	{
+		data->cmd_status = 2;
 		error(ERR_ARGS, str[0], NULL, data);
 		return (false);
 	}

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:58:18 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/29 00:06:07 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:46:38 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	mini_cd(t_data *data, char **input)
 
 	if (input[2])
 	{
+		data->cmd_status = 2;
 		error(ERR_ARGS, input[0], NULL, data);
 		return ;
 	}
@@ -109,6 +110,7 @@ void	mini_cd(t_data *data, char **input)
 	}
 	else if (is_flaged(input))
 	{
+		data->cmd_status = 2;
 		error(ERR_FLAG, input[0], input[1], data);
 		return ;
 	}

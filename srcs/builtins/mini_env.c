@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:12:14 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/24 17:24:02 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:45:16 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ void	mini_env(char **str, t_data *data)
 	current = data->env;
 	if (is_flaged(str))
 	{
+		data->cmd_status = 2;
 		error(ERR_FLAG, str[0], str[1], data);
 		return ;
 	}
 	if (str[1])
 	{
-		error(ERR_ARGS, str[0], NULL, data);
+		data->cmd_status = 2;
+		error(ERR_ARGS_NBR, str[0], NULL, data);
 		return ;
 	}
 	while (current != NULL)

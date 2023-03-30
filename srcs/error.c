@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/30 13:44:13 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:35:32 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	error_exit(int err, char *input, char *token, t_data *data)
 	if (errno)
 	{
 		perror(msg);
-		exit(errno);	
+		exit(errno);
 	}
 	msg = ft_strjoinfree(msg, ": ", true, false);
 	msg = ft_strjoinfree(msg, data->errlst[err], true, false);
@@ -65,7 +65,8 @@ void	error(int err, char *input, char *token, t_data *data)
 		ft_putstr_fd(msg, 2);
 	}
 	free(msg);
-	data->cmd_status = 1;
+	if (data->cmd_status == 0)
+		data->cmd_status = 1;
 }
 /*
 written like: "minishell: input: err_msg 'token'"
@@ -92,6 +93,7 @@ void	get_errlst(t_data *data)
 	data->errlst[ERR_EMPTY] = strdup("Empty argument after token");
 	data->errlst[ERR_FLAG] = strdup("Following option is invalid");
 	data->errlst[ERR_ARGS] = strdup("Invalid command arguments");
+	data->errlst[ERR_ARGS_NBR] = strdup("Too many arguments");
 	data->errlst[ERR_EXP] = strdup("not a valid indentifier");
 	data->errlst[ERR_MAX] = NULL;
 }

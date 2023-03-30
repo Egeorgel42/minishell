@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:09:43 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/28 19:19:11 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:57:54 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	mini_pwd(char **str, t_data *data)
 
 	if (is_flaged(str))
 	{
+		data->cmd_status = 2;
 		error(ERR_FLAG, str[0], str[1], data);
 		return ;
 	}
