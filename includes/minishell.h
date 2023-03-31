@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/30 15:53:38 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:19:38 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <termios.h>
+# include <limits.h>
 
 typedef enum e_err{
 	ERRNO,
@@ -97,7 +98,7 @@ void	create_pwd(t_env **env);
 void	going_back(t_env **env);
 
 bool	callstructure(t_data *data);
-bool	get_redirection_out(t_data *data);
+int		get_redirection_out(t_data *data);
 void	remove_quotes(t_data *data);
 void	prompt(t_data *data);
 void	get_errlst(t_data *data);

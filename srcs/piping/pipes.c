@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/30 14:26:57 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:24:17 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	create_pipe(t_data *data)
 bool	callstructure(t_data *data)
 {
 	char	**cmd;
+	int		err;
 	t_list	*buf;
 
 	data->pipe_fd = 0;
@@ -35,10 +36,21 @@ bool	callstructure(t_data *data)
 	if (buf && ft_strcmp(buf->str, "|"))
 	{
 		create_pipe(data);
-		if (!get_env(data) || !get_redirection_out(data))
+		if (!get_env(data))
 		{
 			rem_until_rem(&data->lst, buf);
 			return (true);
+		}
+		err = get_redirection_out(data);
+		if (err == 1)
+		{
+			rem_until_rem(&data->lst, buf);
+			return (true);
+		}
+		else if (err == 2)
+		{
+			ft_lstclear(&data->lst, free);
+			return (false);
 		}
 		remove_quotes(data);
 		cmd = get_cmd(data);
@@ -67,12 +79,11 @@ void	parent_cmd(t_data *data)
 {
 	char	**cmd;
 
-	if (!get_env(data) || !get_redirection_out(data))
+	if (!get_env(data) || get_redirection_out(data))
 	{
 		ft_lstclear(&data->lst, free);
 		return ;
 	}
-	get_redirection_out(data);
 	remove_quotes(data);
 	cmd = get_cmd(data);
 	if (data->lst && !inbuilts(cmd, data))

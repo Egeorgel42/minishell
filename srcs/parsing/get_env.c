@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/31 16:39:13 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:10:12 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	exit_status(t_data *data, char **str, int i)
 	status = ft_itoa(data->status);
 	replace_in_str(str, status, i, i + 2);
 	free(status);
-	return (i + 1);
+	return (i);
 }
 
 static void	parse_env(char **env_str, int i, bool *quotes)
