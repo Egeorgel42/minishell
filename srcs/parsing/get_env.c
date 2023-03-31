@@ -6,11 +6,21 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 19:05:35 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:39:13 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	exit_status(t_data *data, char **str, int i)
+{
+	char	*status;
+
+	status = ft_itoa(data->status);
+	replace_in_str(str, status, i, i + 2);
+	free(status);
+	return (i + 1);
+}
 
 static void	parse_env(char **env_str, int i, bool *quotes)
 {
@@ -35,6 +45,8 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 	int		j;
 
 	j = i;
+	if ((*str)[i + 1] == '?' && !quotes[0])
+		return (exit_status(data, str, i));
 	while ((*str)[++j])
 	{
 		if ((*str)[j] == '\'' && !quotes[1])
@@ -48,6 +60,9 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 			|| ((*str)[j] >= 'A' && (*str)[j] <= 'Z') || (*str)[j] == '_'))
 			break ;
 	}
+	if (j == i + 1 && !(((*str)[j] == '\'' && !quotes[1])
+		|| ((*str)[j] == '"' && !quotes[0])))
+		return (i);
 	env = ft_substr(*str, i + 1, j - i - 1);
 	env_str = get_str_env(data, env);
 	if (!env_str)
