@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/31 17:24:17 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:51:55 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,46 +33,36 @@ bool	callstructure(t_data *data)
 	buf = data->lst;
 	while (buf && !ft_strcmp(buf->str, "|"))
 		buf = buf->next;
-	if (buf && ft_strcmp(buf->str, "|"))
-	{
+	if (buf)
 		create_pipe(data);
-		if (!get_env(data))
-		{
-			rem_until_rem(&data->lst, buf);
-			return (true);
-		}
-		err = get_redirection_out(data);
-		if (err == 1)
-		{
-			rem_until_rem(&data->lst, buf);
-			return (true);
-		}
-		else if (err == 2)
-		{
-			ft_lstclear(&data->lst, free);
-			return (false);
-		}
-		remove_quotes(data);
-		cmd = get_cmd(data);
-		cmd_process(cmd, data, true);
+	if (!get_env(data))
+	{
 		rem_until_rem(&data->lst, buf);
-		ft_freetab((void *)cmd);
+		if (!data->lst)
+			return (false);
 		return (true);
 	}
-	else if (!buf)
+	err = get_redirection_out(data);
+	if (err == 1)
 	{
-		if (!get_env(data) || !get_redirection_out(data))
-		{
-			ft_lstclear(&data->lst, free);
+		rem_until_rem(&data->lst, buf);
+		if (!data->lst)
 			return (false);
-		}
-		remove_quotes(data);
-		cmd = get_cmd(data);
-		cmd_process(cmd, data, true);
-		ft_lstclear(&data->lst, free);
+		return (true);
 	}
+	else if (err == 2)
+	{
+		ft_lstclear(&data->lst, free);
+		return (false);
+	}
+	remove_quotes(data);
+	cmd = get_cmd(data);
+	cmd_process(cmd, data);
+	rem_until_rem(&data->lst, buf);
 	ft_freetab((void *)cmd);
-	return (false);
+	if (!data->lst)
+		return (false);
+	return (true);
 }
 
 void	parent_cmd(t_data *data)
@@ -87,7 +77,7 @@ void	parent_cmd(t_data *data)
 	remove_quotes(data);
 	cmd = get_cmd(data);
 	if (data->lst && !inbuilts(cmd, data))
-		cmd_process(cmd, data, true);
+		cmd_process(cmd, data);
 	ft_lstclear(&data->lst, free);
 	ft_freetab((void *)cmd);
 	data->status = data->cmd_status;

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/31 17:19:38 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:45:13 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ bool	get_env(t_data *data);
 void	ft_exit(void);
 
 //pipes fonctions
-void	cmd_process(char **cmd, t_data *data, bool last);
+void	cmd_process(char **cmd, t_data *data);
 bool	inbuilts(char **cmd, t_data *data);
 void	excve(char **cmd, t_data *data);
 void	get_history(t_data *data);
