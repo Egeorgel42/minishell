@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:37:08 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/30 15:52:57 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:02:08 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*get_pwd(t_data *data, char *dir)
 {
 	char	*res;
 
-	ft_printf("%d\n",
+	ft_printf("%s\n",
 		"cd: cannot access parent directories: No such file or directory");
 	if (*dir == '/')
 		res = ft_strdup(dir);
