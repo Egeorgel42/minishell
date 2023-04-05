@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/31 17:51:55 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:20:42 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void	create_pipe(t_data *data)
 	if (pipe(fd) == -1)
 		error_exit(ERRNO, NULL, NULL, data);
 	data->pipe_fd = fd[0];
+	if (data->out_fd != 1)
+		close (data->out_fd);
 	data->out_fd = fd[1];
 }
 
-bool	callstructure(t_data *data)
+void	callstructure(t_data *data)
 {
 	char	**cmd;
 	int		err;
@@ -38,31 +40,24 @@ bool	callstructure(t_data *data)
 	if (!get_env(data))
 	{
 		rem_until_rem(&data->lst, buf);
-		if (!data->lst)
-			return (false);
-		return (true);
+		return ;
 	}
 	err = get_redirection_out(data);
 	if (err == 1)
 	{
 		rem_until_rem(&data->lst, buf);
-		if (!data->lst)
-			return (false);
-		return (true);
+		return ;
 	}
 	else if (err == 2)
 	{
 		ft_lstclear(&data->lst, free);
-		return (false);
+		return ;
 	}
 	remove_quotes(data);
 	cmd = get_cmd(data);
 	cmd_process(cmd, data);
 	rem_until_rem(&data->lst, buf);
 	ft_freetab((void *)cmd);
-	if (!data->lst)
-		return (false);
-	return (true);
 }
 
 void	parent_cmd(t_data *data)

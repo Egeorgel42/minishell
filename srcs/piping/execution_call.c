@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/30 15:53:24 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:51:20 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ void	excve(char **cmd, t_data *data)
 
 	path = access_p(data);
 	if (execve(path, cmd, data->envp) == -1)
+	{
+		free(path);
 		error_exit(ERRNO, NULL, NULL, data);
-	free(path);
+	}
 }
 
 bool	inbuilts(char **cmd, t_data *data)

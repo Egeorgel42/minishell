@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/30 14:36:56 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:36:52 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,14 +199,16 @@ bool	is_flaged(char **str)
 	return (false);
 }
 
-pid_t	last_pid(t_data *data)
+t_pidlst	*last_pid(t_data *data)
 {
 	t_pidlst	*buf_pid;
 
 	buf_pid = data->pidlst;
+	if (!buf_pid)
+		return (NULL);
 	while (buf_pid->next)
 		buf_pid = buf_pid->next;
-	return (buf_pid->pid);
+	return (buf_pid);
 }
 
 void	add_pid(pid_t pid, t_data *data)
