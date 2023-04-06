@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/05 15:20:42 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:33:55 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,22 @@ void	callstructure(t_data *data)
 	err = get_redirection_out(data);
 	if (err == 1)
 	{
+		if (data->in_fd != 0)
+			close (data->in_fd);
+		if (data->out_fd != 1)
+			close(data->out_fd);
+		data->in_fd = data->pipe_fd;
 		rem_until_rem(&data->lst, buf);
 		return ;
 	}
 	else if (err == 2)
 	{
+		if (data->in_fd != 0)
+			close (data->in_fd);
+		if (data->out_fd != 1)
+			close(data->out_fd);
+		if (data->pipe_fd != 0)
+			close(data->pipe_fd);
 		ft_lstclear(&data->lst, free);
 		return ;
 	}
