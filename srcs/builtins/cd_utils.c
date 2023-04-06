@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:37:08 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/01 19:02:08 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/06 19:44:49 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ t_env	*almost_last_env(t_data *data)
 char	*delete_slash(char *str)
 {
 	int		len;
+	char	*buf;
 
 	len = ft_strlen(str) - 1;
 	if (str[len] == '/')
 	{
+		buf = ft_substr(str, 0, len);
 		free(str);
-		return (ft_substr(str, 0, len));
+		return (buf);
 	}
 	return (str);
 }

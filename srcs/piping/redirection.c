@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/06 16:10:44 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:13:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	get_redirection_out(t_data *data)
 				error(ERR_EMPTY, NULL, buf->str, data);
 				err = 2;
 			}
-			if (!redirect_fd(data, buf))
+			else if (!redirect_fd(data, buf))
 				err = 1;
 			remove_from_list(&data->lst, buf->next);
 			remove_from_list(&data->lst, buf);
