@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/05 17:19:09 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/10 17:01:48 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <limits.h>
+
+char	*g_prompt;
 
 typedef enum e_err{
 	ERRNO,
@@ -96,6 +98,7 @@ char		*add_slash(char *str);
 void		replace_charset_to_c(char *str, char *charset, char c);
 void		create_pwd(t_env **env);
 void		going_back(t_env **env);
+void		empty_signal_handler(int sig);
 
 void		callstructure(t_data *data);
 int			get_redirection_out(t_data *data);
