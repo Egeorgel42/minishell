@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/10 17:04:54 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/11 12:58:43 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	data_default(t_data *data)
 	data->out_fd = 1;
 	update_envp(data);
 }
+
+char	*g_prompt;
 
 void	minishell_loop(t_data *data)
 {

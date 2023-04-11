@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/10 17:01:48 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/11 12:58:19 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <termios.h>
 # include <limits.h>
 
-char	*g_prompt;
+extern char	*g_prompt;
 
 typedef enum e_err{
 	ERRNO,
