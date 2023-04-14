@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/11 12:58:43 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:02:56 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	minishell_loop(t_data *data)
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	data->prompt = readline("-> ");
+	if ((data->prompt == NULL))
+		exit(data->status);
 	g_prompt = data->prompt;
 	errno = 0;
 	data->lst = sep_token(data->prompt, data);
