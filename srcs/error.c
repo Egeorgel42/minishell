@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/30 15:35:32 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/17 17:13:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	get_errlst(t_data *data)
 		= strdup("Could not access history, $HOME is not set");
 	data->errlst[ERR_HOME]
 		= strdup("Could not get character '~', $HOME is not set");
+	data->errlst[ERR_HOME_CD] = strdup("$HOME is not set");
 	data->errlst[ERR_OLDPWD] = strdup("$OLDPWD is not set");
 	data->errlst[ERR_START_PWD]
 		= strdup("Can't start minishell in a non existing directory");

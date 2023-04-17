@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/14 14:14:00 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:42:16 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	minishell_loop(t_data *data)
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	data->prompt = readline("-> ");
-	if ((data->prompt == NULL))
+	if (data->prompt == NULL)
 	{
 		ft_fprintf(2, "exit\n");
 		exit(data->status);

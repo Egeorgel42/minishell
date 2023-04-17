@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:58:18 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/30 15:46:38 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/17 17:14:12 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,18 @@ static void	change_pwd(t_data *data, char *dir)
 static void	cd_fction(t_data *data, char *input)
 {
 	char	*pwd;
+	t_env	*home;
 
+	if (!input)
+	{
+		home = get_in_env(data, "HOME");
+		if (!home)
+		{
+			error(ERR_HOME_CD, NULL, NULL, data);
+			return ;
+		}
+		input = home->string;
+	}
 	pwd = get_str_env(data, "PWD");
 	if (!pwd)
 		pwd = ft_strdup("");
@@ -91,7 +102,7 @@ void	mini_cd(t_data *data, char **input)
 {
 	char	*buf;
 
-	if (input[2])
+	if (input[1] && input[2])
 	{
 		data->cmd_status = 2;
 		error(ERR_ARGS, input[0], NULL, data);
