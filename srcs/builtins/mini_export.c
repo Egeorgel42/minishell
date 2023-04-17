@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 19:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/30 15:57:13 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:11:47 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,19 @@ void	mini_export(char **str, t_data *data)
 {
 	t_env	*current;
 	t_env	*buf;
+	int		i;
 
-
+	i = 1;
 	current = data->env;
 	if (!check_input(str, data))
 		return ;
 	while (current->next->next != NULL)
 		current = current->next;
-	buf = create_node(str[1]);
-	buf->next = current->next;
-	current->next = buf;
+	while (str[i])
+	{
+		buf = create_node(str[i++]);
+		buf->next = current->next;
+		current->next = buf;
+	}
 	return ;
 }
