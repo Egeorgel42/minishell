@@ -6,11 +6,13 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/17 15:42:16 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/19 19:20:13 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+t_sig	g_sig;
 
 void	data_initialize(t_data *data, char **envp)
 {
@@ -44,11 +46,9 @@ void	data_default(t_data *data)
 	update_envp(data);
 }
 
-char	*g_prompt;
-
 void	minishell_loop(t_data *data)
 {
-	g_prompt = NULL;
+	g_sig.prompt = NULL;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	data->prompt = readline("-> ");
@@ -57,7 +57,7 @@ void	minishell_loop(t_data *data)
 		ft_fprintf(2, "exit\n");
 		exit(data->status);
 	}
-	g_prompt = data->prompt;
+	g_sig.prompt = data->prompt;
 	errno = 0;
 	data->lst = sep_token(data->prompt, data);
 	if (!data->lst)
@@ -80,7 +80,7 @@ void	minishell_loop(t_data *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	data;
+	t_data			data;
 
 	if (argc != -1)
 		argv[0][0] = '0';

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:20:33 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/02/21 21:36:13 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/18 19:11:46 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*ft_strjoinfree(char *s1, char *s2, bool free_s1, bool free_s2)
 	size_t	i;
 	size_t	j;
 
+	if (!s1 && !s2)
+		return (NULL);
 	if (!s1 && s2)
 		str = ft_strdup(s2);
 	else if (s1 && !s2)
