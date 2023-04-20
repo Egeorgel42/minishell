@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/31 17:10:12 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:42:35 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 	return (j);
 }
 
-static bool	developp_env(t_data *data, char **str)
+extern t_sig	g_sig;
+
+bool	developp_env(t_data *data, char **str)
 {
 	int		i;
 	bool	quotes[2];
@@ -84,7 +86,7 @@ static bool	developp_env(t_data *data, char **str)
 	i = -1;
 	quotes[0] = false;
 	quotes[1] = false;
-	if ((*str)[0] == '~' && (!(*str)[1] || (*str)[1] == '/'))
+	if ((*str)[0] == '~' && (!(*str)[1] || (*str)[1] == '/') && !g_sig.heredoc)
 	{
 		buf = get_str_env(data, "HOME");
 		if (!buf)

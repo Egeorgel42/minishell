@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/20 12:43:23 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/04/20 17:44:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static bool	heredoc(t_data *data, char *sep)
 		}
 		if (tmp)
 			free(tmp);
+		developp_env(data, &str);
 		ft_putstr_fd(str, fd[1]);
 		free(str);
 		close(fd[1]);

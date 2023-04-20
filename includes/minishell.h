@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/20 12:50:06 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/04/20 17:39:00 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void		signal_handler(int sig);
 void		replace_in_str(char **str, char *replace, int start, int end);
 bool		get_env(t_data *data);
 void		ft_exit(void);
+bool		developp_env(t_data *data, char **str);
 
 //pipes fonctions
 void		cmd_process(char **cmd, t_data *data);
