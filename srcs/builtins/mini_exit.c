@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:09:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/30 15:37:34 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/19 19:52:26 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	mini_exit(t_data *data, char **str)
 {
 	long	nbr;
 
+	system("leaks minishell");
 	if (!str[1])
 		exit(data->status);
 	else if (str[2])
