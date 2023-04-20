@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <vkuzmin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 21:00:16 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/17 19:24:29 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/04/20 12:43:51 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static bool	check_input(char *str, t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	if (str[0] >= '0' && str[0] <= '9')
 	{

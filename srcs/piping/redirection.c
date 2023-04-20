@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/19 19:47:06 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/20 12:43:23 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static int	redirect_fd(t_data *data, t_list *buf)
 	{
 		if (data->out_fd != 1)
 			close(data->out_fd);
-		data->out_fd = open(buf->next->str, O_CREAT | O_RDWR | O_APPEND, 000644);
+		data->out_fd = open(buf->next->str,
+				O_CREAT | O_RDWR | O_APPEND, 000644);
 	}
 	else if (ft_strcmp(buf->str, ">"))
 	{

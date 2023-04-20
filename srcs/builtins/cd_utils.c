@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:37:08 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/06 19:44:49 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/20 12:44:05 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,3 @@ char	*get_pwd(t_data *data, char *dir)
 	}
 	return (res);
 }
-

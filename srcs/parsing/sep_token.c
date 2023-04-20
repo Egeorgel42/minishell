@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sep_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/31 17:06:52 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/20 12:44:41 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static int	get_seperator(char *str, t_data *data, t_list **buf, bool *quotes)
 	if (str[i] && ft_strchr(" \n\t\v\f\r", str[i]))
 		i++;
 	j = i;
-	while (str[j] && ft_strchr("|<>&(){}[];*", str[j]) && (!quotes[0] && !quotes[1]))
+	while (str[j] && ft_strchr("|<>&(){}[];*", str[j])
+		&& (!quotes[0] && !quotes[1]))
 	{
 		if (str[j] == '\'' && !quotes[1])
 			quotes[0] = set_to_opposite(quotes[0]);
