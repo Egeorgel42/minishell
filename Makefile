@@ -6,7 +6,7 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/19 19:52:48 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/04/20 17:11:30 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,11 @@ piping/child_process.c \
 piping/execution_call.c \
 piping/pipes.c \
 utils/utils.c \
+utils/utils1.c \
+utils/utils2.c \
+utils/utils3.c \
+utils/utils4.c \
+utils/utils5.c \
 signals/signals.c \
 
 CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
