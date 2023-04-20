@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/19 19:19:37 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/20 12:50:06 by vkuzmin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,6 @@ t_env		*almost_last_env(t_data *data);
 void		start_pwd(t_data *data);
 t_env		*get_prev_in_env(t_data *data, char *env);
 void		heredoc_sig(int sig);
+int			env_size(t_env *env);
+
 #endif

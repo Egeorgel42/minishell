@@ -6,7 +6,7 @@
 #    By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/20 00:21:49 by vkuzmin          ###   ########.fr        #
+#    Updated: 2023/04/20 12:48:22 by vkuzmin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,11 @@ piping/child_process.c \
 piping/execution_call.c \
 piping/pipes.c \
 utils/utils.c \
+utils/utils1.c \
+utils/utils2.c \
+utils/utils3.c \
+utils/utils4.c \
+utils/utils5.c \
 signals/signals.c \
 
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
