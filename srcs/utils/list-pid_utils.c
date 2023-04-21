@@ -1,63 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   list-pid_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/20 12:40:43 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/04/21 20:00:11 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-bool	set_to_opposite(bool b)
-{
-	if (b)
-		return (false);
-	return (true);
-}
-
-char	*ft_startincharset(char *str, char *charset)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (!charset)
-		return (str);
-	if (!str)
-		return (NULL);
-	while (str[i])
-	{
-		j = -1;
-		while (charset[++j])
-			if (str[i] == charset[j])
-				return (str + i);
-		i++;
-	}
-	return (NULL);
-}
-
-void	ft_rem_double_space(char *str, char *sep)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (str[++i])
-	{
-		while (str[i + 1] && ft_strchr(sep, str[i + 1])
-			&& ft_strchr(sep, str[i]))
-		{
-			j = -1;
-			while (str[i + ++j + 1])
-				str[i + j] = str[i + j + 1];
-			str[i + j] = '\0';
-		}
-	}
-}
 
 void	remove_from_list(t_list **lst, t_list *rem)
 {
@@ -114,5 +67,36 @@ void	rem_until_rem(t_list **lst, t_list *rem)
 		}
 		else
 			*lst = NULL;
+	}
+}
+
+void	add_pid(pid_t pid, t_data *data)
+{
+	t_pidlst	*new_pid;
+	t_pidlst	*buf;
+
+	new_pid = malloc(sizeof(t_pidlst));
+	new_pid->next = NULL;
+	new_pid->pid = pid;
+	buf = data->pidlst;
+	if (!buf)
+	{
+		data->pidlst = new_pid;
+		return ;
+	}
+	while (buf->next)
+		buf = buf->next;
+	buf->next = new_pid;
+}
+
+void	clear_pidlst(t_data *data)
+{
+	t_pidlst	*buf_pid;
+
+	while (data->pidlst)
+	{
+		buf_pid = data->pidlst->next;
+		free(data->pidlst);
+		data->pidlst = buf_pid;
 	}
 }

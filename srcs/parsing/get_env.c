@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/20 17:42:35 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/21 20:03:55 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ bool	developp_env(t_data *data, char **str)
 			return (false);
 		}
 		replace_in_str(str, buf, 0, 1);
-		free (buf);
+		free(buf);
 	}
 	while ((*str)[++i])
 	{

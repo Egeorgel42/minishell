@@ -1,16 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils4.c                                           :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 12:38:51 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/20 12:41:38 by vkuzmin          ###   ########.fr       */
+/*   Created: 2023/04/20 12:37:03 by vkuzmin           #+#    #+#             */
+/*   Updated: 2023/04/21 19:56:35 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+t_env	*get_prev_in_env(t_data *data, char *env)
+{
+	t_env	*buf;
+
+	buf = data->env;
+	if (!buf)
+		return (NULL);
+	while (buf->next && !ft_strcmp(buf->next->pref, env))
+		buf = buf->next;
+	if (buf->next)
+		return (buf);
+	return (NULL);
+}
+
+t_env	*get_in_env(t_data *data, char *env)
+{
+	t_env	*buf;
+
+	buf = data->env;
+	while (buf && !ft_strcmp(buf->pref, env))
+		buf = buf->next;
+	if (buf)
+		return (buf);
+	return (NULL);
+}
+
+char	*get_str_env(t_data *data, char *env)
+{
+	t_env	*buf;
+
+	buf = data->env;
+	while (buf && !ft_strcmp(buf->pref, env))
+		buf = buf->next;
+	if (buf)
+		return (ft_strdup(buf->string));
+	return (NULL);
+}
 
 void	update_envp(t_data *data)
 {
@@ -33,39 +71,4 @@ void	update_envp(t_data *data)
 	if (data->path)
 		ft_freetab((void **)data->path);
 	get_path(data);
-}
-
-char	**get_cmd(t_data *data)
-{
-	t_list	*buf;
-	char	**cmd;
-	int		i;
-
-	buf = data->lst;
-	i = 0;
-	while (buf && !ft_strcmp(buf->str, "|"))
-	{
-		buf = buf->next;
-		i++;
-	}
-	cmd = malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	buf = data->lst;
-	while (buf && !ft_strcmp(buf->str, "|"))
-	{
-		cmd[i] = ft_strdup(buf->str);
-		buf = buf->next;
-		i++;
-	}
-	cmd[i] = NULL;
-	return (cmd);
-}
-
-bool	is_flaged(char **str)
-{
-	if (!str[1])
-		return (false);
-	if (str[1][0] == '-')
-		return (true);
-	return (false);
 }

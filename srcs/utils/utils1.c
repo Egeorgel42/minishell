@@ -1,64 +1,74 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 12:37:03 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/20 12:40:34 by vkuzmin          ###   ########.fr       */
+/*   Created: 2023/04/20 12:37:33 by vkuzmin           #+#    #+#             */
+/*   Updated: 2023/04/21 20:00:44 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_env	*get_prev_in_env(t_data *data, char *env)
+void	replace_charset_to_c(char *str, char *charset, char c)
 {
-	t_env	*buf;
+	int	i;
 
-	buf = data->env;
-	if (!buf)
-		return (NULL);
-	while (buf->next && !ft_strcmp(buf->next->pref, env))
+	i = -1;
+	while (str[++i])
+	{
+		if (ft_strchr(charset, str[i]))
+			str[i] = c;
+	}
+}
+
+void	rm_charset_in_str(char *str, char *charset)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (ft_strchr(charset, str[i]))
+		{
+			j = i - 1;
+			while (str[++j])
+				str[j] = str[j + 1];
+			i--;
+		}
+	}
+}
+
+void	remove_quotes(t_data *data)
+{
+	t_list	*buf;
+
+	buf = data->lst;
+	while (buf)
+	{
+		rm_charset_in_str(buf->str, "'\"");
 		buf = buf->next;
-	if (buf->next)
-		return (buf);
-	return (NULL);
+	}
 }
 
-t_env	*get_in_env(t_data *data, char *env)
+void	ft_rem_double_space(char *str, char *sep)
 {
-	t_env	*buf;
+	int	i;
+	int	j;
 
-	buf = data->env;
-	while (buf && !ft_strcmp(buf->pref, env))
-		buf = buf->next;
-	if (buf)
-		return (buf);
-	return (NULL);
-}
-
-void	start_pwd(t_data *data)
-{
-	data->pwd = getcwd(NULL, 0);
-	if (!data->pwd)
-		error_exit(ERR_START_PWD, NULL, NULL, data);
-}
-
-/*need upgrade*/
-void	ft_exit(void)
-{
-	ft_putstr_fd("exit\n", 1);
-	exit(1);
-}
-
-void	get_path(t_data *data)
-{
-	t_env	*env;
-
-	env = get_in_env(data, "PATH");
-	if (!env)
-		data->path = NULL;
-	else
-		data->path = ft_split(env->string, ':');
+	i = -1;
+	while (str[++i])
+	{
+		while (str[i + 1] && ft_strchr(sep, str[i + 1])
+			&& ft_strchr(sep, str[i]))
+		{
+			j = -1;
+			while (str[i + ++j + 1])
+				str[i + j] = str[i + j + 1];
+			str[i + j] = '\0';
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/20 17:44:37 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/21 20:11:05 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,34 @@
 
 extern t_sig	g_sig;
 
-static bool	heredoc(t_data *data, char *sep)
+static void	here_child(t_data *data, int *fd, char *sep)
 {
 	char	*tmp;
 	char	*str;
+
+	close(fd[0]);
+	tmp = NULL;
+	str = NULL;
+	while (!ft_strcmp(tmp, sep))
+	{
+		str = ft_strjoinfree(str, tmp, true, true);
+		if (str)
+			str = ft_strjoinfree(str, "\n", true, false);
+		tmp = readline("heredoc> ");
+		if (!tmp)
+			break ;
+	}
+	if (tmp)
+		free(tmp);
+	developp_env(data, &str);
+	ft_putstr_fd(str, fd[1]);
+	free(str);
+	close(fd[1]);
+	exit(0);
+}
+
+static bool	heredoc(t_data *data, char *sep)
+{
 	int		fd[2];
 	int		status;
 
@@ -28,27 +52,7 @@ static bool	heredoc(t_data *data, char *sep)
 	if (g_sig.pid == -1)
 		error_exit(ERR_MAX, NULL, NULL, data);
 	else if (g_sig.pid == 0)
-	{
-		close(fd[0]);
-		tmp = NULL;
-		str = NULL;
-		while (!ft_strcmp(tmp, sep))
-		{
-			str = ft_strjoinfree(str, tmp, true, true);
-			if (str)
-				str = ft_strjoinfree(str, "\n", true, false);
-			tmp = readline("heredoc> ");
-			if (!tmp)
-				break ;
-		}
-		if (tmp)
-			free(tmp);
-		developp_env(data, &str);
-		ft_putstr_fd(str, fd[1]);
-		free(str);
-		close(fd[1]);
-		exit(0);
-	}
+		here_child(data, fd, sep);
 	else if (g_sig.pid > 0)
 	{
 		close(fd[1]);
