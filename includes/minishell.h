@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/22 16:58:00 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:04:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,9 @@ t_env		*get_prev_in_env(t_data *data, char *env);
 int			env_size(t_env *env);
 
 //piping
-void		callstructure(t_data *data);
 int			get_redirection_out(t_data *data);
+bool		heredoc(t_data *data, char *sep);
+void		callstructure(t_data *data);
 void		wait_pids(t_data *data);
 void		parent_cmd(t_data *data);
 bool		is_pipe(t_data *data);

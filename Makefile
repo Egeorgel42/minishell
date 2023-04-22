@@ -6,7 +6,7 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/22 16:55:14 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/04/22 18:06:16 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ parsing/create_env.c \
 parsing/sep_token.c \
 parsing/get_env.c \
 piping/redirection.c \
+piping/heredoc.c \
 piping/child_process.c \
 piping/execution_call.c \
 piping/pipes.c \
