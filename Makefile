@@ -6,7 +6,7 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/22 18:06:16 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/04/22 19:11:53 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ builtins/mini_cd.c \
 builtins/mini_exit.c \
 parsing/create_env.c \
 parsing/sep_token.c \
+parsing/sep_token_utils.c \
 parsing/get_env.c \
+parsing/get_env_utils.c \
 piping/redirection.c \
 piping/heredoc.c \
 piping/child_process.c \

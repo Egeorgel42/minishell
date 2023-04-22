@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/22 18:04:59 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:01:40 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,13 @@ t_env		*create_node(char *str);
 void		update_envp(t_data *data);
 bool		get_env(t_data *data);
 bool		developp_env(t_data *data, char **str);
+void		parse_env(char **env_str, int i, bool *quotes);
 char		*get_str_env(t_data *data, char *env);
 t_env		*get_in_env(t_data *data, char *env);
 t_env		*almost_last_env(t_data *data);
 t_env		*get_prev_in_env(t_data *data, char *env);
 int			env_size(t_env *env);
+int			exit_status(t_data *data, char **str, int i);
 
 //piping
 int			get_redirection_out(t_data *data);
@@ -131,6 +133,8 @@ void		excve(char **cmd, t_data *data);
 
 //parsing
 t_list		*sep_token(char *str, t_data *data);
+bool		check_sep_token(t_list	*lst, t_data *data);
+int			token_end(char *str, bool *quotes, int j);
 char		**get_cmd(t_data *data);
 void		get_path(t_data *data);
 void		get_history(t_data *data);

@@ -6,28 +6,33 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/20 17:38:31 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:09:30 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	check_sep_token(t_list	*lst, t_data *data)
+static bool	err_quotes(t_data *data, t_list *lst, bool *quotes)
 {
-	if (ft_strcmp(lst->str, "\n") || ft_strcmp(lst->str, "\v"))
-		return (true);
-	if (ft_strcmp(lst->str, "\f") || ft_strcmp(lst->str, "\r"))
-		return (true);
-	if (ft_strcmp(lst->str, "<<") || ft_strcmp(lst->str, ">>"))
-		return (true);
-	if (ft_strcmp(lst->str, "<") || ft_strcmp(lst->str, ">"))
-		return (true);
-	if (ft_strcmp(lst->str, "|") || ft_strcmp(lst->str, "\t"))
-		return (true);
-	if (ft_strcmp(lst->str, "~"))
-		return (true);
-	error(ERR_UNSUPORTED, lst->str, NULL, data);
-	return (false);
+	if (quotes[0] || quotes[1])
+	{
+		error(ERR_QUOTES, NULL, NULL, data);
+		save_history(data);
+		ft_lstclear(&lst, free);
+		return (false);
+	}
+	return (true);
+}
+
+static bool	invalid_token(t_data *data, t_list *lst, int i)
+{
+	if (i < 0)
+	{
+		ft_lstclear(&lst, free);
+		save_history(data);
+		return (false);
+	}
+	return (true);
 }
 
 static int	get_seperator(char *str, t_data *data, t_list **buf, bool *quotes)
@@ -68,17 +73,7 @@ static int	get_token(char *str, t_data *data, t_list **buf, bool *quotes)
 	if (i == -1)
 		return (INT_MIN);
 	j = i;
-	while (str[j])
-	{
-		if (str[j] == '\'' && !quotes[1])
-			quotes[0] = set_to_opposite(quotes[0]);
-		else if (str[j] == '"' && !quotes[0])
-			quotes[1] = set_to_opposite(quotes[1]);
-		else if (ft_strchr(" |<>&(){}[];*\n\t\v\f\r", str[j])
-			&& (!quotes[0] && !quotes[1]))
-			break ;
-		j++;
-	}
+	j = token_end(str, quotes, j);
 	if ((*buf)->next)
 	{
 		if (i == j)
@@ -111,21 +106,12 @@ t_list	*sep_token(char *str, t_data *data)
 	while (str[i])
 	{
 		i += get_token(str + i, data, &buf, quotes);
-		if (i < 0)
-		{
-			ft_lstclear(&lst, free);
-			save_history(data);
+		if (!invalid_token(data, lst, i))
 			return (NULL);
-		}
 		buf = ft_lstlast(buf);
 	}
-	if (quotes[0] || quotes[1])
-	{
-		error(ERR_QUOTES, NULL, NULL, data);
-		save_history(data);
-		ft_lstclear(&lst, free);
+	if (!err_quotes(data, lst, quotes))
 		return (NULL);
-	}
 	buf = lst->next;
 	ft_lstdelone(lst, free);
 	return (buf);

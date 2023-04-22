@@ -6,36 +6,28 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/21 20:03:55 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:35:32 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	exit_status(t_data *data, char **str, int i)
+static int	end_of_env(char *str, bool *quotes, int j)
 {
-	char	*status;
-
-	status = ft_itoa(data->status);
-	replace_in_str(str, status, i, i + 2);
-	free(status);
-	return (i);
-}
-
-static void	parse_env(char **env_str, int i, bool *quotes)
-{
-	char	*buf;
-
-	if (quotes[0] || quotes[1])
-		return ;
-	ft_rem_double_space(*env_str, " \n\t\v\f\r");
-	if (i == 0 && ft_strchr(" \n\t\v\f\r", **env_str))
+	while (str[++j])
 	{
-		buf = ft_substr(*env_str, 1, ft_strlen(*env_str) - 1);
-		free(*env_str);
-		*env_str = buf;
+		if (str[j] == '\'' && !quotes[1])
+			return (j);
+		else if (str[j] == '"' && !quotes[0])
+			return (j);
+		else if (str[j] == '$' && !quotes[0])
+			return (j);
+		else if (!((str[j] >= '0' && str[j] <= '9')
+				|| (str[j] >= 'a' && str[j] <= 'z')
+				|| (str[j] >= 'A' && str[j] <= 'Z') || str[j] == '_'))
+			return (j);
 	}
-	replace_charset_to_c(*env_str, "\n\t\v\f\r", ' ');
+	return (j);
 }
 
 static int	find_env(t_data *data, char **str, int i, bool *quotes)
@@ -47,22 +39,10 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 	j = i;
 	if ((*str)[i + 1] == '?' && !quotes[0])
 		return (exit_status(data, str, i));
-	while ((*str)[++j])
-	{
-		if ((*str)[j] == '\'' && !quotes[1])
-			break ;
-		else if ((*str)[j] == '"' && !quotes[0])
-			break ;
-		else if ((*str)[j] == '$' && !quotes[0])
-			break ;
-		else if (!(((*str)[j] >= '0' && (*str)[j] <= '9')
-			|| ((*str)[j] >= 'a' && (*str)[j] <= 'z')
-			|| ((*str)[j] >= 'A' && (*str)[j] <= 'Z') || (*str)[j] == '_'))
-			break ;
-	}
 	if (j == i + 1 && !(((*str)[j] == '\'' && !quotes[1])
 		|| ((*str)[j] == '"' && !quotes[0])))
 		return (i);
+	j = end_of_env(*str, quotes, j);
 	env = ft_substr(*str, i + 1, j - i - 1);
 	env_str = get_str_env(data, env);
 	if (!env_str)
@@ -73,6 +53,19 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 	free(env_str);
 	free(env);
 	return (j);
+}
+
+static void	env_loop(t_data *data, char **str, bool *quotes, int i)
+{
+	while ((*str)[++i])
+	{
+		if ((*str)[i] == '\'' && !quotes[1])
+			quotes[0] = set_to_opposite(quotes[0]);
+		else if ((*str)[i] == '"' && !quotes[0])
+			quotes[1] = set_to_opposite(quotes[1]);
+		else if ((*str)[i] == '$' && !quotes[0])
+			i = find_env(data, str, i, quotes);
+	}
 }
 
 extern t_sig	g_sig;
@@ -97,15 +90,7 @@ bool	developp_env(t_data *data, char **str)
 		replace_in_str(str, buf, 0, 1);
 		free(buf);
 	}
-	while ((*str)[++i])
-	{
-		if ((*str)[i] == '\'' && !quotes[1])
-			quotes[0] = set_to_opposite(quotes[0]);
-		else if ((*str)[i] == '"' && !quotes[0])
-			quotes[1] = set_to_opposite(quotes[1]);
-		else if ((*str)[i] == '$' && !quotes[0])
-			i = find_env(data, str, i, quotes);
-	}
+	env_loop(data, str, quotes, i);
 	return (true);
 }
 

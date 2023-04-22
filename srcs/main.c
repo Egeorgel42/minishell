@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/19 19:20:13 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:53:28 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	data_default(t_data *data)
 	update_envp(data);
 }
 
-void	minishell_loop(t_data *data)
+static void	minishell_loop_start(t_data *data)
 {
 	g_sig.prompt = NULL;
 	signal(SIGINT, signal_handler);
@@ -60,6 +60,11 @@ void	minishell_loop(t_data *data)
 	g_sig.prompt = data->prompt;
 	errno = 0;
 	data->lst = sep_token(data->prompt, data);
+}
+
+void	minishell_loop(t_data *data)
+{
+	minishell_loop_start(data);
 	if (!data->lst)
 	{
 		free(data->prompt);
