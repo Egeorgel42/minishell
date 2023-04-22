@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/21 20:27:52 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:58:00 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void		mini_export(char **str, t_data *data);
 void		mini_exit(t_data *data, char **str);
 void		mini_unset(t_data *data, char **str);
 void		mini_cd(t_data *data, char **input);
+void		cd_oldpwd(t_data *data, char **input);
+void		cd_fction(t_data *data, char *input);
 
 char		*get_pwd(t_data *data, char *dir);
 void		start_pwd(t_data *data);

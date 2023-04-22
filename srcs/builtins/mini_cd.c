@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:58:18 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/17 17:14:12 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:57:50 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,30 @@ static void	change_oldpwd(t_data *data, char *pwd)
 	}
 }
 
-static void	change_pwd(t_data *data, char *dir)
+static void	create_pwd(t_data *data, t_env *env, char *pwd)
 {
 	t_env	*buf;
+	char	*str;
+
+	str = ft_strjoin("PWD=", pwd);
+	env = almost_last_env(data);
+	buf = env->next;
+	env->next = create_node(str);
+	env->next->next = buf;
+	free(str);
+}
+
+static void	change_pwd(t_data *data, char *dir)
+{
 	t_env	*env;
 	char	*pwd;
-	char	*str;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		pwd = get_pwd(data, dir);
 	env = get_in_env(data, "PWD");
 	if (!env)
-	{
-		str = ft_strjoin("PWD=", pwd);
-		env = almost_last_env(data);
-		buf = env->next;
-		env->next = create_node(str);
-		env->next->next = buf;
-		free(str);
-	}
+		create_pwd(data, env, pwd);
 	else
 	{
 		free(env->string);
@@ -69,7 +73,7 @@ static void	change_pwd(t_data *data, char *dir)
 	free(pwd);
 }
 
-static void	cd_fction(t_data *data, char *input)
+void	cd_fction(t_data *data, char *input)
 {
 	char	*pwd;
 	t_env	*home;
@@ -100,8 +104,6 @@ static void	cd_fction(t_data *data, char *input)
 
 void	mini_cd(t_data *data, char **input)
 {
-	char	*buf;
-
 	if (input[1] && input[2])
 	{
 		data->cmd_status = 2;
@@ -109,16 +111,7 @@ void	mini_cd(t_data *data, char **input)
 		return ;
 	}
 	else if (ft_strcmp(input[1], "-"))
-	{
-		buf = get_str_env(data, "OLDPWD");
-		if (!buf)
-		{
-			error(ERR_OLDPWD, input[0], NULL, data);
-			return ;
-		}
-		cd_fction(data, buf);
-		free(buf);
-	}
+		cd_oldpwd(data, input);
 	else if (is_flaged(input))
 	{
 		data->cmd_status = 2;

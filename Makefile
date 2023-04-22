@@ -6,7 +6,7 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/21 20:16:42 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/04/22 16:55:14 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ FILES = main.c \
 error.c \
 history.c \
 builtins/cd_utils.c \
+builtins/cd_utils2.c \
 builtins/mini_echo.c \
 builtins/mini_env.c \
 builtins/mini_export.c \

@@ -6,16 +6,35 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:17:01 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/03/28 18:57:29 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:52:48 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	get_history(t_data *data)
+static void	get_history_line(t_data *data)
 {
 	char	*buf;
 	char	*line;
+
+	line = get_next_line(data->history_fd);
+	while (line)
+	{
+		if (line[ft_strlen(line) - 1] == '\n')
+			buf = ft_substr(line, 0, ft_strlen(line) - 1);
+		else
+			buf = ft_strdup(line);
+		add_history(buf);
+		free(data->last_history);
+		data->last_history = ft_strdup(buf);
+		free(buf);
+		free(line);
+		line = get_next_line(data->history_fd);
+	}
+}
+
+void	get_history(t_data *data)
+{
 	char	*home;
 
 	home = get_str_env(data, "HOME");
@@ -32,20 +51,7 @@ void	get_history(t_data *data)
 		error(ERR_MAX, NULL, NULL, data);
 		return ;
 	}
-	line = get_next_line(data->history_fd);
-	while (line)
-	{
-		if (line[ft_strlen(line) - 1] == '\n')
-			buf = ft_substr(line, 0, ft_strlen(line) - 1);
-		else
-			buf = ft_strdup(line);
-		add_history(buf);
-		free(data->last_history);
-		data->last_history = ft_strdup(buf);
-		free(buf);
-		free(line);
-		line = get_next_line(data->history_fd);
-	}
+	get_history_line(data);
 }
 
 void	save_history(t_data *data)

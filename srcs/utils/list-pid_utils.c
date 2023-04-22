@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/21 20:00:11 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:42:51 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,23 @@ void	remove_from_list(t_list **lst, t_list *rem)
 	{
 		ft_lstdelone(*lst, free);
 		*lst = NULL;
+		return ;
 	}
-	else if (*lst == rem)
+	if (*lst == rem)
 	{
 		*lst = (*lst)->next;
 		ft_lstdelone(buf, free);
+		return ;
 	}
-	else
+	while (buf->next)
 	{
-		while (buf->next)
+		if (buf->next == rem)
 		{
-			if (buf->next == rem)
-			{
-				buf->next = rem->next;
-				ft_lstdelone(rem, free);
-				break ;
-			}
-			buf = buf->next;
+			buf->next = rem->next;
+			ft_lstdelone(rem, free);
+			break ;
 		}
+		buf = buf->next;
 	}
 }
 

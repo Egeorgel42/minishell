@@ -6,11 +6,19 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/17 17:13:37 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:54:07 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static char	*add_token(char *msg, char *token)
+{
+	msg = ft_strjoinfree(msg, "'", true, false);
+	msg = ft_strjoinfree(msg, token, true, false);
+	msg = ft_strjoinfree(msg, "'", true, false);
+	return (msg);
+}
 
 void	error_exit(int err, char *input, char *token, t_data *data)
 {
@@ -27,11 +35,7 @@ void	error_exit(int err, char *input, char *token, t_data *data)
 	msg = ft_strjoinfree(msg, ": ", true, false);
 	msg = ft_strjoinfree(msg, data->errlst[err], true, false);
 	if (token)
-	{
-		msg = ft_strjoinfree(msg, "'", true, false);
-		msg = ft_strjoinfree(msg, token, true, false);
-		msg = ft_strjoinfree(msg, "'", true, false);
-	}
+		msg = add_token(msg, token);
 	msg = ft_strjoinfree(msg, "\n", true, false);
 	ft_putstr_fd(msg, 2);
 	free(msg);
@@ -56,11 +60,7 @@ void	error(int err, char *input, char *token, t_data *data)
 		msg = ft_strjoinfree(msg, ": ", true, false);
 		msg = ft_strjoinfree(msg, data->errlst[err], true, false);
 		if (token)
-		{
-			msg = ft_strjoinfree(msg, " '", true, false);
-			msg = ft_strjoinfree(msg, token, true, false);
-			msg = ft_strjoinfree(msg, "'", true, false);
-		}
+			msg = add_token(msg, token);
 		msg = ft_strjoinfree(msg, "\n", true, false);
 		ft_putstr_fd(msg, 2);
 	}
