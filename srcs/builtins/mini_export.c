@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/23 15:17:01 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/04/23 18:46:09 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	mini_export(char **str, t_data *data)
 	t_env	*envcopy;
 	int		i;
 
-	envcopy = copy_env_list(data->env);
 	if (!str[1])
 	{
-		sort_and_print(envcopy);
-		return;
+		envcopy = copy_env_list(data->env);
+		sort_and_print(&envcopy);
+		return ;
 	}
 	i = 1;
 	current = data->env;
@@ -66,5 +66,4 @@ void	mini_export(char **str, t_data *data)
 		}
 		i++;
 	}
-	return ;
 }

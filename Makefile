@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+         #
+#    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/23 15:17:15 by vkuzmin          ###   ########.fr        #
+#    Updated: 2023/04/23 17:52:10 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ utils/utils4.c \
 signals/signals.c \
 
 CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
-LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -lreadline -lhistory -I$(RDLINE)/include -ltinfo
+LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -lreadline -lhistory -I$(RDLINE)/include #-ltinfo
 #if you are on Linux, uncomment the -ltinfo for the project to compile, or comment it if you are on MacOs.
 SRCS = $(addprefix srcs/, $(FILES))
 OBJ = ${SRCS:.c=.o}

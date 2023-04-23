@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/23 15:17:44 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/04/23 18:56:52 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,8 @@ void		remove_quotes(t_data *data);
 void		ft_rem_double_space(char *str, char *sep);
 void		replace_in_str(char **str, char *replace, int start, int end);
 bool		set_to_opposite(bool b);
-void		sort_and_print(t_env *head);
-void		swap(t_env *a, t_env *b);
-t_env 		*copy_env_list(t_env *head) ;
+void		sort_and_print(t_env **env);
+t_env		*copy_env_list(t_env *head);
 
 void		remove_from_list(t_list **lst, t_list *rem);
 void		rem_until_rem(t_list **lst, t_list *rem);
