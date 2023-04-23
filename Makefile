@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
+#    By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/22 19:11:53 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/04/23 15:17:15 by vkuzmin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,11 @@ utils/list-pid_utils.c \
 utils/utils1.c \
 utils/utils2.c \
 utils/utils3.c \
+utils/utils4.c \
 signals/signals.c \
 
 CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
-LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -lreadline -lhistory -I$(RDLINE)/include #-ltinfo
+LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -lreadline -lhistory -I$(RDLINE)/include -ltinfo
 #if you are on Linux, uncomment the -ltinfo for the project to compile, or comment it if you are on MacOs.
 SRCS = $(addprefix srcs/, $(FILES))
 OBJ = ${SRCS:.c=.o}
