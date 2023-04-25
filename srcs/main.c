@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/25 21:14:05 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/25 21:21:47 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	minishell_loop_start(t_data *data)
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_sig.attr);
-	data->prompt = readline("-> ");
+	data->prompt = readline("minishell> ");
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_sig.saved);
 	if (data->prompt == NULL)
 	{
