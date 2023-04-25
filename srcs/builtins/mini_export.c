@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/23 18:46:09 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/23 19:13:14 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,11 @@ void	mini_export(char **str, t_data *data)
 {
 	t_env	*current;
 	t_env	*buf;
-	t_env	*envcopy;
 	int		i;
 
 	if (!str[1])
 	{
-		envcopy = copy_env_list(data->env);
-		sort_and_print(&envcopy);
+		sort_and_print(copy_env_list(data->env));
 		return ;
 	}
 	i = 1;

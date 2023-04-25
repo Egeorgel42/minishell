@@ -6,12 +6,13 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/23 18:56:52 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:30:15 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include <termios.h>
 # include <stdio.h>
 # include "../libs/libft/libft.h"
 # include "../libs/readline/include/readline/readline.h"
@@ -51,6 +52,8 @@ typedef struct s_sig
 {
 	char			*prompt;
 	bool			heredoc;
+	struct termios	attr;
+	struct termios	saved;
 	pid_t			pid;
 }	t_sig;
 
@@ -70,25 +73,28 @@ typedef struct s_pidlst
 
 typedef struct s_data
 {
-	int			status;
-	int			cmd_status;
-	char		**envp;
-	char		**path;
-	char		**errlst;
-	char		*prompt;
-	char		*pwd;
-	char		*last_history;
-	t_list		*lst;
-	t_env		*env;
-	int			history_fd;
-	int			out_fd;
-	int			in_fd;
-	int			pipe_fd;
-	t_pidlst	*pidlst;
+	int				status;
+	int				cmd_status;
+	char			**envp;
+	char			**path;
+	char			**errlst;
+	char			*prompt;
+	char			*pwd;
+	char			*last_history;
+	t_list			*lst;
+	t_env			*env;
+	int				history_fd;
+	int				out_fd;
+	int				in_fd;
+	int				pipe_fd;
+	t_pidlst		*pidlst;
+	struct termios	attr;
+	struct termios	saved;
 }	t_data;
 
 //sig
 void		signal_handler(int sig);
+void		start_attr(void);
 
 //builtins
 bool		inbuilts(char **cmd, t_data *data);
@@ -153,7 +159,7 @@ void		remove_quotes(t_data *data);
 void		ft_rem_double_space(char *str, char *sep);
 void		replace_in_str(char **str, char *replace, int start, int end);
 bool		set_to_opposite(bool b);
-void		sort_and_print(t_env **env);
+void		sort_and_print(t_env *env);
 t_env		*copy_env_list(t_env *head);
 
 void		remove_from_list(t_list **lst, t_list *rem);

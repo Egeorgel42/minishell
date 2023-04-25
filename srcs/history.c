@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:17:01 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/22 16:52:48 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/23 19:19:05 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	get_history(t_data *data)
 	if (!home)
 	{
 		error(ERR_HOME_HIS, NULL, NULL, data);
+		data->history_fd = -1;
 		return ;
 	}
 	home = ft_strjoinfree(home, "/minishell_history", true, false);

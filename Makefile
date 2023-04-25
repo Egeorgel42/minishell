@@ -6,7 +6,7 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/23 17:52:10 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/04/25 18:48:05 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ error.c \
 history.c \
 builtins/cd_utils.c \
 builtins/cd_utils2.c \
+builtins/export_utils.c \
 builtins/mini_echo.c \
 builtins/mini_env.c \
 builtins/mini_export.c \
@@ -38,8 +39,8 @@ utils/list-pid_utils.c \
 utils/utils1.c \
 utils/utils2.c \
 utils/utils3.c \
-utils/utils4.c \
 signals/signals.c \
+signals/term_attr.c \
 
 CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -lreadline -lhistory -I$(RDLINE)/include #-ltinfo
