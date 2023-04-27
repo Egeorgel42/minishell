@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/23 19:13:14 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:31:18 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,40 @@ static bool	check_input(char *str, t_data *data)
 			return (false);
 		}
 	}
-	if (str[i] != '=')
-		return (false);
 	return (true);
+}
+
+static void	export_in_env(t_data *data, t_env *current, char *str)
+{
+	char	*pref;
+	t_env	*rem;
+	t_env	*buf;
+	t_env	*buf_rem;
+
+	pref = find_pref(str);
+	rem = get_prev_in_env(data, pref);
+	if (rem)
+	{
+		buf_rem = rem->next->next;
+		free(rem->next->full_string);
+		free(rem->next->string);
+		free(rem->next->pref);
+		free(rem->next);
+		rem->next = create_node(str);
+		rem->next->next = buf_rem;
+	}
+	else
+	{
+		buf = create_node(str);
+		buf->next = current->next;
+		current->next = buf;
+	}
+	free(pref);
 }
 
 void	mini_export(char **str, t_data *data)
 {
 	t_env	*current;
-	t_env	*buf;
 	int		i;
 
 	if (!str[1])
@@ -57,11 +82,7 @@ void	mini_export(char **str, t_data *data)
 	while (str[i])
 	{
 		if (check_input(str[i], data))
-		{
-			buf = create_node(str[i]);
-			buf->next = current->next;
-			current->next = buf;
-		}
+			export_in_env(data, current, str[i]);
 		i++;
 	}
 }

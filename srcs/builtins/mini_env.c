@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:12:14 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/30 15:45:16 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:03:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	mini_env(char **str, t_data *data)
 		error(ERR_ARGS_NBR, str[0], NULL, data);
 		return ;
 	}
-	while (current != NULL)
+	while (current && *current->string)
 	{
 		printf("%s\n", current->full_string);
 		current = current->next;

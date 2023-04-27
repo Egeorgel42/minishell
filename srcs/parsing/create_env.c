@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 19:20:08 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/03/24 17:03:10 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:28:41 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ static char	*find_string(char *str)
 	return (ft_substr(str, len, (ft_strlen(str) + 1) - len));
 }
 
-static char	*find_pref(char *str)
+char	*find_pref(char *str)
 {
 	int		len;
 
 	len = 0;
-	while (str[len] != '=')
+	while (str[len] && str[len] != '=')
 		len++;
 	return (ft_substr(str, 0, len));
 }

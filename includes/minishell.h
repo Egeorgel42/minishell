@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/25 19:30:15 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:10:14 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void		replace_in_str(char **str, char *replace, int start, int end);
 bool		set_to_opposite(bool b);
 void		sort_and_print(t_env *env);
 t_env		*copy_env_list(t_env *head);
+char		*find_pref(char *str);
 
 void		remove_from_list(t_list **lst, t_list *rem);
 void		rem_until_rem(t_list **lst, t_list *rem);
