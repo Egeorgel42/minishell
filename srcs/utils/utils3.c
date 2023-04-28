@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils4.c                                           :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:38:51 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/21 20:01:28 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:35:14 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,29 @@ int	env_size(t_env *env)
 		i++;
 	}
 	return (i);
+}
+
+void	start_path(t_data *data)
+{
+	t_env	*buf;
+
+	buf = get_in_env(data, "PATH");
+	if (!buf)
+	{
+		if (!data->env)
+		{
+			data->env = create_node(
+					"PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
+			data->print_path = false;
+			return ;
+		}
+		buf = data->env;
+		while (buf->next)
+			buf = buf->next;
+		buf->next
+			= create_node("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
+		data->print_path = false;
+	}
 }
 
 char	**get_cmd(t_data *data)

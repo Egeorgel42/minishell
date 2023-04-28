@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/27 18:01:11 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:33:42 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_sig	g_sig;
 void	data_initialize(t_data *data, char **envp)
 {
 	data->prompt = NULL;
+	data->print_path = true;
 	data->pipe_fd = 0;
 	data->in_fd = 0;
 	data->out_fd = 1;
@@ -32,7 +33,8 @@ void	data_initialize(t_data *data, char **envp)
 	get_path(data);
 	update_envp(data);
 	get_history(data);
-	start_attr();
+	start_attr(data);
+	start_path(data);
 	g_sig.status = 0;
 }
 
@@ -50,12 +52,13 @@ void	data_default(t_data *data)
 
 static void	minishell_loop_start(t_data *data)
 {
-	g_sig.prompt = NULL;
-	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_sig.attr);
+	signal(SIGINT, empty_sigint);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &data->attr);
 	data->prompt = readline("minishell> ");
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_sig.saved);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &data->saved);
+	signal(SIGQUIT, sig_quit);
+	signal(SIGINT, sigint);
 	if (data->prompt == NULL)
 	{
 		ft_printf("exit\n");
@@ -64,7 +67,6 @@ static void	minishell_loop_start(t_data *data)
 	if (g_sig.status != 0)
 		data->status = g_sig.status;
 	g_sig.status = 0;
-	g_sig.prompt = data->prompt;
 	errno = 0;
 	data->lst = sep_token(data->prompt, data);
 }

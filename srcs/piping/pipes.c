@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 16:35:34 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:28:20 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,6 @@ void	wait_pids(t_data *data)
 	}
 	if (WIFEXITED(data->status))
 		data->status = WEXITSTATUS(data->status);
+	else if (WIFSIGNALED(data->status))
+		signal_messages(data, WTERMSIG(data->status));
 }

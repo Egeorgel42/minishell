@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 21:00:16 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/27 15:23:40 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:51:24 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,20 @@ void	mini_unset(t_data *data, char **str)
 			prev = get_prev_in_env(data, str[i]);
 			if (!env)
 				return ;
-			prev->next = env->next;
+			if (prev)
+				prev->next = env->next;
+			else
+			{
+				if (!env->next)
+					data->env = NULL;
+				else
+					data->env = data->env->next;
+			}
 			free(env->full_string);
 			free(env->pref);
 			free(env->string);
 			free(env);
-			i++;
 		}
-		else
-			i++;
+		i++;
 	}
 }

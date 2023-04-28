@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:12:14 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/27 14:03:37 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:20:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	mini_env(char **str, t_data *data)
 	}
 	while (current && *current->string)
 	{
-		printf("%s\n", current->full_string);
+		if (!ft_strcmp(current->pref, "PATH") || data->print_path)
+			printf("%s\n", current->full_string);
 		current = current->next;
 	}
 }

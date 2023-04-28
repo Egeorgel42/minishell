@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:38:12 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/25 18:17:55 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:09:05 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	get_path(t_data *data)
 
 	env = get_in_env(data, "PATH");
 	if (!env)
-		data->path
-			= ft_split("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.", ':');
+		data->path = NULL;
 	else
 		data->path = ft_split(env->string, ':');
 }

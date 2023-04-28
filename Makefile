@@ -6,7 +6,7 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/27 14:33:12 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/04/28 18:31:18 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ utils/utils2.c \
 utils/utils3.c \
 signals/signals.c \
 signals/term_attr.c \
+signals/sig_print.c \
 
 CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 LFLAGS = -Llibs/readline/lib -Llibs/libft -lft -lreadline -lhistory -I$(RDLINE)/include #-ltinfo

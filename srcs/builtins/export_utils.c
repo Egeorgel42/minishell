@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:15:00 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/23 19:13:08 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:39:10 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	clear_env(t_env *env)
 	}
 }
 
-void	sort_and_print(t_env *env)
+void	sort_and_print(t_data *data, t_env *env)
 {
 	t_env	*next;
 	t_env	*buf;
@@ -108,7 +108,8 @@ void	sort_and_print(t_env *env)
 	buf = env;
 	while (buf)
 	{
-		printf("declare -x %s\n", buf->full_string);
+		if (!ft_strcmp(buf->pref, "PATH") || data->print_path)
+			printf("declare -x %s\n", buf->full_string);
 		buf = buf->next;
 	}
 	clear_env(env);

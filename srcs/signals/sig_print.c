@@ -1,46 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   sig_print.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 15:46:54 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/28 18:42:54 by egeorgel         ###   ########.fr       */
+/*   Created: 2023/04/28 18:20:33 by egeorgel          #+#    #+#             */
+/*   Updated: 2023/04/28 18:45:32 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-extern t_sig	g_sig;
-
-void	sigint_here(int sig)
+void	signal_messages(t_data *data, int sig)
 {
-	ft_printf("\n");
 	if (sig == SIGINT)
-		kill(g_sig.pid, SIGTERM);
-	g_sig.heredoc = false;
-}
-
-void	empty_sigint(int sig)
-{
-	ft_printf("\n");
-	g_sig.status = 130;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	if (sig)
-		return ;
-}
-
-void	sigint(int sig)
-{
-	if (sig)
-		ft_printf("\n");
-}
-
-void	sig_quit(int sig)
-{
-	if (sig)
-		return ;
+		data->status = 130;
+	if (sig == SIGQUIT)
+	{
+		ft_printf("Quit: 3\n");
+		data->status = 131;
+	}
 }

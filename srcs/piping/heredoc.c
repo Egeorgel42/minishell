@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/22 18:04:09 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:42:34 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ bool	heredoc(t_data *data, char *sep)
 {
 	int		fd[2];
 
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sigint_here);
 	g_sig.heredoc = true;
 	if (pipe(fd) == -1)
 		error_exit(ERR_MAX, NULL, NULL, data);
@@ -73,6 +75,8 @@ bool	heredoc(t_data *data, char *sep)
 	else if (g_sig.pid > 0)
 		if (!here_parent(data, fd))
 			return (false);
+	signal(SIGQUIT, sig_quit);
+	signal(SIGINT, SIG_IGN);
 	g_sig.heredoc = false;
 	return (true);
 }
