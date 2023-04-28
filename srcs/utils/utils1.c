@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:37:33 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/27 17:54:43 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:55:59 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,29 @@ void	ft_rem_double_space(char *str, char *sep)
 	{
 		while (str[i + 1] && ft_strchr(sep, str[i + 1])
 			&& ft_strchr(sep, str[i]))
+		{
+			j = -1;
+			while (str[i + ++j + 1])
+				str[i + j] = str[i + j + 1];
+			str[i + j] = '\0';
+		}
+	}
+}
+
+void	ft_rem_double_space_quotes(char *str, bool *quotes, char *sep)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\'' && !quotes[1])
+			quotes[0] = set_to_opposite(quotes[0]);
+		else if (str[i] == '"' && !quotes[0])
+			quotes[1] = set_to_opposite(quotes[1]);
+		while (str[i + 1] && ft_strchr(sep, str[i + 1])
+			&& ft_strchr(sep, str[i]) && !quotes[0] && !quotes[1])
 		{
 			j = -1;
 			while (str[i + ++j + 1])

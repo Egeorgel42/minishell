@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 20:08:25 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:56:22 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ char		*add_slash(char *str);
 void		replace_charset_to_c(char *str, char *charset, char c);
 void		remove_quotes(t_data *data);
 void		ft_rem_double_space(char *str, char *sep);
+void		ft_rem_double_space_quotes(char *str, bool *quotes, char *sep);
 void		replace_in_str(char **str, char *replace, int start, int end);
 bool		set_to_opposite(bool b);
 void		sort_and_print(t_data *data, t_env *env);
