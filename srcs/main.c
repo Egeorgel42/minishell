@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 19:33:42 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:02:01 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	data_initialize(t_data *data, char **envp)
 	update_envp(data);
 	get_history(data);
 	start_attr(data);
-	start_path(data);
+	start_env(data);
 	g_sig.status = 0;
 }
 

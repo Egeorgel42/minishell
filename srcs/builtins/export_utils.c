@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:15:00 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/28 19:39:10 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:27:19 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ void	sort_and_print(t_data *data, t_env *env)
 	buf = env;
 	while (buf)
 	{
-		if (!ft_strcmp(buf->pref, "PATH") || data->print_path)
+		if (*buf->string && (!ft_strcmp(buf->pref, "PATH") || data->print_path))
+			printf("declare -x %s=\"%s\"\n", buf->pref, buf->string);
+		else if ((!ft_strcmp(buf->pref, "PATH") || data->print_path))
 			printf("declare -x %s\n", buf->full_string);
 		buf = buf->next;
 	}

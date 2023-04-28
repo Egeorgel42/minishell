@@ -6,7 +6,7 @@
 #    By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 17:09:43 by egeorgel          #+#    #+#              #
-#    Updated: 2023/04/28 18:31:18 by egeorgel         ###   ########.fr        #
+#    Updated: 2023/04/28 20:07:53 by egeorgel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ piping/child_process.c \
 piping/execution_call.c \
 piping/pipes.c \
 utils/env_utils.c \
+utils/start_env.c \
 utils/list-pid_utils.c \
 utils/utils1.c \
 utils/utils2.c \

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 19:39:55 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:08:25 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void		start_pwd(t_data *data);
 //env
 void		create_env(char **envp, t_env **env);
 t_env		*create_node(char *str);
+void		start_env(t_data *data);
 void		update_envp(t_data *data);
 bool		get_env(t_data *data);
 bool		developp_env(t_data *data, char **str);
@@ -151,7 +152,6 @@ char		**get_cmd(t_data *data);
 void		get_path(t_data *data);
 void		get_history(t_data *data);
 void		save_history(t_data *data);
-void		start_path(t_data *data);
 
 //err
 void		get_errlst(t_data *data);
