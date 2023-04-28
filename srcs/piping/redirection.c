@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:02:51 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/22 18:09:45 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:15:28 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	get_redirection_out(t_data *data)
 
 	buf = data->lst;
 	err = 0;
-	while (buf && !strchr("|", *buf->str))
+	while (buf && strcmp("|", buf->str))
 	{
 		if (ft_strchr("<>", buf->str[0]))
 		{

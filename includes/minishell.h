@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/27 14:10:14 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:40:43 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef enum e_err{
 	ERRNO,
 	ERR_CMD,
 	ERR_FD,
+	ERR_DIR,
+	ERR_NOT_DIR,
 	ERR_EXP,
 	ERR_FLAG,
 	ERR_PARSING,
@@ -54,6 +56,7 @@ typedef struct s_sig
 	bool			heredoc;
 	struct termios	attr;
 	struct termios	saved;
+	int				status;
 	pid_t			pid;
 }	t_sig;
 

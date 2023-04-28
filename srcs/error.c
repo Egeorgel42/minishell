@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/25 18:46:23 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:41:43 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	error_exit(int err, char *input, char *token, t_data *data)
 	if (errno)
 	{
 		perror(msg);
-		exit(errno);
+		if (!data->cmd_status)
+			exit(errno);
+		exit(data->cmd_status);
 	}
 	msg = ft_strjoinfree(msg, ": ", true, false);
 	msg = ft_strjoinfree(msg, data->errlst[err], true, false);
@@ -79,6 +81,8 @@ void	get_errlst(t_data *data)
 {
 	data->errlst = malloc(sizeof(char *) * (ERR_MAX + 1));
 	data->errlst[ERR_CMD] = strdup("Command not found");
+	data->errlst[ERR_DIR] = strdup("Is a directory");
+	data->errlst[ERR_NOT_DIR] = strdup("Not a directory");
 	data->errlst[ERR_FD] = strdup("No such file or directory");
 	data->errlst[ERR_PARSING] = strdup("Unexpected parsing error");
 	data->errlst[ERR_UNSUPORTED] = strdup("Is not a valid input");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuzmin <zxcmasterass@gmail.com>           +#+  +:+       +#+        */
+/*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 21:00:16 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/20 12:43:51 by vkuzmin          ###   ########.fr       */
+/*   Updated: 2023/04/27 15:23:40 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static bool	check_input(char *str, t_data *data)
 	int	i;
 
 	i = 0;
+	if (ft_strcmp(str, "_"))
+		return (false);
 	if (str[0] >= '0' && str[0] <= '9')
 	{
 		error(ERR_EXP, str, str, data);

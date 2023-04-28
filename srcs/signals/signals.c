@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:46:54 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/25 21:02:23 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:58:10 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	signal_handler(int sig)
 	}
 	else
 	{
+		g_sig.status = 130;
 		if (!g_sig.prompt)
 		{
 			rl_on_new_line();
