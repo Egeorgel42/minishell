@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 18:28:20 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/29 19:16:01 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,9 @@ void	create_pipe(t_data *data)
 	data->out_fd = fd[1];
 }
 
-static bool	err_redir(t_data *data, t_list *buf)
+static bool	err_redir(t_data *data)
 {
-	int		err;
-
-	err = get_redirection_out(data);
-	if (err == 1)
-	{
-		if (data->in_fd != 0)
-			close (data->in_fd);
-		if (data->out_fd != 1)
-			close(data->out_fd);
-		data->in_fd = data->pipe_fd;
-		rem_until_rem(&data->lst, buf);
-		return (false);
-	}
-	else if (err == 2)
+	if (!get_redirection_out(data))
 	{
 		if (data->in_fd != 0)
 			close (data->in_fd);
@@ -70,7 +57,7 @@ void	callstructure(t_data *data)
 		rem_until_rem(&data->lst, buf);
 		return ;
 	}
-	if (!err_redir(data, buf))
+	if (!err_redir(data))
 		return ;
 	remove_quotes(data);
 	cmd = get_cmd(data);
@@ -83,7 +70,7 @@ void	parent_cmd(t_data *data)
 {
 	char	**cmd;
 
-	if (!get_env(data) || get_redirection_out(data))
+	if (!get_env(data) || !get_redirection_out(data))
 	{
 		ft_lstclear(&data->lst, free);
 		return ;

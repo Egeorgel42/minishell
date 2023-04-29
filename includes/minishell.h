@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 20:56:22 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/29 19:13:03 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int			env_size(t_env *env);
 int			exit_status(t_data *data, char **str, int i);
 
 //piping
-int			get_redirection_out(t_data *data);
+bool		get_redirection_out(t_data *data);
 bool		heredoc(t_data *data, char *sep);
 void		callstructure(t_data *data);
 void		wait_pids(t_data *data);

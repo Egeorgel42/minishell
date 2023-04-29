@@ -6,18 +6,18 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:02:51 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/29 18:26:13 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/29 19:12:09 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	redirect_fd_fill(t_data *data, t_list *buf)
+static bool	redirect_fd_fill(t_data *data, t_list *buf)
 {
 	if (ft_strcmp(buf->str, "<<"))
 	{
 		if (!heredoc(data, buf->next->str))
-			return (2);
+			return (false);
 	}
 	else if (ft_strcmp(buf->str, "<"))
 	{
@@ -25,10 +25,10 @@ static int	redirect_fd_fill(t_data *data, t_list *buf)
 			close(data->in_fd);
 		data->in_fd = open(buf->next->str, O_RDONLY);
 	}
-	return (0);
+	return (true);
 }
 
-static int	redirect_fd(t_data *data, t_list *buf)
+static bool	redirect_fd(t_data *data, t_list *buf)
 {
 	if (ft_strcmp(buf->str, ">>"))
 	{
@@ -44,34 +44,30 @@ static int	redirect_fd(t_data *data, t_list *buf)
 		data->out_fd = open(buf->next->str, O_CREAT | O_RDWR | O_TRUNC, 000644);
 	}
 	else
-		if (redirect_fd_fill(data, buf) == 2)
-			return (2);
+		if (!redirect_fd_fill(data, buf))
+			return (false);
 	if (data->in_fd == -1 || data->out_fd == -1)
 	{
 		error(ERR_FD, buf->next->str, NULL, data);
-		return (1);
+		return (false);
 	}
-	return (0);
+	return (true);
 }
 
-int	get_redirection_out(t_data *data)
+bool	get_redirection_out(t_data *data)
 {
 	t_list	*buf;
-	int		err;
+	bool	err;
 
 	buf = data->lst;
-	err = 0;
+	err = true;
 	while (buf && strcmp("|", buf->str))
 	{
 		if (ft_strchr("<>", buf->str[0]))
 		{
-			if (!buf->next || ft_strchr("<>|", *buf->next->str))
-			{
-				error(ERR_EMPTY, NULL, buf->str, data);
-				err = 2;
-			}
-			else
-				err = redirect_fd(data, buf);
+			err = redirect_fd(data, buf);
+			if (!err)
+				break ;
 			remove_from_list(&data->lst, buf->next);
 			remove_from_list(&data->lst, buf);
 			buf = data->lst;
