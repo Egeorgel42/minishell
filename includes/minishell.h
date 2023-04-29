@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/29 19:13:03 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/29 20:37:23 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ bool		is_flaged(char **str);
 
 void		mini_pwd(char **str, t_data *data);
 void		mini_env(char **str, t_data *data);
-void		mini_echo(char **str);
+void		mini_echo(t_data *data, char **str);
 void		mini_export(char **str, t_data *data);
 void		mini_exit(t_data *data, char **str);
 void		mini_unset(t_data *data, char **str);

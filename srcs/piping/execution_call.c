@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/27 20:18:14 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/29 20:42:32 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	inbuilts(char **cmd, t_data *data)
 	else if (ft_strcmp(cmd[0], "env"))
 		mini_env(cmd, data);
 	else if (ft_strcmp(cmd[0], "echo"))
-		mini_echo(cmd);
+		mini_echo(data, cmd);
 	else if (ft_strcmp(cmd[0], "export"))
 		mini_export(cmd, data);
 	else if (ft_strcmp(cmd[0], "unset"))
