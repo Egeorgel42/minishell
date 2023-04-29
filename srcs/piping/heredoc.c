@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 18:42:34 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/29 18:37:55 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static bool	here_parent(t_data *data, int *fd)
 	int		status;
 
 	close(fd[1]);
+	waitpid(g_sig.pid, &status, 0);
 	if (data->in_fd != 0)
 		close(data->in_fd);
-	waitpid(g_sig.pid, &status, 0);
-	if (!WIFEXITED(status) && WTERMSIG(status) == SIGTERM)
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGTERM)
 	{
 		close (fd[0]);
 		data->status = 1;

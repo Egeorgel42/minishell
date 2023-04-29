@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:02:51 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 16:15:28 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/04/29 18:26:13 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static int	redirect_fd_fill(t_data *data, t_list *buf)
 {
 	if (ft_strcmp(buf->str, "<<"))
 	{
-		if (data->in_fd != 0)
-			close(data->in_fd);
 		if (!heredoc(data, buf->next->str))
 			return (2);
 	}
