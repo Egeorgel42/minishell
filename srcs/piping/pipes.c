@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/29 20:36:06 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/02 20:04:30 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,13 @@ void	parent_cmd(t_data *data)
 	remove_quotes(data);
 	cmd = get_cmd(data);
 	if (data->lst && !inbuilts(cmd, data))
+	{
 		cmd_process(cmd, data);
+		wait_pids(data);
+		ft_lstclear(&data->lst, free);
+		ft_freetab((void *)cmd);
+		return ;
+	}
 	ft_lstclear(&data->lst, free);
 	ft_freetab((void *)cmd);
 	data->status = data->cmd_status;

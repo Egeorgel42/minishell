@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/29 20:37:23 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:55:34 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <signal.h>
 # include <sys/ioctl.h>
+# include <sys/stat.h>
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <termios.h>
@@ -36,6 +37,7 @@ typedef enum e_err{
 	ERR_NOT_DIR,
 	ERR_EXP,
 	ERR_FLAG,
+	ERR_PERM,
 	ERR_PARSING,
 	ERR_ARGS,
 	ERR_ARGS_NBR,

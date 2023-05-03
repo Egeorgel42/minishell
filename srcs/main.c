@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 20:02:01 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/02 19:18:20 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	minishell_loop(t_data *data)
 	{
 		while (data->lst)
 			callstructure(data);
+		wait_pids(data);
 	}
-	wait_pids(data);
 	data_default(data);
 }
 //errno = 0 because readline sets errno to 2 for some reason

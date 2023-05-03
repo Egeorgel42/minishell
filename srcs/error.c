@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/29 20:46:02 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:56:05 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,10 @@ void	error_exit(int err, char *input, char *token, t_data *data)
 	if (input && *input)
 		input = ft_strjoinfree(": ", input, false, true);
 	msg = ft_strjoinfree("minishell", input, false, true);
-	if (errno)
+	if (errno && !data->cmd_status)
 	{
 		perror(msg);
-		if (!data->cmd_status && !errno)
-			exit(1);
-		else if (!data->cmd_status)
-			exit(errno);
-		exit(data->cmd_status);
+		exit(errno);
 	}
 	msg = ft_strjoinfree(msg, ": ", true, false);
 	msg = ft_strjoinfree(msg, data->errlst[err], true, false);
@@ -69,8 +65,8 @@ void	error(int err, char *input, char *token, t_data *data)
 		ft_putstr_fd(msg, 2);
 	}
 	free(msg);
-	if (data->cmd_status == 0)
-		data->cmd_status = 1;
+	if (data->status == 0)
+		data->status = 1;
 }
 /*
 written like: "minishell: input: err_msg 'token'"
@@ -102,5 +98,6 @@ void	get_errlst(t_data *data)
 	data->errlst[ERR_ARGS] = strdup("Invalid command arguments");
 	data->errlst[ERR_ARGS_NBR] = strdup("Too many arguments");
 	data->errlst[ERR_EXP] = strdup("not a valid indentifier");
+	data->errlst[ERR_PERM] = strdup("Permission denied");
 	data->errlst[ERR_MAX] = NULL;
 }

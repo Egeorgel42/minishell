@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/28 19:40:10 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/02 19:07:10 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	mini_export(char **str, t_data *data)
 	}
 	i = 1;
 	current = data->env;
-	while (current->next->next != NULL)
+	while (current && current->next && current->next->next)
 		current = current->next;
 	while (str[i])
 	{
