@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/03 19:56:05 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:48:20 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,22 @@ void	error_exit(int err, char *input, char *token, t_data *data)
 	if (input && *input)
 		input = ft_strjoinfree(": ", input, false, true);
 	msg = ft_strjoinfree("minishell", input, false, true);
-	if (errno && !data->cmd_status)
-	{
+	if (errno && !err)
 		perror(msg);
-		exit(errno);
+	else
+	{
+		msg = ft_strjoinfree(msg, ": ", true, false);
+		msg = ft_strjoinfree(msg, data->errlst[err], true, false);
+		if (token)
+			msg = add_token(msg, token);
+		msg = ft_strjoinfree(msg, "\n", true, false);
+		ft_putstr_fd(msg, 2);
 	}
-	msg = ft_strjoinfree(msg, ": ", true, false);
-	msg = ft_strjoinfree(msg, data->errlst[err], true, false);
-	if (token)
-		msg = add_token(msg, token);
-	msg = ft_strjoinfree(msg, "\n", true, false);
-	ft_putstr_fd(msg, 2);
 	free(msg);
-	exit(data->cmd_status);
+	if (data->cmd_status)
+		exit(data->cmd_status);
+	else
+		exit(1);
 }
 
 void	error(int err, char *input, char *token, t_data *data)
@@ -65,8 +68,8 @@ void	error(int err, char *input, char *token, t_data *data)
 		ft_putstr_fd(msg, 2);
 	}
 	free(msg);
-	if (data->status == 0)
-		data->status = 1;
+	if (data->cmd_status == 0)
+		data->cmd_status = 1;
 }
 /*
 written like: "minishell: input: err_msg 'token'"

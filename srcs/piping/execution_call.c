@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/03 21:52:01 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:46:18 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ static void	test_dirs(t_data *data)
 	free(buf);
 }
 
-static void	access_err(t_data *data)
+static void	access_err(t_data *data, bool is_a_dir)
 {
 	errno = 0;
+	if (is_a_dir)
+		exit(1);
 	data->cmd_status = 126;
 	if (data->lst->str[ft_strlen(data->lst->str) - 1] == '/')
 	{
@@ -51,30 +53,32 @@ static void	access_err(t_data *data)
 	error_exit(ERR_CMD, data->lst->str, NULL, data);
 }
 
-static void	check_stat(t_data *data)
+static bool	check_stat(t_data *data)
 {
 	struct stat	stats;
 
-	if (stat(data->lst->str, &stats))
-		error_exit(ERRNO, NULL, NULL, data);
 	data->cmd_status = 126;
-	if (S_ISDIR(stats.st_mode))
+	if (stat(data->lst->str, &stats))
+		error_exit(ERRNO, data->lst->str, NULL, data);
+	if (S_ISDIR(stats.st_mode) && ft_strchr("./", data->lst->str[0]))
 		error_exit(ERR_DIR, data->lst->str, NULL, data);
+	else if (S_ISDIR(stats.st_mode))
+		return (true);
+	return (false);
 }
 
 static char	*access_p(t_data *data)
 {
+	bool	is_a_dir;
 	char	*check_path;
 	int		i;
 
 	i = -1;
-	if (access(data->lst->str, F_OK) == 0)
-	{
-		errno = 0;
-		check_stat(data);
+	is_a_dir = check_stat(data);
+	if (access(data->lst->str, F_OK) == 0 && !is_a_dir)
 		return (ft_strdup(data->lst->str));
-	}
-	if (!data->path)
+	errno = 0;
+	if (*data->lst->str == '.' || !data->path)
 	{
 		errno = 0;
 		data->cmd_status = 127;
@@ -88,7 +92,7 @@ static char	*access_p(t_data *data)
 			return (check_path);
 		free(check_path);
 	}
-	access_err(data);
+	access_err(data, is_a_dir);
 	return (NULL);
 }
 //path gets also updated on update_envp() (done at start of child)
