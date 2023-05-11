@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/08 16:46:18 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:38:21 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,7 @@ static void	test_dirs(t_data *data)
 	free(buf);
 }
 
-static void	access_err(t_data *data, bool is_a_dir)
-{
-	errno = 0;
-	if (is_a_dir)
-		exit(1);
-	data->cmd_status = 126;
-	if (data->lst->str[ft_strlen(data->lst->str) - 1] == '/')
-	{
-		if (access(data->lst->str, F_OK) != 0)
-			error_exit(ERR_NOT_DIR, data->lst->str, NULL, data);
-		error_exit(ERR_DIR, data->lst->str, NULL, data);
-	}
-	test_dirs(data);
-	data->cmd_status = 127;
-	if (ft_strchr(data->lst->str, '/'))
-		error_exit(ERR_FD, data->lst->str, NULL, data);
-	error_exit(ERR_CMD, data->lst->str, NULL, data);
-}
-
-static bool	check_stat(t_data *data)
+static void	check_stat(t_data *data)
 {
 	struct stat	stats;
 
@@ -63,24 +44,42 @@ static bool	check_stat(t_data *data)
 	if (S_ISDIR(stats.st_mode) && ft_strchr("./", data->lst->str[0]))
 		error_exit(ERR_DIR, data->lst->str, NULL, data);
 	else if (S_ISDIR(stats.st_mode))
-		return (true);
-	return (false);
+		exit(1);
+}
+
+static void	access_err(t_data *data)
+{
+	errno = 0;
+	check_stat(data);
+	data->cmd_status = 126;
+	if (data->lst->str[ft_strlen(data->lst->str) - 1] == '/')
+		if (access(data->lst->str, F_OK) != 0)
+			error_exit(ERR_NOT_DIR, data->lst->str, NULL, data);
+	test_dirs(data);
+	data->cmd_status = 127;
+	if (ft_strchr(data->lst->str, '/'))
+		error_exit(ERR_FD, data->lst->str, NULL, data);
+	error_exit(ERR_CMD, data->lst->str, NULL, data);
 }
 
 static char	*access_p(t_data *data)
 {
-	bool	is_a_dir;
 	char	*check_path;
 	int		i;
 
 	i = -1;
-	is_a_dir = check_stat(data);
-	if (access(data->lst->str, F_OK) == 0 && !is_a_dir)
-		return (ft_strdup(data->lst->str));
 	errno = 0;
-	if (*data->lst->str == '.' || !data->path)
+	if (*data->lst->str == '.')
 	{
+		check_stat(data);
+		if (access(data->lst->str, F_OK) == 0)
+			return (ft_strdup(data->lst->str));
 		errno = 0;
+		data->cmd_status = 127;
+		error_exit(ERR_FD, data->lst->str, NULL, data);
+	}
+	if (!data->path)
+	{
 		data->cmd_status = 127;
 		error_exit(ERR_FD, data->lst->str, NULL, data);
 	}
@@ -92,7 +91,7 @@ static char	*access_p(t_data *data)
 			return (check_path);
 		free(check_path);
 	}
-	access_err(data, is_a_dir);
+	access_err(data);
 	return (NULL);
 }
 //path gets also updated on update_envp() (done at start of child)
