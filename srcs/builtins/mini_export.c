@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/05/02 19:07:10 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:49:54 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,32 @@ void	mini_export(char **str, t_data *data)
 			export_in_env(data, current, str[i]);
 		i++;
 	}
+}
+
+t_env	*copy_env_list(t_env *head)
+{
+	t_env	*new_head;
+	t_env	*current;
+	t_env	*last;
+	t_env	*new_node;
+
+	new_head = NULL;
+	current = head;
+	while (current)
+	{
+		new_node = create_node(current->full_string);
+		if (!new_head)
+			new_head = new_node;
+		else
+		{
+			last = new_head;
+			while (last->next)
+			{
+				last = last->next;
+			}
+			last->next = new_node;
+		}
+		current = current->next;
+	}
+	return (new_head);
 }

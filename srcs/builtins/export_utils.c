@@ -6,39 +6,11 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:15:00 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/29 20:38:25 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:51:15 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-t_env	*copy_env_list(t_env *head)
-{
-	t_env	*new_head;
-	t_env	*current;
-	t_env	*last;
-	t_env	*new_node;
-
-	new_head = NULL;
-	current = head;
-	while (current)
-	{
-		new_node = create_node(current->full_string);
-		if (!new_head)
-			new_head = new_node;
-		else
-		{
-			last = new_head;
-			while (last->next)
-			{
-				last = last->next;
-			}
-			last->next = new_node;
-		}
-		current = current->next;
-	}
-	return (new_head);
-}
 
 static void	swap(t_env *a, t_env *b)
 {
@@ -88,6 +60,19 @@ static void	clear_env(t_env *env)
 	}
 }
 
+static void	print(t_data *data, t_env *buf)
+{
+	while (buf)
+	{
+		if (*buf->string && (!ft_strcmp(buf->pref, "PATH") || data->print_path))
+			ft_fprintf(data->out_fd, "declare -x %s=\"%s\"\n",
+				buf->pref, buf->string);
+		else if ((!ft_strcmp(buf->pref, "PATH") || data->print_path))
+			ft_fprintf(data->out_fd, "declare -x %s\n", buf->full_string);
+		buf = buf->next;
+	}
+}
+
 void	sort_and_print(t_data *data, t_env *env)
 {
 	t_env	*next;
@@ -106,14 +91,6 @@ void	sort_and_print(t_data *data, t_env *env)
 		buf = buf->next;
 	}
 	buf = env;
-	while (buf)
-	{
-		if (*buf->string && (!ft_strcmp(buf->pref, "PATH") || data->print_path))
-			ft_fprintf(data->out_fd, "declare -x %s=\"%s\"\n",
-				buf->pref, buf->string);
-		else if ((!ft_strcmp(buf->pref, "PATH") || data->print_path))
-			ft_fprintf(data->out_fd, "declare -x %s\n", buf->full_string);
-		buf = buf->next;
-	}
+	print(data, buf);
 	clear_env(env);
 }

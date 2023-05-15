@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 20:55:17 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:45:24 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,10 @@ static bool	err_quotes(t_data *data, t_list *lst, bool *quotes)
 	return (true);
 }
 
-static bool	invalid_token(t_data *data, t_list *lst, int i)
+static void	sep_loop(char *str, int j, bool *quotes)
 {
-	if (i < 0)
-	{
-		ft_lstclear(&lst, free);
-		save_history(data);
-		return (false);
-	}
-	return (true);
-}
-
-static int	get_seperator(char *str, t_data *data, t_list **buf, bool *quotes)
-{
-	int		i;
-	int		j;
 	char	c;
 
-	i = 0;
-	if (str[i] && ft_strchr(" \n\t\v\f\r", str[i]))
-		i++;
-	j = i;
 	while (str[j] && ft_strchr("|<>&(){}[];*", str[j])
 		&& (!quotes[0] && !quotes[1]))
 	{
@@ -57,6 +40,18 @@ static int	get_seperator(char *str, t_data *data, t_list **buf, bool *quotes)
 		if (str[j] && str[j] != c)
 			break ;
 	}
+}
+
+static int	get_seperator(char *str, t_data *data, t_list **buf, bool *quotes)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	if (str[i] && ft_strchr(" \n\t\v\f\r", str[i]))
+		i++;
+	j = i;
+	sep_loop(str, j, quotes);
 	if (i != j)
 	{
 		(*buf)->next = ft_lstnew(ft_substr(str, i, j - i));

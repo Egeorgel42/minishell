@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:59:52 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 16:24:31 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:02:12 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,15 @@ int	token_end(char *str, bool *quotes, int j)
 		j++;
 	}
 	return (j);
+}
+
+bool	invalid_token(t_data *data, t_list *lst, int i)
+{
+	if (i < 0)
+	{
+		ft_lstclear(&lst, free);
+		save_history(data);
+		return (false);
+	}
+	return (true);
 }

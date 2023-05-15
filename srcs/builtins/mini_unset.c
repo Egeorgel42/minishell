@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 21:00:16 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/28 19:51:24 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:55:18 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ static bool	check_input(char *str, t_data *data)
 	return (true);
 }
 
+static void	free_env(t_env *env)
+{
+	free(env->full_string);
+	free(env->pref);
+	free(env->string);
+	free(env);
+}
+
 void	mini_unset(t_data *data, char **str)
 {
 	t_env	*env;
@@ -58,17 +66,11 @@ void	mini_unset(t_data *data, char **str)
 				return ;
 			if (prev)
 				prev->next = env->next;
+			else if (!env->next)
+				data->env = NULL;
 			else
-			{
-				if (!env->next)
-					data->env = NULL;
-				else
-					data->env = data->env->next;
-			}
-			free(env->full_string);
-			free(env->pref);
-			free(env->string);
-			free(env);
+				data->env = data->env->next;
+			free_env(env);
 		}
 		i++;
 	}
