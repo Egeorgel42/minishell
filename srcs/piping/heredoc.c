@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/29 18:37:55 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:09:02 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static bool	here_parent(t_data *data, int *fd)
 
 	close(fd[1]);
 	waitpid(g_sig.pid, &status, 0);
-	if (data->in_fd != 0)
-		close(data->in_fd);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGTERM)
 	{
 		close (fd[0]);
@@ -65,6 +63,8 @@ bool	heredoc(t_data *data, char *sep)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_here);
 	g_sig.heredoc = true;
+	if (data->in_fd != 0)
+		close(data->in_fd);
 	if (pipe(fd) == -1)
 		error_exit(ERR_MAX, NULL, NULL, data);
 	g_sig.pid = fork();

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/15 16:45:24 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:03:46 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ static bool	err_quotes(t_data *data, t_list *lst, bool *quotes)
 	return (true);
 }
 
-static void	sep_loop(char *str, int j, bool *quotes)
+static void	sep_loop(char *str, int *j, bool *quotes)
 {
 	char	c;
 
-	while (str[j] && ft_strchr("|<>&(){}[];*", str[j])
+	while (str[*j] && ft_strchr("|<>&(){}[];*", str[*j])
 		&& (!quotes[0] && !quotes[1]))
 	{
-		c = str[j];
-		if (str[j] == '\'' && !quotes[1])
+		c = str[*j];
+		if (str[*j] == '\'' && !quotes[1])
 			quotes[0] = set_to_opposite(quotes[0]);
-		else if (str[j] == '"' && !quotes[0])
+		else if (str[*j] == '"' && !quotes[0])
 			quotes[1] = set_to_opposite(quotes[1]);
-		j++;
-		if (str[j] && str[j] != c)
+		(*j)++;
+		if (str[*j] && str[*j] != c)
 			break ;
 	}
 }
@@ -51,7 +51,7 @@ static int	get_seperator(char *str, t_data *data, t_list **buf, bool *quotes)
 	if (str[i] && ft_strchr(" \n\t\v\f\r", str[i]))
 		i++;
 	j = i;
-	sep_loop(str, j, quotes);
+	sep_loop(str, &j, quotes);
 	if (i != j)
 	{
 		(*buf)->next = ft_lstnew(ft_substr(str, i, j - i));
