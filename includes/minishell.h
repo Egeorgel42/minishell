@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/15 17:02:28 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:49:20 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef enum e_err{
 typedef struct s_sig
 {
 	bool			heredoc;
+	bool			killed;
 	int				status;
 	pid_t			pid;
 }	t_sig;
@@ -75,31 +76,31 @@ typedef struct s_pidlst
 
 typedef struct s_data
 {
-	bool			print_path;
-	int				status;
-	int				cmd_status;
-	char			**envp;
-	char			**path;
-	char			**errlst;
-	char			*prompt;
-	char			*pwd;
-	char			*last_history;
-	t_list			*lst;
-	t_env			*env;
-	int				history_fd;
-	int				out_fd;
-	int				in_fd;
-	int				pipe_fd;
-	t_pidlst		*pidlst;
-	struct termios	attr;
-	struct termios	saved;
+	bool				print_path;
+	int					status;
+	int					cmd_status;
+	char				**envp;
+	char				**path;
+	char				**errlst;
+	char				*prompt;
+	char				*pwd;
+	char				*last_history;
+	t_list				*lst;
+	t_env				*env;
+	int					history_fd;
+	int					out_fd;
+	int					in_fd;
+	int					pipe_fd;
+	t_pidlst			*pidlst;
+	struct termios		attr;
+	struct termios		saved;
+	struct sigaction	act;
 }	t_data;
 
 //sig
 void		sigint(int sig);
 void		empty_sigint(int sig);
 void		sigint_here(int sig);
-void		sig_quit(int sig);
 void		start_attr(t_data *data);
 void		signal_messages(t_data *data, int sig);
 

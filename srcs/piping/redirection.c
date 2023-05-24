@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:02:51 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/29 19:12:09 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:23:51 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ static bool	redirect_fd(t_data *data, t_list *buf)
 			close(data->out_fd);
 		data->out_fd = open(buf->next->str, O_CREAT | O_RDWR | O_TRUNC, 000644);
 	}
-	else
-		if (!redirect_fd_fill(data, buf))
-			return (false);
+	else if (!redirect_fd_fill(data, buf))
+		return (false);
 	if (data->in_fd == -1 || data->out_fd == -1)
 	{
 		error(ERR_FD, buf->next->str, NULL, data);

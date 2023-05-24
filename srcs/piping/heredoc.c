@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/19 18:09:02 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:49:38 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static bool	here_parent(t_data *data, int *fd)
 	waitpid(g_sig.pid, &status, 0);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGTERM)
 	{
-		close (fd[0]);
+		close(fd[0]);
 		data->status = 1;
 		return (false);
 	}
@@ -61,7 +61,8 @@ bool	heredoc(t_data *data, char *sep)
 	int		fd[2];
 
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sigint_here);
+	data->act.__sigaction_u.__sa_handler = sigint_here;
+	sigaction(SIGINT, &data->act, NULL);
 	g_sig.heredoc = true;
 	if (data->in_fd != 0)
 		close(data->in_fd);
@@ -75,8 +76,9 @@ bool	heredoc(t_data *data, char *sep)
 	else if (g_sig.pid > 0)
 		if (!here_parent(data, fd))
 			return (false);
-	signal(SIGQUIT, sig_quit);
-	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_DFL);
+	data->act.__sigaction_u.__sa_handler = sigint;
+	sigaction(SIGINT, &data->act, NULL);
 	g_sig.heredoc = false;
 	return (true);
 }

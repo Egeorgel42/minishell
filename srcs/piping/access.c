@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:56:41 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/22 16:36:23 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:42:52 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	access_err(t_data *data)
 	if (data->lst->str[ft_strlen(data->lst->str) - 1] == '/')
 		if (access(data->lst->str, F_OK) != 0)
 			error_exit(ERR_NOT_DIR, data->lst->str, NULL, data);
+	data->cmd_status = 127;
+	error_exit(ERR_CMD, data->lst->str, NULL, data);
 }
 
 static char	*cur_dir(t_data *data)

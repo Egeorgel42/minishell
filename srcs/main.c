@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/11 17:37:10 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/23 00:20:45 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ void	data_initialize(t_data *data, char **envp)
 	start_attr(data);
 	start_env(data);
 	g_sig.status = 0;
+	sigaction(SIGINT, NULL, &data->act);/*
+	sigemptyset(&data->act.sa_mask);
+	sigaddset(&data->act.sa_mask, SIGINT);*/
 }
 
 void	data_default(t_data *data)
@@ -52,13 +55,15 @@ void	data_default(t_data *data)
 
 static void	minishell_loop_start(t_data *data)
 {
+	data->act.__sigaction_u.__sa_handler = empty_sigint;
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, empty_sigint);
+	sigaction(SIGINT, &data->act, NULL);
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &data->attr);
 	data->prompt = readline("minishell> ");
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &data->saved);
-	signal(SIGQUIT, sig_quit);
-	signal(SIGINT, sigint);
+	signal(SIGQUIT, SIG_DFL);
+	data->act.__sigaction_u.__sa_handler = sigint;
+	sigaction(SIGINT, &data->act, NULL);
 	if (data->prompt == NULL)
 	{
 		ft_printf("exit\n");
