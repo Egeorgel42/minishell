@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/23 00:20:45 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/24 22:47:17 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void	data_initialize(t_data *data, char **envp)
 	start_attr(data);
 	start_env(data);
 	g_sig.status = 0;
-	sigaction(SIGINT, NULL, &data->act);/*
-	sigemptyset(&data->act.sa_mask);
-	sigaddset(&data->act.sa_mask, SIGINT);*/
+	sigaction(SIGINT, NULL, &data->act);
 }
 
 void	data_default(t_data *data)
