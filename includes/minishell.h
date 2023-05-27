@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/22 18:49:20 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:40:43 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef enum e_err{
 	ERR_ARGS,
 	ERR_ARGS_NBR,
 	ERR_UNSUPORTED,
+	ERR_EXIT,
 	ERR_QUOTES,
 	ERR_HOME,
 	ERR_HOME_CD,
