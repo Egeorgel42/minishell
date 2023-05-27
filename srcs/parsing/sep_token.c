@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/19 18:03:46 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:32:33 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static int	get_token(char *str, t_data *data, t_list **buf, bool *quotes)
 				|| (ft_strcmp("|", (*buf)->next->str)
 					&& !ft_strchr("<>", str[j]))))
 		{
+			data->status = 258;
 			error(ERR_EMPTY, NULL, (*buf)->next->str, data);
 			return (INT_MIN);
 		}
@@ -89,6 +90,26 @@ static int	get_token(char *str, t_data *data, t_list **buf, bool *quotes)
 	else if (i != j)
 		(*buf)->next = ft_lstnew(ft_substr(str, i, j - i));
 	return (j);
+}
+
+static bool	check_first_pipe(t_data *data, char *str, bool *quotes)
+{
+	int		i;
+	char	*buf;
+
+	i = 0;
+	if (str[i] && ft_strchr(" \n\t\v\f\r", str[i]))
+		i++;
+	sep_loop(str, &i, quotes);
+	if (i != 0 && str[i - 1] == '|')
+	{
+		data->status = 258;
+		buf = ft_substr(str, i - 1, 1);
+		error(ERR_EMPTY, NULL, buf, data);
+		free(buf);
+		return (false);
+	}
+	return (true);
 }
 
 t_list	*sep_token(char *str, t_data *data)
@@ -106,6 +127,8 @@ t_list	*sep_token(char *str, t_data *data)
 	lst = ft_lstnew(ft_strdup(""));
 	buf = lst;
 	i = 0;
+	if (!check_first_pipe(data, str, quotes))
+		return (NULL);
 	while (str[i])
 	{
 		i += get_token(str + i, data, &buf, quotes);

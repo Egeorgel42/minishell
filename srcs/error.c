@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/08 16:48:20 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:31:22 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	error(int err, char *input, char *token, t_data *data)
 		ft_putstr_fd(msg, 2);
 	}
 	free(msg);
-	if (data->cmd_status == 0)
+	if (!data->cmd_status && !data->status)
 		data->cmd_status = 1;
 }
 /*
@@ -96,7 +96,7 @@ void	get_errlst(t_data *data)
 	data->errlst[ERR_START_PWD]
 		= strdup("Can't start minishell in a non existing directory");
 	data->errlst[ERR_QUOTES] = strdup("Unclosed quotes");
-	data->errlst[ERR_EMPTY] = strdup("Empty argument after token");
+	data->errlst[ERR_EMPTY] = strdup("syntax error near token");
 	data->errlst[ERR_FLAG] = strdup("Following option is invalid");
 	data->errlst[ERR_ARGS] = strdup("Invalid command arguments");
 	data->errlst[ERR_ARGS_NBR] = strdup("Too many arguments");

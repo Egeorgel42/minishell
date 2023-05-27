@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/27 16:32:12 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:53:01 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ bool	developp_env(t_data *data, char **str)
 		buf = get_str_env(data, "HOME");
 		if (!buf)
 		{
+			data->status = 1;
 			error(ERR_HOME, NULL, NULL, data);
+			data->cmd_status = 0;
 			return (false);
 		}
 		replace_in_str(str, buf, 0, 1);
