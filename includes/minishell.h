@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/28 18:42:19 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:49:01 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_data
 
 //sig
 void		sigint(int sig);
+void		sigquit(int sig);
 void		empty_sigint(int sig);
 void		sigint_here(int sig);
 void		start_attr(t_data *data);
