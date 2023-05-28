@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/28 19:49:31 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/28 20:47:18 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	data_default(t_data *data)
 	data->pipe_fd = 0;
 	data->in_fd = 0;
 	data->out_fd = 1;
+	data->cmd_status = 0;
 	update_envp(data);
 }
 
