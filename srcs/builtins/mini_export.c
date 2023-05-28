@@ -6,18 +6,28 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/05/27 16:25:48 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/28 18:43:15 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static char	*find_pref(char *str)
+{
+	int		len;
+
+	len = 0;
+	while (str[len] && str[len] != '=')
+		len++;
+	return (ft_substr(str, 0, len));
+}
 
 static bool	check_input(char *str, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	if ((str[0] >= '0' && str[0] <= '9' )|| str[0] == '=')
+	if ((str[0] >= '0' && str[0] <= '9' ) || str[0] == '=')
 	{
 		error(ERR_EXP, str, str, data);
 		return (false);
