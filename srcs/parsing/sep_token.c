@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/29 18:41:04 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 19:22:44 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,12 @@ static int	get_token(char *str, t_data *data, t_list **buf, bool *quotes)
 	return (j);
 }
 
-t_list	*sep_token(char *str, t_data *data)
+t_list	*sep_token(char *str, t_data *data, bool *quotes)
 {
 	int		i;
-	bool	quotes[2];
 	t_list	*lst;
 	t_list	*buf;
 
-	quotes[0] = false;
-	quotes[1] = false;
 	if (!str || !*str)
 		return (NULL);
 	ft_rem_double_space_quotes(str, quotes, " \n\t\v\f\r");

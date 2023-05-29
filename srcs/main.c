@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/28 20:47:18 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 19:22:27 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	data_default(t_data *data)
 
 static void	minishell_loop_start(t_data *data)
 {
+	bool	quotes[2];
+
 	data->act.__sigaction_u.__sa_handler = empty_sigint;
 	signal(SIGQUIT, SIG_IGN);
 	sigaction(SIGINT, &data->act, NULL);
@@ -72,6 +74,8 @@ static void	minishell_loop_start(t_data *data)
 		data->status = g_sig.status;
 	g_sig.status = 0;
 	errno = 0;
+	quotes[0] = false;
+	quotes[1] = false;
 	data->lst = sep_token(data->prompt, data);
 }
 
