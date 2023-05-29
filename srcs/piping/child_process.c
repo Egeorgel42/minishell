@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:07:20 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/29 18:20:44 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 19:12:07 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,19 @@ static void	child(char **cmd, t_data *data)
 	exit(data->cmd_status);
 }
 
-void	cmd_process(char **cmd, t_data *data)
+bool	cmd_process(char **cmd, t_data *data)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid < 0)
-		error_exit(ERRNO, NULL, NULL, data);
+	{
+		error(ERRNO, NULL, NULL, data);
+		ft_lstclear(&data->lst, free);
+		ft_freetab((void *)cmd);
+		kill_all(data);
+		return (false);
+	}
 	else if (pid == 0)
 		child(cmd, data);
 	else
@@ -45,5 +51,18 @@ void	cmd_process(char **cmd, t_data *data)
 			close(data->out_fd);
 		data->in_fd = data->pipe_fd;
 		add_pid(pid, data);
+	}
+	return (true);
+}
+
+void	kill_all(t_data *data)
+{
+	t_pidlst	*pidlst;
+
+	pidlst = data->pidlst;
+	while (pidlst)
+	{
+		kill(pidlst->pid, SIGTERM);
+		pidlst = pidlst->next;
 	}
 }

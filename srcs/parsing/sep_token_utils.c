@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:59:52 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/15 17:02:12 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:37:00 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,26 @@ bool	invalid_token(t_data *data, t_list *lst, int i)
 	{
 		ft_lstclear(&lst, free);
 		save_history(data);
+		return (false);
+	}
+	return (true);
+}
+
+bool	check_first_pipe(t_data *data, char *str, bool *quotes)
+{
+	int		i;
+	char	*buf;
+
+	i = 0;
+	if (str[i] && ft_strchr(" \n\t\v\f\r", str[i]))
+		i++;
+	sep_loop(str, &i, quotes);
+	if (i != 0 && str[i - 1] == '|')
+	{
+		data->status = 258;
+		buf = ft_substr(str, i - 1, 1);
+		error(ERR_EMPTY, NULL, buf, data);
+		free(buf);
 		return (false);
 	}
 	return (true);

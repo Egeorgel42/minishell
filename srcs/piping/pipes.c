@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/27 17:52:00 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:45:31 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	callstructure(t_data *data)
 		return ;
 	remove_quotes(data);
 	cmd = get_cmd(data);
-	cmd_process(cmd, data);
+	if (!cmd_process(cmd, data))
+		return ;
 	rem_until_rem(&data->lst, buf);
 	ft_freetab((void *)cmd);
 }
@@ -79,7 +80,8 @@ void	parent_cmd(t_data *data)
 	cmd = get_cmd(data);
 	if (data->lst && !inbuilts(cmd, data))
 	{
-		cmd_process(cmd, data);
+		if (!cmd_process(cmd, data))
+			return ;
 		wait_pids(data);
 		ft_lstclear(&data->lst, free);
 		ft_freetab((void *)cmd);

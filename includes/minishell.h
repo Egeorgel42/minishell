@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/28 19:49:01 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:56:24 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,8 @@ void		callstructure(t_data *data);
 void		wait_pids(t_data *data);
 void		parent_cmd(t_data *data);
 bool		is_pipe(t_data *data);
-void		cmd_process(char **cmd, t_data *data);
+bool		cmd_process(char **cmd, t_data *data);
+void		kill_all(t_data *data);
 void		excve(char **cmd, t_data *data);
 
 //parsing
@@ -155,6 +156,8 @@ t_list		*sep_token(char *str, t_data *data);
 bool		check_sep_token(t_list	*lst, t_data *data);
 int			token_end(char *str, bool *quotes, int j);
 bool		invalid_token(t_data *data, t_list *lst, int i);
+void		sep_loop(char *str, int *j, bool *quotes);
+bool		check_first_pipe(t_data *data, char *str, bool *quotes);
 char		**get_cmd(t_data *data);
 void		get_path(t_data *data);
 void		get_history(t_data *data);

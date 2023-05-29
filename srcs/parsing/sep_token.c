@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/27 19:32:33 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:41:04 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	err_quotes(t_data *data, t_list *lst, bool *quotes)
 	return (true);
 }
 
-static void	sep_loop(char *str, int *j, bool *quotes)
+void	sep_loop(char *str, int *j, bool *quotes)
 {
 	char	c;
 
@@ -90,26 +90,6 @@ static int	get_token(char *str, t_data *data, t_list **buf, bool *quotes)
 	else if (i != j)
 		(*buf)->next = ft_lstnew(ft_substr(str, i, j - i));
 	return (j);
-}
-
-static bool	check_first_pipe(t_data *data, char *str, bool *quotes)
-{
-	int		i;
-	char	*buf;
-
-	i = 0;
-	if (str[i] && ft_strchr(" \n\t\v\f\r", str[i]))
-		i++;
-	sep_loop(str, &i, quotes);
-	if (i != 0 && str[i - 1] == '|')
-	{
-		data->status = 258;
-		buf = ft_substr(str, i - 1, 1);
-		error(ERR_EMPTY, NULL, buf, data);
-		free(buf);
-		return (false);
-	}
-	return (true);
 }
 
 t_list	*sep_token(char *str, t_data *data)
