@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/27 19:39:46 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:43:47 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*add_token(char *msg, char *token)
 {
-	msg = ft_strjoinfree(msg, "'", true, false);
+	msg = ft_strjoinfree(msg, " '", true, false);
 	msg = ft_strjoinfree(msg, token, true, false);
 	msg = ft_strjoinfree(msg, "'", true, false);
 	return (msg);
@@ -24,7 +24,7 @@ void	error_exit(int err, char *input, char *token, t_data *data)
 {
 	char	*msg;
 
-	if (input && *input)
+	if (input)
 		input = ft_strjoinfree(": ", input, false, true);
 	msg = ft_strjoinfree("minishell", input, false, true);
 	if (errno && !err)
