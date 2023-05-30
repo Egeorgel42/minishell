@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:09:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/05/27 20:25:18 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 22:37:05 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,6 @@ void	mini_exit(t_data *data, char **str)
 
 	if (!str[1])
 		exit(data->status);
-	else if (str[2])
-	{
-		error(ERR_ARGS_NBR, str[0], NULL, data);
-		return ;
-	}
 	nbr = exit_parsing(data, str);
 	exit(nbr);
 }

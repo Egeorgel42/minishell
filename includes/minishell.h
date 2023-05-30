@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/29 19:32:34 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 23:00:04 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_pidlst
 
 typedef struct s_data
 {
+	bool				get_status;
 	bool				print_path;
 	int					status;
 	int					cmd_status;
@@ -111,7 +112,7 @@ void		signal_messages(t_data *data, int sig);
 bool		inbuilts(char **cmd, t_data *data);
 bool		is_flaged(char **str);
 
-void		mini_pwd(char **str, t_data *data);
+void		mini_pwd(t_data *data);
 void		mini_env(char **str, t_data *data);
 void		mini_echo(t_data *data, char **str);
 void		mini_export(char **str, t_data *data);
@@ -174,7 +175,7 @@ char		*add_slash(char *str);
 void		replace_charset_to_c(char *str, char *charset, char c);
 void		remove_quotes(t_data *data);
 void		ft_rem_double_space(char *str, char *sep);
-void		ft_rem_double_space_quotes(char *str, bool *quotes, char *sep);
+void		ft_rem_double_space_quotes(char *str, char *sep);
 void		replace_in_str(char **str, char *replace, int start, int end);
 bool		set_to_opposite(bool b);
 void		sort_and_print(t_data *data, t_env *env);

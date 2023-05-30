@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/29 19:22:44 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 22:55:54 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static bool	err_quotes(t_data *data, t_list *lst, bool *quotes)
 {
 	if (quotes[0] || quotes[1])
 	{
+		data->status = 1;
 		error(ERR_QUOTES, NULL, NULL, data);
 		save_history(data);
 		ft_lstclear(&lst, free);
@@ -100,7 +101,7 @@ t_list	*sep_token(char *str, t_data *data, bool *quotes)
 
 	if (!str || !*str)
 		return (NULL);
-	ft_rem_double_space_quotes(str, quotes, " \n\t\v\f\r");
+	ft_rem_double_space_quotes(str, " \n\t\v\f\r");
 	lst = ft_lstnew(ft_strdup(""));
 	buf = lst;
 	i = 0;

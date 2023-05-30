@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/29 19:33:46 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 23:01:08 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	data_initialize(t_data *data, char **envp)
 	data->envp = NULL;
 	data->env = NULL;
 	data->pidlst = NULL;
+	data->get_status = true;
 	start_pwd(data);
 	create_env(envp, &data->env);
 	get_path(data);
@@ -49,6 +50,7 @@ void	data_default(t_data *data)
 	data->in_fd = 0;
 	data->out_fd = 1;
 	data->cmd_status = 0;
+	data->get_status = true;
 	update_envp(data);
 }
 

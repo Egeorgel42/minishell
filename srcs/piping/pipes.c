@@ -6,22 +6,31 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/29 18:45:31 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/30 02:59:00 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	create_pipe(t_data *data)
+static bool	create_pipe(t_data *data)
 {
 	int	fd[2];
 
 	if (pipe(fd) == -1)
-		error_exit(ERRNO, NULL, NULL, data);
+	{
+		data->status = 1;
+		error(ERRNO, NULL, NULL, data);
+		ft_lstclear(&data->lst, free);
+		kill_all(data);
+		if (data->in_fd != 0)
+			close(data->in_fd);
+		return (false);
+	}
 	data->pipe_fd = fd[0];
 	if (data->out_fd != 1)
 		close (data->out_fd);
 	data->out_fd = fd[1];
+	return (true);
 }
 
 static bool	err_redir(t_data *data)
@@ -51,7 +60,8 @@ void	callstructure(t_data *data)
 	while (buf && !ft_strcmp(buf->str, "|"))
 		buf = buf->next;
 	if (buf)
-		create_pipe(data);
+		if (!create_pipe(data))
+			return ;
 	if (!get_env(data))
 	{
 		rem_until_rem(&data->lst, buf);
@@ -94,16 +104,19 @@ void	parent_cmd(t_data *data)
 
 void	wait_pids(t_data *data)
 {
+	int			stat;
 	t_pidlst	*buf_pid;
 
 	buf_pid = data->pidlst;
 	while (buf_pid)
 	{
-		waitpid(buf_pid->pid, &data->status, 0);
+		waitpid(buf_pid->pid, &stat, 0);
 		buf_pid = buf_pid->next;
-		if (WIFEXITED(data->status))
-			data->status = WEXITSTATUS(data->status);
-		else if (WIFSIGNALED(data->status))
-			signal_messages(data, WTERMSIG(data->status));
+		if (!data->get_status)
+			continue ;
+		else if (WIFEXITED(stat))
+			data->status = WEXITSTATUS(stat);
+		else if (WIFSIGNALED(stat))
+			signal_messages(data, WTERMSIG(stat));
 	}
 }

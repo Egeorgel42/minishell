@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:03:25 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/05/28 18:43:15 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 22:38:53 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	check_input(char *str, t_data *data)
 	i = 0;
 	if ((str[0] >= '0' && str[0] <= '9' ) || str[0] == '=')
 	{
-		error(ERR_EXP, str, str, data);
+		error(ERR_EXP, "export", str, data);
 		return (false);
 	}
 	while (str[i] && str[i] != '=')
@@ -40,7 +40,7 @@ static bool	check_input(char *str, t_data *data)
 			i++;
 		else
 		{
-			error(ERR_EXP, str, str, data);
+			error(ERR_EXP, "export", str, data);
 			return (false);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:59:52 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/29 18:37:00 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 22:42:57 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool	check_sep_token(t_list	*lst, t_data *data)
 		return (true);
 	if (ft_strcmp(lst->str, "~"))
 		return (true);
+	data->status = 258;
 	error(ERR_UNSUPORTED, lst->str, NULL, data);
 	return (false);
 }

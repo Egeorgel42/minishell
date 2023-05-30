@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:37:33 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/28 20:55:59 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 22:53:25 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,15 @@ void	ft_rem_double_space(char *str, char *sep)
 	}
 }
 
-void	ft_rem_double_space_quotes(char *str, bool *quotes, char *sep)
+void	ft_rem_double_space_quotes(char *str, char *sep)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	bool	quotes[2];
 
 	i = -1;
+	quotes[0] = false;
+	quotes[1] = false;
 	while (str[++i])
 	{
 		if (str[i] == '\'' && !quotes[1])

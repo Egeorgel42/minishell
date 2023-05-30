@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:10:44 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/15 16:58:03 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/29 22:40:39 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	inbuilts(char **cmd, t_data *data)
 {
 	data->cmd_status = 0;
 	if (ft_strcmp(cmd[0], "pwd"))
-		mini_pwd(cmd, data);
+		mini_pwd(data);
 	else if (ft_strcmp(cmd[0], "env"))
 		mini_env(cmd, data);
 	else if (ft_strcmp(cmd[0], "echo"))
