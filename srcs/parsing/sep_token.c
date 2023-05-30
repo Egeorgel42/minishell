@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 21:45:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/29 22:55:54 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/30 23:59:44 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sep_loop(char *str, int *j, bool *quotes)
 {
 	char	c;
 
-	while (str[*j] && ft_strchr("|<>&(){}[];*", str[*j])
+	while (str[*j] && ft_strchr("|<>&(){}[];:%*", str[*j])
 		&& (!quotes[0] && !quotes[1]))
 	{
 		c = str[*j];

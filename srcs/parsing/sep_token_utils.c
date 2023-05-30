@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:59:52 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/29 22:42:57 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/30 23:59:32 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	token_end(char *str, bool *quotes, int j)
 			quotes[0] = set_to_opposite(quotes[0]);
 		else if (str[j] == '"' && !quotes[0])
 			quotes[1] = set_to_opposite(quotes[1]);
-		else if (ft_strchr(" |<>&(){}[];*\n\t\v\f\r", str[j])
+		else if (ft_strchr(" |<>&(){}[];:%*\n\t\v\f\r", str[j])
 			&& (!quotes[0] && !quotes[1]))
 			return (j);
 		j++;
