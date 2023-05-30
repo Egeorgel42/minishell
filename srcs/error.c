@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/30 17:43:47 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:46:52 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	error(int err, char *input, char *token, t_data *data)
 {
 	char	*msg;
 
-	if (input && *input)
+	if (input)
 	{
 		input = ft_strjoinfree(": ", input, false, false);
 		msg = ft_strjoinfree("minishell", input, false, true);
