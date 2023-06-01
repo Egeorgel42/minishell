@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/30 02:59:00 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/01 03:08:56 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	wait_pids(t_data *data)
 	int			stat;
 	t_pidlst	*buf_pid;
 
+	sigaction(SIGINT, &data->act, NULL);
 	buf_pid = data->pidlst;
 	while (buf_pid)
 	{
