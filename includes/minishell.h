@@ -6,14 +6,12 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/05 19:03:21 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:54:07 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include <termios.h>
-# include <stdio.h>
 # include "../libs/libft/libft.h"
 # include "../libs/readline/include/readline/readline.h"
 # include <stdio.h>
