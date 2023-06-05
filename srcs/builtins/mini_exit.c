@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:09:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/05/29 22:37:05 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:01:57 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	exit_error(t_data *data)
 {
-	error(ERR_EXIT, NULL, NULL, data);
+	error(ERR_EXIT, "exit", NULL, data);
 	exit(255);
 }
 
@@ -62,12 +62,20 @@ static long	exit_parsing(t_data *data, char **str)
 	return (i);
 }
 
-void	mini_exit(t_data *data, char **str)
+void	mini_exit(t_data *data, char **str, bool pipe)
 {
 	long	nbr;
 
+	if (!pipe)
+		ft_printf("exit\n");
 	if (!str[1])
 		exit(data->status);
 	nbr = exit_parsing(data, str);
+	if (str[2])
+	{
+		data->cmd_status = 1;
+		error(ERR_ARGS_NBR, "exit", NULL, data);
+		return ;
+	}
 	exit(nbr);
 }

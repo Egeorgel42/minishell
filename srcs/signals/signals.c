@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:46:54 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/06/01 03:05:16 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:56:07 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	empty_sigint(int sig)
 void	sigint(int sig)
 {
 	if (sig)
-		ft_printf("\n");
+		return ;
 }
 
 void	sigquit(int sig)

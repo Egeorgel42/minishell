@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:07:20 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/30 02:47:33 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:04:14 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	child(char **cmd, t_data *data)
 	dup2(data->out_fd, STDOUT_FILENO);
 	if (data->pipe_fd != 0)
 		close(data->pipe_fd);
-	if (data->lst && !inbuilts(cmd, data))
+	if (data->lst && !inbuilts(cmd, data, true))
 		excve(cmd, data);
 	if (data->in_fd != 0)
 		close(data->in_fd);

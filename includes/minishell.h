@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/29 23:00:04 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:03:21 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ void		start_attr(t_data *data);
 void		signal_messages(t_data *data, int sig);
 
 //builtins
-bool		inbuilts(char **cmd, t_data *data);
+bool	inbuilts(char **cmd, t_data *data, bool pipe);
 bool		is_flaged(char **str);
 
 void		mini_pwd(t_data *data);
 void		mini_env(char **str, t_data *data);
 void		mini_echo(t_data *data, char **str);
 void		mini_export(char **str, t_data *data);
-void		mini_exit(t_data *data, char **str);
+void		mini_exit(t_data *data, char **str, bool pipe);
 void		mini_unset(t_data *data, char **str);
 void		mini_cd(t_data *data, char **input);
 void		cd_oldpwd(t_data *data, char **input);

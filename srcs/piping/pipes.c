@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/01 03:15:04 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:04:03 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	parent_cmd(t_data *data)
 	}
 	remove_quotes(data);
 	cmd = get_cmd(data);
-	if (data->lst && !inbuilts(cmd, data))
+	if (data->lst && !inbuilts(cmd, data, false))
 	{
 		if (!cmd_process(cmd, data))
 			return ;
@@ -106,9 +106,10 @@ void	wait_pids(t_data *data)
 {
 	int			stat;
 	t_pidlst	*buf_pid;
+	bool		did_c;
 
+	did_c = false;
 	sigaction(SIGINT, &data->act, NULL);
-	signal(SIGQUIT, sigquit);
 	buf_pid = data->pidlst;
 	while (buf_pid)
 	{
@@ -118,7 +119,13 @@ void	wait_pids(t_data *data)
 			continue ;
 		else if (WIFEXITED(stat))
 			data->status = WEXITSTATUS(stat);
-		else if (WIFSIGNALED(stat))
-			signal_messages(data, WTERMSIG(stat));
+		else if (WIFSIGNALED(stat) && WTERMSIG(stat) == SIGINT
+			&& !did_c)
+		{
+			did_c = true;
+			ft_printf("\n");
+		}
 	}
+	if (WIFSIGNALED(stat) && WTERMSIG(stat) != SIGINT)
+		signal_messages(data, WTERMSIG(stat));
 }

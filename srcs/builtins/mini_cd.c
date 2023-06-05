@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:58:18 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/22 16:57:50 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:21:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	change_oldpwd(t_data *data, char *pwd)
 		oldpwd->full_string = ft_strjoin("OLDPWD=", pwd);
 		free(oldpwd->string);
 		oldpwd->string = ft_strdup(pwd);
+		oldpwd->is_equal = true;
 	}
 }
 
@@ -67,6 +68,7 @@ static void	change_pwd(t_data *data, char *dir)
 		env->string = ft_strdup(pwd);
 		free(env->full_string);
 		env->full_string = ft_strjoin("PWD=", pwd);
+		env->is_equal = true;
 	}
 	free(data->pwd);
 	data->pwd = ft_strdup(pwd);

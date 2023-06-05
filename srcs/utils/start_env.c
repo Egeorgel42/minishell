@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 20:00:43 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/28 20:29:06 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:23:24 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	start_shlvl(t_data *data)
 		free(buf->full_string);
 		buf->string = ft_itoa(i);
 		buf->full_string = ft_strjoin("SHLVL=", buf->string);
+		buf->is_equal = true;
 	}
 }
 
@@ -77,6 +78,7 @@ static void	start_oldpwd(t_data *data)
 		free(buf->full_string);
 		buf->string = ft_strdup("");
 		buf->full_string = ft_strdup("OLDPWD");
+		buf->is_equal = false;
 	}
 }
 
