@@ -6,15 +6,16 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/05 19:54:07 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:09:52 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include <termios.h>
+# include <stdio.h>
 # include "../libs/libft/libft.h"
 # include "../libs/readline/include/readline/readline.h"
-# include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <errno.h>
@@ -24,7 +25,6 @@
 # include <sys/stat.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-# include <termios.h>
 # include <limits.h>
 
 typedef enum e_err{
@@ -107,7 +107,7 @@ void		start_attr(t_data *data);
 void		signal_messages(t_data *data, int sig);
 
 //builtins
-bool	inbuilts(char **cmd, t_data *data, bool pipe);
+bool		inbuilts(char **cmd, t_data *data, bool pipe);
 bool		is_flaged(char **str);
 
 void		mini_pwd(t_data *data);
