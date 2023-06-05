@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:56:41 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/30 17:43:15 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:43:25 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*access_p(t_data *data)
 		data->cmd_status = 127;
 		error_exit(ERR_CMD, data->lst->str, NULL, data);
 	}
-	if (ft_strchr("./", *data->lst->str) || !data->path)
+	if (ft_strchr("./", *data->lst->str) || !data->path || !*data->path)
 		return (cur_dir(data));
 	while (data->path && data->path[++i])
 	{
