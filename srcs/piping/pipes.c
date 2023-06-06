@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/05 19:04:03 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:08:46 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,6 @@ void	wait_pids(t_data *data)
 			ft_printf("\n");
 		}
 	}
-	if (WIFSIGNALED(stat) && WTERMSIG(stat) != SIGINT)
+	if (WIFSIGNALED(stat))
 		signal_messages(data, WTERMSIG(stat));
 }

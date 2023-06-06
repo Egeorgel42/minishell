@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/05 20:09:52 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:02:57 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef enum e_err{
 typedef struct s_sig
 {
 	bool			heredoc;
-	bool			killed;
 	int				status;
 	pid_t			pid;
 }	t_sig;

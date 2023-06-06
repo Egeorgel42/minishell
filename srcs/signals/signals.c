@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:46:54 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/06/05 18:56:07 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:03:24 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	sigint_here(int sig)
 {
 	ft_printf("\n");
 	if (sig == SIGINT)
-	{
-		g_sig.killed = true;
 		kill(g_sig.pid, SIGTERM);
-	}
 	g_sig.heredoc = false;
 }
 
