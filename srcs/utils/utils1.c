@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:37:33 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/05/29 22:53:25 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:54:08 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	remove_quotes(t_data *data)
 		i = -1;
 		while (buf->str[++i])
 		{
-			if (buf->str[i] == '\'')
+			if (buf->str[i] == '\'' && !quotes[1])
 				quotes[0] = set_to_opposite(quotes[0]);
-			else if (buf->str[i] == '"')
+			else if (buf->str[i] == '"' && !quotes[0])
 				quotes[1] = set_to_opposite(quotes[1]);
 			if (buf->str[i] == '\'' && !quotes[1])
 				rm_character(buf->str, &i);
