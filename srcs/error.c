@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/30 17:46:52 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:36:00 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,6 @@ void	get_errlst(t_data *data)
 	data->errlst[ERR_ARGS_NBR] = strdup("Too many arguments");
 	data->errlst[ERR_EXP] = strdup("not a valid indentifier");
 	data->errlst[ERR_PERM] = strdup("Permission denied");
+	data->errlst[ERR_REDIR] = strdup("ambiguous redirect");
 	data->errlst[ERR_MAX] = NULL;
 }

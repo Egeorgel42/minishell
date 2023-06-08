@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/06 19:08:46 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:50:45 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@ static bool	create_pipe(t_data *data)
 	return (true);
 }
 
-static bool	err_redir(t_data *data)
+static bool	err_redir(t_data *data, t_list *buf)
 {
-	if (!get_redirection_out(data))
+	int	err;
+
+	err = get_redirection_out(data);
+	if (!err)
 	{
 		if (data->in_fd != 0)
 			close (data->in_fd);
@@ -44,6 +47,15 @@ static bool	err_redir(t_data *data)
 		if (data->pipe_fd != 0)
 			close(data->pipe_fd);
 		ft_lstclear(&data->lst, free);
+		return (false);
+	}
+	else if (err == -1)
+	{
+		if (data->in_fd != 0)
+			close (data->in_fd);
+		if (data->out_fd != 1)
+			close(data->out_fd);
+		rem_until_rem(&data->lst, buf);
 		return (false);
 	}
 	return (true);
@@ -59,15 +71,16 @@ void	callstructure(t_data *data)
 	buf = data->lst;
 	while (buf && !ft_strcmp(buf->str, "|"))
 		buf = buf->next;
-	if (buf)
-		if (!create_pipe(data))
-			return ;
+	if (buf && !create_pipe(data))
+		return ;
 	if (!get_env(data))
 	{
 		rem_until_rem(&data->lst, buf);
 		return ;
 	}
-	if (!err_redir(data))
+	if (!err_redir(data, buf))
+		return ;
+	if (empty_pipe(buf, data))
 		return ;
 	remove_quotes(data);
 	cmd = get_cmd(data);

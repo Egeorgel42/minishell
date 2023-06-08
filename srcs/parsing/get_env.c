@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/27 17:53:01 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:29:44 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,21 @@ bool	developp_env(t_data *data, char **str)
 bool	get_env(t_data *data)
 {
 	t_list	*buf;
+	t_list	*nxt;
 
 	buf = data->lst;
 	while (buf && !ft_strchr(buf->str, '|'))
 	{
 		if (!developp_env(data, &buf->str))
 			return (false);
-		buf = buf->next;
+		if (!*buf->str)
+		{
+			nxt = buf->next;
+			remove_from_list(&data->lst, buf);
+			buf = nxt;
+		}
+		else
+			buf = buf->next;
 	}
 	return (true);
 }

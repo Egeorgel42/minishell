@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:02:46 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/06 19:02:57 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:51:45 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 typedef enum e_err{
 	ERRNO,
+	ERR_REDIR,
 	ERR_CMD,
 	ERR_FD,
 	ERR_DIR,
@@ -139,7 +140,7 @@ int			exit_status(t_data *data, char **str, int i);
 
 //piping
 char		*access_p(t_data *data);
-bool		get_redirection_out(t_data *data);
+int			get_redirection_out(t_data *data);
 bool		heredoc(t_data *data, char *sep);
 void		callstructure(t_data *data);
 void		wait_pids(t_data *data);
@@ -177,6 +178,7 @@ void		replace_in_str(char **str, char *replace, int start, int end);
 bool		set_to_opposite(bool b);
 void		sort_and_print(t_data *data, t_env *env);
 t_env		*copy_env_list(t_env *head);
+bool		empty_pipe(t_list *lst, t_data *data);
 
 void		remove_from_list(t_list **lst, t_list *rem);
 void		rem_until_rem(t_list **lst, t_list *rem);

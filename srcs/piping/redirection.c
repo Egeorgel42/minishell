@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:02:51 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/27 19:33:07 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:51:01 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,22 @@ static bool	redirect_fd(t_data *data, t_list *buf)
 	return (true);
 }
 
-bool	get_redirection_out(t_data *data)
+int	get_redirection_out(t_data *data)
 {
 	t_list	*buf;
-	bool	err;
+	int		err;
 
 	buf = data->lst;
-	err = true;
+	err = 1;
 	while (buf && strcmp("|", buf->str))
 	{
 		if (ft_strchr("<>", buf->str[0]))
 		{
+			if (!buf->next || ft_strchr("<>|", *buf->next->str))
+			{
+				error(ERR_REDIR, NULL, NULL, data);
+				return (-1);
+			}
 			err = redirect_fd(data, buf);
 			if (!err)
 				break ;

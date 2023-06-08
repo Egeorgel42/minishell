@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:38:51 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/04/28 20:01:15 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:11:56 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,14 @@ bool	set_to_opposite(bool b)
 	if (b)
 		return (false);
 	return (true);
+}
+
+bool	empty_pipe(t_list *lst, t_data *data)
+{
+	if (lst && lst == data->lst)
+	{
+		rem_until_rem(&data->lst, lst);
+		return (true);
+	}
+	return (false);
 }
