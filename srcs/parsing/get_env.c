@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:39:05 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/09 00:29:44 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:00:49 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static int	find_env(t_data *data, char **str, int i, bool *quotes)
 	j = i;
 	if ((*str)[i + 1] == '?' && !quotes[0])
 		return (exit_status(data, str, i));
-	if (j == i + 1 && !(((*str)[j] == '\'' && !quotes[1])
+	j = end_of_env(*str, quotes, j);
+	if (j == i + 1 && (((*str)[j] == '\'' && !quotes[1])
 		|| ((*str)[j] == '"' && !quotes[0])))
 		return (i);
-	j = end_of_env(*str, quotes, j);
 	env = ft_substr(*str, i + 1, j - i - 1);
 	env_str = get_str_env(data, env);
 	if (!env_str)
