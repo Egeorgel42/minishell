@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:02:51 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/10 15:36:31 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:41:42 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static bool	err_empty_pipe_redir(t_list *buf, t_data *data)
 		if (data->in_fd != 0)
 			close(data->in_fd);
 		data->in_fd = data->pipe_fd;
-		if (data->out_fd != 0)
+		if (data->out_fd != 1)
 			close(data->out_fd);
 		error(ERR_REDIR, NULL, NULL, data);
 		return (false);

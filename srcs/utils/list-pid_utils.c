@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:34:57 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/04/22 16:42:51 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:51:43 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	rem_until_rem(t_list **lst, t_list *rem)
 	t_list	*del;
 
 	buf = *lst;
-	if (rem == ft_lstlast(*lst))
+	if (!rem || rem == ft_lstlast(*lst))
 		ft_lstclear(lst, free);
 	else
 	{
