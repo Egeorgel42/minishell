@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/09 00:50:45 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:42:13 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,6 @@ static bool	err_redir(t_data *data, t_list *buf)
 	}
 	else if (err == -1)
 	{
-		if (data->in_fd != 0)
-			close (data->in_fd);
-		if (data->out_fd != 1)
-			close(data->out_fd);
 		rem_until_rem(&data->lst, buf);
 		return (false);
 	}

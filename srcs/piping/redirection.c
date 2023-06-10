@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:02:51 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/09 00:51:01 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:36:31 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,21 @@ static bool	redirect_fd(t_data *data, t_list *buf)
 	return (true);
 }
 
+static bool	err_empty_pipe_redir(t_list *buf, t_data *data)
+{
+	if (!buf->next || ft_strchr("<>|", *buf->next->str))
+	{
+		if (data->in_fd != 0)
+			close(data->in_fd);
+		data->in_fd = data->pipe_fd;
+		if (data->out_fd != 0)
+			close(data->out_fd);
+		error(ERR_REDIR, NULL, NULL, data);
+		return (false);
+	}
+	return (true);
+}
+
 int	get_redirection_out(t_data *data)
 {
 	t_list	*buf;
@@ -65,11 +80,8 @@ int	get_redirection_out(t_data *data)
 	{
 		if (ft_strchr("<>", buf->str[0]))
 		{
-			if (!buf->next || ft_strchr("<>|", *buf->next->str))
-			{
-				error(ERR_REDIR, NULL, NULL, data);
+			if (!err_empty_pipe_redir(buf, data))
 				return (-1);
-			}
 			err = redirect_fd(data, buf);
 			if (!err)
 				break ;

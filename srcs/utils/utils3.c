@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:38:51 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/06/09 00:11:56 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:36:21 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ bool	empty_pipe(t_list *lst, t_data *data)
 	if (lst && lst == data->lst)
 	{
 		rem_until_rem(&data->lst, lst);
+		if (data->in_fd != 0)
+			close(data->in_fd);
+		data->in_fd = data->pipe_fd;
+		if (data->out_fd != 0)
+			close(data->out_fd);
 		return (true);
 	}
 	return (false);
