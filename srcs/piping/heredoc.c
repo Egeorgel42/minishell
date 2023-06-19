@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:51:04 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/05/30 19:02:44 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/19 05:12:21 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ static void	here_child(t_data *data, int *fd, char *sep)
 	if (tmp)
 		free(tmp);
 	developp_env(data, &str);
-	ft_putstr_fd(str, fd[1]);
+	dup2(fd[1], STDOUT_FILENO);
+	printf("%s", str);
+	dup2(STDOUT_FILENO, STDOUT_FILENO);
 	close(fd[1]);
 	free(str);
 	exit(0);

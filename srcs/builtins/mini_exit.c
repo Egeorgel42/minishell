@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:09:30 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/06/05 19:01:57 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/19 05:05:26 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	mini_exit(t_data *data, char **str, bool pipe)
 	long	nbr;
 
 	if (!pipe)
-		ft_printf("exit\n");
+		printf("exit\n");
 	if (!str[1])
 		exit(data->status);
 	nbr = exit_parsing(data, str);

@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:09:43 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/05/29 22:40:00 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/19 05:11:16 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	mini_pwd(t_data *data)
 	buffer = getcwd(NULL, 0);
 	if (!buffer)
 		buffer = ft_strdup(data->pwd);
-	ft_putstr_fd(buffer, data->out_fd);
-	ft_putchar_fd('\n', data->out_fd);
+	dup2(data->out_fd, STDOUT_FILENO);
+	printf("%s\n", buffer);
+	dup2(STDOUT_FILENO, STDOUT_FILENO);
 	free(buffer);
 }

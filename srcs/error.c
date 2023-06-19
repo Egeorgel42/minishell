@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/09 00:36:00 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/19 05:09:40 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	error_exit(int err, char *input, char *token, t_data *data)
 		msg = ft_strjoinfree(msg, data->errlst[err], true, false);
 		if (token)
 			msg = add_token(msg, token);
-		msg = ft_strjoinfree(msg, "\n", true, false);
-		ft_putstr_fd(msg, 2);
+		dup2(STDERR_FILENO, STDOUT_FILENO);
+		printf("%s\n", msg);
+		dup2(STDOUT_FILENO, STDOUT_FILENO);
 	}
 	free(msg);
 	if (data->cmd_status)
@@ -64,8 +65,9 @@ void	error(int err, char *input, char *token, t_data *data)
 		msg = ft_strjoinfree(msg, data->errlst[err], true, false);
 		if (token)
 			msg = add_token(msg, token);
-		msg = ft_strjoinfree(msg, "\n", true, false);
-		ft_putstr_fd(msg, 2);
+		dup2(STDERR_FILENO, STDOUT_FILENO);
+		printf("%s\n", msg);
+		dup2(STDOUT_FILENO, STDOUT_FILENO);
 	}
 	free(msg);
 	if (!data->cmd_status && !data->status)

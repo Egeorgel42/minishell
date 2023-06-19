@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:01:45 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/05 18:54:09 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/19 05:07:00 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	minishell_loop_start(t_data *data)
 	data->act.__sigaction_u.__sa_handler = sigint;
 	if (data->prompt == NULL)
 	{
-		ft_printf("exit\n");
+		printf("exit\n");
 		exit(data->status);
 	}
 	if (g_sig.status != 0)
