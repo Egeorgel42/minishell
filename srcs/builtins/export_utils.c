@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:15:00 by vkuzmin           #+#    #+#             */
-/*   Updated: 2023/06/19 05:04:28 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:35:09 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ static void	clear_env(t_env *env)
 
 static void	print(t_data *data, t_env *buf)
 {
+	int	saved;
+
+	saved = dup(1);
 	dup2(data->out_fd, STDOUT_FILENO);
 	while (buf)
 	{
@@ -71,7 +74,7 @@ static void	print(t_data *data, t_env *buf)
 			printf("declare -x %s\n", buf->full_string);
 		buf = buf->next;
 	}
-	dup2(STDOUT_FILENO, STDOUT_FILENO);
+	dup2(saved, STDOUT_FILENO);
 }
 
 void	sort_and_print(t_data *data, t_env *env)

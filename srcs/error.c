@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:16:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/19 05:09:40 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:41:24 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static char	*add_token(char *msg, char *token)
 void	error_exit(int err, char *input, char *token, t_data *data)
 {
 	char	*msg;
+	int		saved;
 
 	if (input)
 		input = ft_strjoinfree(": ", input, false, true);
@@ -31,13 +32,14 @@ void	error_exit(int err, char *input, char *token, t_data *data)
 		perror(msg);
 	else
 	{
+		saved = dup(1);
 		msg = ft_strjoinfree(msg, ": ", true, false);
 		msg = ft_strjoinfree(msg, data->errlst[err], true, false);
 		if (token)
 			msg = add_token(msg, token);
 		dup2(STDERR_FILENO, STDOUT_FILENO);
 		printf("%s\n", msg);
-		dup2(STDOUT_FILENO, STDOUT_FILENO);
+		dup2(saved, STDOUT_FILENO);
 	}
 	free(msg);
 	if (data->cmd_status)
@@ -49,6 +51,7 @@ void	error_exit(int err, char *input, char *token, t_data *data)
 void	error(int err, char *input, char *token, t_data *data)
 {
 	char	*msg;
+	int		saved;
 
 	if (input)
 	{
@@ -61,13 +64,14 @@ void	error(int err, char *input, char *token, t_data *data)
 		perror(msg);
 	else
 	{
+		saved = dup(1);
 		msg = ft_strjoinfree(msg, ": ", true, false);
 		msg = ft_strjoinfree(msg, data->errlst[err], true, false);
 		if (token)
 			msg = add_token(msg, token);
 		dup2(STDERR_FILENO, STDOUT_FILENO);
 		printf("%s\n", msg);
-		dup2(STDOUT_FILENO, STDOUT_FILENO);
+		dup2(saved, STDOUT_FILENO);
 	}
 	free(msg);
 	if (!data->cmd_status && !data->status)

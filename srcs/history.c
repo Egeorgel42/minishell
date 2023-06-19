@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:17:01 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/19 05:10:06 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:31:37 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,16 @@ void	get_history(t_data *data)
 
 void	save_history(t_data *data)
 {
-	char	*line;
+	int	saved;
 
 	if (!ft_strcmp(data->last_history, data->prompt))
 		add_history(data->prompt);
 	if (data->history_fd != -1 && !ft_strcmp(data->last_history, data->prompt))
 	{
-		line = ft_strjoin(data->prompt, "\n");
+		saved = dup(1);
 		dup2(data->history_fd, STDOUT_FILENO);
-		printf("%s\n", line);
-		dup2(STDOUT_FILENO, STDOUT_FILENO);
-		free(line);
+		printf("%s\n", data->prompt);
+		dup2(saved, STDOUT_FILENO);
 	}
 	free(data->last_history);
 	data->last_history = ft_strdup(data->prompt);

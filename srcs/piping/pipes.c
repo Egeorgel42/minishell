@@ -6,7 +6,7 @@
 /*   By: egeorgel <egeorgel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:32:37 by egeorgel          #+#    #+#             */
-/*   Updated: 2023/06/19 05:05:23 by egeorgel         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:21:51 by egeorgel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ void	parent_cmd(t_data *data)
 {
 	char	**cmd;
 
-	if (!get_env(data) || !err_redir(data, NULL))
+	if (!err_redir(data, NULL))
+		return ;
+	if (!get_env(data))
 	{
 		ft_lstclear(&data->lst, free);
 		return ;
